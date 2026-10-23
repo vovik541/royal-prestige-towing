@@ -16,7 +16,7 @@ export interface PageSeo {
 }
 
 const OG_LOCALE: Record<Lang, string> = { en: 'en_US', uk: 'uk_UA', ru: 'ru_RU' };
-const DEFAULT_IMAGE = '/images/og-default.jpg';
+const DEFAULT_IMAGE = '/brand/og-image.jpg';
 
 /** Absolute URL for a language and language-neutral path, without a trailing slash: /en, /en/services */
 export function pageUrl(lang: Lang, path: string): string {
@@ -51,7 +51,7 @@ export function businessSchema(): object {
     alternateName: BUSINESS.shortName,
     url: pageUrl(DEFAULT_LANG, ''),
     image: SITE.url + DEFAULT_IMAGE,
-    logo: SITE.url + '/favicon.svg',
+    logo: SITE.url + '/brand/logo-silver.png',
     slogan: 'Every load, handled like a McLaren.',
     description: 'Owner-operated flatbed vehicle and equipment transport based in Sacramento, California.',
     telephone: BUSINESS.phone.e164,

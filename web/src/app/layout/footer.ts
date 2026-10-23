@@ -3,20 +3,19 @@ import { RouterLink } from '@angular/router';
 import { DEVELOPER, PHONE } from '../core/config/site';
 import { I18n, fmt } from '../core/i18n/i18n';
 import { SERVICES } from '../content/services';
-import { DeckLine } from '../shared/deck-line';
 import { LangSwitcher } from './lang-switcher';
 
 @Component({
   selector: 'app-footer',
-  imports: [RouterLink, DeckLine, LangSwitcher],
+  imports: [RouterLink, LangSwitcher],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @let t = i18n.t();
     <footer class="foot">
       <div class="foot__grid wrap">
         <div class="foot__brand">
-          <span class="rpt">RPT<app-deck-line class="rpt__deck" /></span>
-          <p>Royal Prestige Towing<br />{{ t.footer.tagline }}<br />{{ t.footer.location }}</p>
+          <img class="logo" src="/brand/logo-silver.svg" width="1137" height="571" alt="Royal Prestige Towing" loading="lazy" />
+          <p>{{ t.footer.tagline }}<br />{{ t.footer.location }}</p>
         </div>
         <nav class="foot__col" [attr.aria-label]="t.footer.services">
           <h2>{{ t.footer.services }}</h2>
@@ -49,8 +48,7 @@ import { LangSwitcher } from './lang-switcher';
   styles: `
     .foot { border-top: 1px solid var(--line); padding: 64px 0 40px; }
     .foot__grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1.2fr); gap: 32px; }
-    .rpt { position: relative; display: inline-block; font: 600 44px/1 var(--display); letter-spacing: .04em; padding-bottom: 10px; }
-    .rpt__deck { position: absolute; left: 0; bottom: 0; width: 100%; height: 9px; }
+    .logo { display: block; width: 200px; height: auto; }
     .foot__brand p { margin-top: 20px; font-size: var(--t-sm); color: var(--silver-2); }
     .foot__col { display: grid; gap: 10px; align-content: start; font-size: var(--t-sm); }
     h2 { font-size: var(--t-xs); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--steel); margin-bottom: 4px; }

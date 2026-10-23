@@ -5,14 +5,13 @@ import { filter } from 'rxjs';
 import { PHONE } from '../core/config/site';
 import { ContactZone } from '../core/contact-bar';
 import { I18n, fmt } from '../core/i18n/i18n';
-import { DeckLine } from '../shared/deck-line';
 import { MessageIcon } from '../shared/message-icon';
 import { PhoneIcon } from '../shared/phone-icon';
 import { LangSwitcher } from './lang-switcher';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterLinkActive, ContactZone, DeckLine, LangSwitcher, MessageIcon, PhoneIcon],
+  imports: [RouterLink, RouterLinkActive, ContactZone, LangSwitcher, MessageIcon, PhoneIcon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { '(window:scroll)': 'onScroll()', '(document:keydown.escape)': 'close()' },
   templateUrl: './header.html',

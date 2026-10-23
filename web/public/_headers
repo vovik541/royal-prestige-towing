@@ -13,3 +13,7 @@
 # Photos keep their names when regenerated, so cache them for a week.
 /images/*
   Cache-Control: public, max-age=604800
+
+# Logo files keep their names; a week of caching like the photos.
+/brand/*
+  Cache-Control: public, max-age=604800
