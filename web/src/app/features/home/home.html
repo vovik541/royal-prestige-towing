@@ -11,7 +11,8 @@
       <p class="lede hero__lede">{{ h.hero.lede }}</p>
       <div class="hero__actions">
         <a class="btn btn--copper btn--lg" [routerLink]="i18n.link('contact')">{{ t.common.planTransport }}</a>
-        <a class="btn btn--ghost btn--lg" [routerLink]="i18n.link('our-work')">{{ t.common.seeLoads }}</a>
+        <a class="btn btn--ghost btn--lg hero__loads" [routerLink]="i18n.link('our-work')">{{ t.common.seeLoads }}</a>
+        <a class="btn btn--line btn--lg btn--wrap hero__call" [href]="phone.href" [attr.aria-label]="callAria()"><app-phone-icon /><span>{{ t.common.callNow }} · <span class="nowrap">{{ phone.display }}</span></span></a>
       </div>
     </div>
     <figure class="hero__media">

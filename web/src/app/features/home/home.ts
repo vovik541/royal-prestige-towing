@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, effect, inject, signal, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, viewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { I18n } from '../../core/i18n/i18n';
+import { PHONE } from '../../core/config/site';
+import { I18n, fmt } from '../../core/i18n/i18n';
 import { Seo, faqSchema } from '../../core/seo/seo';
 import { LOAD_TYPES, LoadType, PhotoId } from '../../content/photos';
 import { Configurator } from '../quote/configurator';
@@ -10,6 +11,7 @@ import { Faq } from '../../shared/faq';
 import { FinalCta } from '../../shared/final-cta';
 import { Lightbox } from '../../shared/lightbox';
 import { OwnerProfile } from '../../shared/owner-profile';
+import { PhoneIcon } from '../../shared/phone-icon';
 import { Photo } from '../../shared/photo';
 import { Pricing, pricingVisible } from '../../shared/pricing';
 import { Reveal } from '../../shared/reveal';
@@ -19,13 +21,15 @@ const STRIP: PhotoId[] = ['bmw-alpina', 'cargo-van', 'mercedes-sedan', 'milling-
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, Configurator, AreaMap, DeckLine, Faq, FinalCta, Lightbox, OwnerProfile, Photo, Pricing, Reveal],
+  imports: [RouterLink, Configurator, AreaMap, DeckLine, Faq, FinalCta, Lightbox, OwnerProfile, PhoneIcon, Photo, Pricing, Reveal],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class HomePage {
   protected readonly i18n = inject(I18n);
+  protected readonly phone = PHONE;
+  protected readonly callAria = computed(() => fmt(this.i18n.t().common.callAria, { phone: PHONE.display }));
   private readonly router = inject(Router);
 
   protected readonly loadTypes = LOAD_TYPES;

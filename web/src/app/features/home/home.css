@@ -5,6 +5,8 @@
 .hero__deck { margin-top: 28px; width: 220px; }
 .hero__lede { margin-top: 26px; max-width: 30em; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+.hero__call { display: none; }
+.hero__call app-phone-icon { color: var(--copper); }
 .hero__media app-photo { aspect-ratio: 7 / 6; }
 .hero__media figcaption { display: flex; justify-content: space-between; gap: 16px; padding-top: 14px; font-size: var(--t-xs); color: var(--silver-2); }
 .index { list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin-top: clamp(48px, 6vw, 88px); }
@@ -139,6 +141,11 @@
   .hero__lede { margin-top: 16px; font-size: 16px; line-height: 1.5; }
   .hero__actions { margin-top: 24px; flex-wrap: nowrap; gap: 8px; }
   .hero__actions .btn { flex: 1 1 0; min-width: 0; padding: 0 10px; white-space: normal; line-height: 1.2; }
+  /* Phones: the second action is a direct call (urgent help), stacked under the primary one. */
+  .hero__actions { flex-wrap: wrap; }
+  .hero__actions .btn { flex-basis: 100%; }
+  .hero__loads { display: none; }
+  .hero__call { display: inline-flex; border-color: var(--copper); color: #fff; font-weight: 700; }
   /* Short phones: keep the actions above the fixed contact bar — they move up under the headline. */
   @media (max-height: 780px) {
     .hero__copy { display: flex; flex-direction: column; padding-top: clamp(130px, min(44vw, 24svh), 200px); }
