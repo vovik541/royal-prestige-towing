@@ -1,0 +1,15 @@
+{
+  "//": "Deployment-level settings shared by the Angular app and scripts/generate-seo-files.mjs. Replace siteUrl with the confirmed production domain before launch.",
+  "siteUrl": "https://royal-prestige-towing.example",
+  "indexable": true,
+  "defaultLang": "en",
+  "langs": ["en", "uk", "ru"],
+  "staticPages": ["", "services", "our-work", "about", "service-areas", "contact"],
+  "servicePages": [
+    "exotic-car-transport",
+    "vehicle-transport",
+    "commercial-vehicle-transport",
+    "equipment-machinery-hauling",
+    "long-distance-transport"
+  ]
+}

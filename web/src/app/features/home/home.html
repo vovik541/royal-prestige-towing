@@ -1,0 +1,156 @@
+@let t = i18n.t();
+@let h = t.home;
+
+<!-- Hero -->
+<section class="hero" aria-labelledby="hero-h">
+  <div class="hero__grid wrap">
+    <div class="hero__copy">
+      <p class="kicker">{{ h.hero.kicker }}</p>
+      <h1 id="hero-h" class="hero-h hero__title">{{ h.hero.titleA }}<br />{{ h.hero.titleB }}</h1>
+      <app-deck-line class="hero__deck" />
+      <p class="lede hero__lede">{{ h.hero.lede }}</p>
+      <div class="hero__actions">
+        <a class="btn btn--copper btn--lg" [routerLink]="i18n.link('contact')">{{ t.common.planTransport }}</a>
+        <a class="btn btn--ghost btn--lg" [routerLink]="i18n.link('our-work')">{{ t.common.seeLoads }}</a>
+      </div>
+    </div>
+    <figure class="hero__media">
+      <app-photo id="mclaren-side" [ties]="true" [priority]="true" sizes="(max-width: 900px) 100vw, 58vw" />
+      <figcaption><span>{{ t.photos['mclaren-side'].caption }}</span><span>{{ t.common.securedAtFour }}</span></figcaption>
+    </figure>
+  </div>
+  <ul class="index wrap" [attr.aria-label]="h.indexLabel">
+    @for (lt of loadTypes; track lt) {
+      <li><button type="button" (click)="pick(lt)"><span class="index__n">{{ t.loadTypes[lt].short }}</span><span class="index__d">{{ t.loadTypes[lt].hint }}</span></button></li>
+    }
+  </ul>
+</section>
+
+<!-- Positioning -->
+<section class="section" aria-labelledby="pos-h">
+  <div class="position wrap">
+    <h2 id="pos-h" class="section-h" appReveal>{{ h.position.title }}</h2>
+    <div>
+      <p class="lede" appReveal="70">{{ h.position.body }}</p>
+      <ul class="principles">
+        @for (p of h.position.principles; track p.title; let i = $index) {
+          <li [appReveal]="i * 70"><strong>{{ p.title }}</strong><span>{{ p.text }}</span></li>
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Configurator -->
+<section class="section band" id="configurator" aria-labelledby="cfg-h">
+  <div class="wrap">
+    <div class="cfg-head">
+      <h2 id="cfg-h" class="display-h" appReveal>{{ t.configurator.title }}</h2>
+      <p class="muted" appReveal="70">{{ t.configurator.intro }}</p>
+    </div>
+    <app-configurator [(type)]="loadType" [continueLink]="true" idPrefix="home-cfg" />
+  </div>
+</section>
+
+<!-- Exotic spotlight -->
+<section class="section" id="exotic" aria-labelledby="ex-h">
+  <div class="exotic wrap">
+    <div>
+      <h2 id="ex-h" class="display-h" appReveal>{{ h.exotic.title }}</h2>
+      <p class="lede muted exotic__lede" appReveal="70">{{ h.exotic.lede }}</p>
+      <dl class="method">
+        @for (m of h.exotic.method; track m.title; let i = $index) {
+          <div [appReveal]="i * 70"><dt>{{ m.title }}</dt><dd>{{ m.text }}</dd></div>
+        }
+      </dl>
+      <a class="btn btn--line" [routerLink]="i18n.link('services/exotic-car-transport')">{{ h.exotic.cta }}</a>
+    </div>
+    <app-photo class="exotic__photo" id="mclaren-rear" [ties]="true" sizes="(max-width: 900px) 100vw, 42vw" appReveal />
+  </div>
+</section>
+
+<!-- Selected projects -->
+<section class="section band-soft" id="projects" aria-labelledby="proj-h">
+  <div class="wrap">
+    <div class="projects__head">
+      <h2 id="proj-h" class="section-h" appReveal>{{ h.projects.title }}</h2>
+      <a class="link" [routerLink]="i18n.link('our-work')">{{ t.common.viewAllWork }} <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="feature">
+      @for (id of featured; track id; let i = $index) {
+        <article class="feat feat--{{ i }}" [appReveal]="i * 80">
+          <button type="button" class="feat__btn" (click)="openViewer(id)" [attr.aria-label]="t.common.enlarge.replace('{name}', t.photos[id].caption)">
+            <app-photo [id]="id" [ties]="true" [sizes]="i === 0 ? '(max-width: 640px) 92vw, 62vw' : '(max-width: 640px) 92vw, 32vw'" />
+          </button>
+          <div class="feat__txt"><h3>{{ t.photos[id].caption }}</h3><p>{{ h.projects.featured[id] }}</p></div>
+        </article>
+      }
+    </div>
+    <div class="more">
+      <div class="more__head">
+        <h3>{{ h.projects.more }}</h3>
+        <div class="more__ctl">
+          <button class="icon-btn" type="button" [attr.aria-label]="t.common.scrollBack" (click)="scrollStrip(stripEl, -1)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg></button>
+          <button class="icon-btn" type="button" [attr.aria-label]="t.common.scrollForward" (click)="scrollStrip(stripEl, 1)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" /></svg></button>
+        </div>
+      </div>
+      <ul class="strip" #stripEl>
+        @for (id of strip; track id) {
+          <li>
+            <button type="button" (click)="openViewer(id)" [attr.aria-label]="t.common.enlarge.replace('{name}', t.photos[id].caption)">
+              <app-photo [id]="id" sizes="(max-width: 640px) 44vw, 200px" />
+              <span>{{ t.photos[id].caption }}</span>
+            </button>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Owner -->
+<section class="section" id="owner" aria-labelledby="owner-h">
+  <app-owner-profile />
+</section>
+
+<!-- Area + process -->
+<section class="section band" id="area" aria-labelledby="area-h">
+  <div class="area wrap">
+    <div>
+      <h2 id="area-h" class="section-h" appReveal>{{ h.areas.title }}</h2>
+      <p class="area__body" appReveal="70">{{ h.areas.body }}</p>
+      <ul class="legend">
+        @for (r of t.areas.regions.slice(0, 3); track r.name) {
+          <li><span class="dot dot--{{ r.status }}" aria-hidden="true"></span><span><strong>{{ r.name }}</strong>{{ statusLabel(r.status) }}</span></li>
+        }
+      </ul>
+      <a class="btn btn--ghost" [routerLink]="i18n.link('service-areas')">{{ h.areas.cta }}</a>
+    </div>
+    <app-area-map appReveal />
+  </div>
+
+  <div class="process wrap">
+    <h2 class="section-h" appReveal>{{ h.process.title }}</h2>
+    <div class="track">
+      <svg class="track__line" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 34 H520 L640 6 H1000" fill="none" stroke="currentColor" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+      </svg>
+      <ol class="steps">
+        @for (s of h.process.steps; track s.title; let i = $index) {
+          <li [appReveal]="i * 80"><span class="steps__pt" aria-hidden="true"></span><h3>{{ s.title }}</h3><p>{{ s.text }}</p></li>
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq" aria-labelledby="faq-h">
+  <div class="faq wrap">
+    <h2 id="faq-h" class="section-h" appReveal>{{ h.faqTitle }}</h2>
+    <app-faq [items]="t.faq" />
+  </div>
+</section>
+
+<app-final-cta />
+<app-lightbox [items]="viewerItems" />

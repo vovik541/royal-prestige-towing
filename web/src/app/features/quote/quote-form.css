@@ -1,0 +1,63 @@
+.steps { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 24px; counter-reset: s; }
+.steps li { display: grid; gap: 10px; font-size: var(--t-sm); font-weight: 600; color: var(--silver-2); }
+.steps__bar { height: 2px; background: var(--line-2); transition: background-color .3s; }
+.steps .is-done .steps__bar { background: var(--steel); }
+.steps .is-current { color: var(--silver); }
+.steps .is-current .steps__bar { background: var(--copper); }
+
+.panel { background: var(--carbon-2); border: 1px solid var(--line); border-radius: 2px; padding: clamp(22px, 3.2vw, 48px); display: grid; gap: 20px; }
+.panel__h { font: 600 var(--t-section)/1.12 var(--text); letter-spacing: -.02em; }
+.panel__h:focus { outline: none; }
+.panel__sub { margin-top: -8px; max-width: 46em; }
+.opt { font-weight: 400; color: var(--silver-2); font-size: .7em; }
+
+.fields { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 16px; }
+.f { display: grid; gap: 8px; align-content: start; min-width: 0; border: 0; padding: 0; margin: 0; }
+.f--wide { grid-column: 1 / -1; }
+.f label, .f legend { font-size: var(--t-sm); font-weight: 600; padding: 0; }
+.f legend { margin-bottom: 8px; }
+.hint { font-size: var(--t-xs); color: var(--silver-2); margin-top: -4px; }
+input:not([type='radio']), textarea { width: 100%; min-height: 52px; padding: 12px 14px; background: var(--carbon); border: 1px solid var(--line-2); border-radius: 2px; color: var(--silver); font: 500 var(--t-md) var(--text); transition: border-color .2s; }
+textarea { resize: vertical; line-height: 1.5; }
+input::placeholder, textarea::placeholder { color: #6d757e; }
+input:hover, textarea:hover { border-color: #4b5560; }
+input:focus, textarea:focus { outline: none; border-color: var(--copper); }
+input[aria-invalid='true'] { border-color: var(--danger); }
+input[type='date'] { color-scheme: dark; }
+.err { font-size: var(--t-sm); color: var(--danger); }
+.err-summary { padding: 12px 16px; border-left: 2px solid var(--danger); background: rgba(227, 160, 147, .07); color: var(--danger); font-size: var(--t-sm); }
+
+.seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.seg label { position: relative; font-weight: 500; }
+.seg input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.seg span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid var(--line-2); border-radius: 2px; font-size: var(--t-sm); color: var(--silver-2); transition: border-color .2s, color .2s, background-color .2s; }
+.seg input:checked + span { border-color: var(--copper); color: var(--silver); background: rgba(197, 138, 84, .08); }
+.seg input:focus-visible + span { outline: 2px solid var(--copper); outline-offset: 2px; }
+fieldset[aria-invalid='true'] .seg span { border-color: rgba(227, 160, 147, .6); }
+
+.review { display: grid; gap: 16px; }
+.review__block { border-top: 1px solid var(--line); padding-top: 16px; }
+.review__head { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 12px; }
+.review__head h3 { font-size: var(--t-md); }
+.review dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 32px; }
+.review dl div { display: grid; gap: 2px; min-width: 0; }
+.review dt { font-size: var(--t-xs); color: var(--silver-2); }
+.review dd { font-weight: 600; overflow-wrap: anywhere; }
+.unavailable { border-left: 2px solid var(--steel); background: var(--graphite); padding: 18px 20px; display: grid; gap: 6px; }
+.unavailable h3 { font-size: var(--t-md); }
+.unavailable p { color: var(--silver-2); font-size: var(--t-sm); }
+.review__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.copy-status { min-height: 1.6em; font-size: var(--t-sm); color: var(--steel); }
+
+.nav { display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid var(--line); padding-top: 20px; }
+.nav__next { margin-left: auto; }
+
+@media (max-width: 640px) {
+  .steps li { font-size: var(--t-xs); }
+  .fields { grid-template-columns: 1fr; }
+  .seg label { flex: 1 1 auto; }
+  .seg span { width: 100%; justify-content: center; padding: 0 10px; text-align: center; }
+  .review dl { grid-template-columns: 1fr 1fr; }
+  .review__actions .btn, .nav .btn { flex: 1 1 100%; }
+  .nav { flex-direction: column-reverse; }
+}

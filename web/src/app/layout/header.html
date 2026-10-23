@@ -1,0 +1,37 @@
+@let t = i18n.t();
+<header class="bar" [class.is-scrolled]="scrolled() || open()">
+  <div class="bar__in wrap">
+    <a class="mark" [routerLink]="i18n.link()" [attr.aria-label]="t.nav.homeLink">
+      <span class="mark__rpt">RPT<app-deck-line class="mark__deck" /></span>
+      <span class="mark__name">Royal Prestige Towing</span>
+    </a>
+
+    <nav class="nav" [attr.aria-label]="t.nav.primary">
+      @for (l of links; track l.path) {
+        <a [routerLink]="i18n.link(l.path)" routerLinkActive="is-active" ariaCurrentWhenActive="page">{{ t.nav[l.key] }}</a>
+      }
+    </nav>
+
+    <div class="bar__end">
+      <app-lang-switcher class="bar__lang" />
+      <a class="btn btn--copper btn--sm bar__cta" [routerLink]="i18n.link('contact')">{{ t.nav.quote }}</a>
+      <button class="menu-btn" type="button" [attr.aria-expanded]="open()" aria-controls="site-menu" (click)="toggle()">
+        {{ open() ? t.nav.close : t.nav.menu }}
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="sheet" id="site-menu" [hidden]="!open()">
+  <nav [attr.aria-label]="t.nav.mobile">
+    <a [routerLink]="i18n.link()">{{ t.nav.home }}</a>
+    @for (l of links; track l.path) {
+      <a [routerLink]="i18n.link(l.path)">{{ t.nav[l.key] }}</a>
+    }
+    <a [routerLink]="i18n.link('contact')">{{ t.nav.contact }}</a>
+  </nav>
+  <div class="sheet__foot">
+    <app-lang-switcher [full]="true" />
+    <p class="tbc">{{ t.common.phonePending }}</p>
+  </div>
+</div>
