@@ -42,7 +42,7 @@ import { LangSwitcher } from './lang-switcher';
       </div>
       <div class="foot__base wrap">
         <p>© {{ year }} {{ t.footer.rights }} · {{ t.footer.location }}</p>
-        <p class="credit">{{ t.footer.developedBy }} <span lang="en">{{ dev.brand }} — {{ dev.person }}</span></p>
+        <p class="credit">{{ t.footer.developedBy }} <span lang="en"><a [href]="dev.url" target="_blank" rel="noopener noreferrer">{{ dev.brand }}</a> — {{ dev.person }}</span></p>
       </div>
     </footer>
   `,
@@ -59,6 +59,8 @@ import { LangSwitcher } from './lang-switcher';
     .foot__col a:hover { color: var(--silver); }
     .foot__col .tel { color: var(--silver); font-weight: 600; font-size: var(--t-md); }
     .credit { color: #7e868f; }
+    .credit a { color: inherit; text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 3px; }
+    .credit a:hover { color: var(--silver); }
     .foot__base { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--line); font-size: var(--t-xs); color: var(--silver-2); }
     @media (max-width: 1000px) { .foot__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
     @media (max-width: 640px) {

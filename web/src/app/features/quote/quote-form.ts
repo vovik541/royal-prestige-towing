@@ -79,6 +79,9 @@ export class QuoteForm {
     { validators: dateWhenNeeded },
   );
   protected readonly c = this.form.controls;
+  /** Contact consent, asked at the review step right before sending; unchecked by default. */
+  protected readonly consent = this.fb.control(false, Validators.requiredTrue);
+  protected readonly sendState = signal<'idle' | 'sending' | 'sent' | 'failed'>('idle');
 
   protected readonly moreOpen = signal(false);
   protected readonly reviewing = signal(false);
@@ -155,6 +158,8 @@ export class QuoteForm {
 
   protected startOver(): void {
     this.form.reset({ loadType: this.loadType() });
+    this.consent.reset(false);
+    this.sendState.set('idle');
     this.moreOpen.set(false);
     this.reviewing.set(false);
   }
@@ -172,6 +177,7 @@ export class QuoteForm {
       date: v.timing === 'date' ? v.date : null,
       notes: v.notes.trim(),
       contact: { name: v.name.trim(), phone: usDigits(v.phone) ?? '', preference: v.preference },
+      consent: { contact: true },
     };
   }
 
@@ -188,7 +194,16 @@ export class QuoteForm {
 
   protected send(): void {
     // Unreachable while submission is unavailable: the button is aria-disabled and says why.
-    if (!this.submission.available) return;
-    this.submission.submit(this.buildRequest()).subscribe();
+    if (!this.submission.available || this.sendState() === 'sending' || this.sendState() === 'sent') return;
+    if (this.consent.invalid) {
+      this.consent.markAsTouched();
+      this.doc.getElementById('q-consent')?.focus();
+      return;
+    }
+    this.sendState.set('sending');
+    this.submission.submit(this.buildRequest()).subscribe({
+      next: () => this.sendState.set('sent'),
+      error: () => this.sendState.set('failed'),
+    });
   }
 }

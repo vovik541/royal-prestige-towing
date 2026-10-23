@@ -28,6 +28,8 @@ export interface QuoteRequest {
    * future API that accepts it is not broken, but the website never asks for or sends it.
    */
   contact: { name: string; phone: string; email?: string; preference: ContactPref };
+  /** The visitor agreed that Serhii may call or text them to respond to this request (required). */
+  consent: { contact: true };
 }
 
 /**

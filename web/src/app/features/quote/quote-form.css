@@ -56,6 +56,10 @@ input[type='date'] { color-scheme: dark; }
 .unavailable .sms { margin-top: 0; }
 .unavailable .sms app-message-icon { color: var(--copper); }
 .review__actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.consent { display: grid; gap: 10px; }
+.consent__notice { color: var(--silver-2); font-size: var(--t-sm); max-width: 44em; }
+.consent__check { display: flex; align-items: flex-start; gap: 12px; min-height: 44px; font-size: var(--t-sm); color: var(--silver); cursor: pointer; }
+.consent__check input { flex: none; width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--copper); }
 .copy-status { min-height: 1.4em; font-size: var(--t-sm); color: var(--steel); }
 
 @media (max-width: 560px) {

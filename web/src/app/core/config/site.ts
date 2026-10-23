@@ -67,7 +67,7 @@ export const PAYMENT_METHODS = ['zelle', 'cash'] as const;
 export type PaymentMethod = (typeof PAYMENT_METHODS)[number];
 
 /** Developer credit shown in the footer. Plain text: no confirmed ReIskra URL exists yet. */
-export const DEVELOPER = { brand: 'ReIskra', person: 'Volodymyr Khymych' } as const;
+export const DEVELOPER = { brand: 'ReIskra', person: 'Volodymyr Khymych', url: 'https://reiskra.com/' } as const;
 
 /** Where quote requests are POSTed once a backend exists. null = submission unavailable. */
 export const QUOTE_ENDPOINT: string | null = null;

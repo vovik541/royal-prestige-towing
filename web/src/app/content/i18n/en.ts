@@ -428,6 +428,12 @@ export const en = {
       copied: 'Request details copied to your clipboard.',
       copyFailed: 'Copying isn’t available in this browser. Select the summary text to copy it.',
       startOver: 'Start over',
+      privacyNotice: 'When you send this request, your information goes to Serhii by email and is used only to review and respond to your transport request. It will not be used for unrelated marketing.',
+      consentLabel: 'I agree that Serhii may call or text me using the contact information I provided to respond to my request.',
+      consentRequired: 'Please confirm that Serhii may call or text you about this request.',
+      sending: 'Sending…',
+      sent: 'Request sent. Serhii will contact you using the details you provided.',
+      sendFailed: 'The request couldn’t be sent. Please call or text Serhii instead.',
     },
   },
 
@@ -453,7 +459,7 @@ export const en = {
     company: 'Company',
     contact: 'Contact',
     rights: 'Royal Prestige Towing',
-    developedBy: 'Developed by',
+    developedBy: 'Website by',
     languages: 'Languages',
   },
 

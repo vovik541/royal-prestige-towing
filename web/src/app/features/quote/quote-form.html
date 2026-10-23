@@ -112,8 +112,17 @@
         <a class="btn btn--ghost sms" [href]="phone.sms" [attr.aria-label]="smsAria()"><app-message-icon />{{ t.common.textUs }}</a>
       </div>
     }
+    <div class="consent">
+      <p class="consent__notice" id="q-privacy">{{ q.review.privacyNotice }}</p>
+      <label class="consent__check">
+        <input id="q-consent" type="checkbox" [formControl]="consent" required
+          [attr.aria-invalid]="consent.touched && consent.invalid" aria-describedby="q-privacy q-consent-err" />
+        <span>{{ q.review.consentLabel }}</span>
+      </label>
+      @if (consent.touched && consent.invalid) { <p class="err" id="q-consent-err">{{ q.review.consentRequired }}</p> }
+    </div>
     <div class="review__actions">
-      <button type="button" class="btn btn--ghost" (click)="send()" [attr.aria-disabled]="!submission.available">
+      <button type="button" class="btn btn--ghost" (click)="send()" [attr.aria-disabled]="!submission.available || sendState() === 'sending' || sendState() === 'sent'">
         {{ submission.available ? q.review.submit : q.review.submitUnavailable }}
       </button>
       <button type="button" class="btn btn--ghost" (click)="copy()">{{ q.review.copy }}</button>
@@ -122,6 +131,9 @@
     <p class="copy-status" aria-live="polite">
       @if (copyStatus() === 'copied') { {{ q.review.copied }} }
       @if (copyStatus() === 'failed') { {{ q.review.copyFailed }} }
+      @if (sendState() === 'sending') { {{ q.review.sending }} }
+      @if (sendState() === 'sent') { {{ q.review.sent }} }
+      @if (sendState() === 'failed') { {{ q.review.sendFailed }} }
     </p>
   </section>
 }
