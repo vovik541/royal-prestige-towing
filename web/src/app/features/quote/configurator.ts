@@ -20,7 +20,7 @@ import { Photo } from '../../shared/photo';
 export class Configurator {
   protected readonly i18n = inject(I18n);
 
-  readonly type = model<LoadType>('exotic');
+  readonly type = model<LoadType>('everyday');
   readonly continueLink = input(false);
   /** Unique prefix so two configurators could coexist on one page. */
   readonly idPrefix = input('cfg');

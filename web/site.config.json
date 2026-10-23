@@ -6,8 +6,8 @@
   "langs": ["en", "uk", "ru"],
   "staticPages": ["", "services", "our-work", "about", "service-areas", "contact"],
   "servicePages": [
-    "exotic-car-transport",
     "vehicle-transport",
+    "exotic-car-transport",
     "commercial-vehicle-transport",
     "equipment-machinery-hauling",
     "long-distance-transport"

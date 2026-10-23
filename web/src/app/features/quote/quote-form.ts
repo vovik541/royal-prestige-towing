@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, DOCUMENT, ElementRef, Injector, afterNextRender, computed, inject, model, signal, viewChild } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, DOCUMENT, ElementRef, Injector, afterNextRender, computed, effect, inject, model, signal, viewChild } from '@angular/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl, NonNullableFormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { PHONE } from '../../core/config/site';
 import { I18n, fmt } from '../../core/i18n/i18n';
-import { LoadType } from '../../content/photos';
+import { LOAD_TYPES, LoadType } from '../../content/photos';
 import { PhoneIcon } from '../../shared/phone-icon';
-import { Configurator } from './configurator';
 import { CONDITIONS, CONTACT_PREFS, Condition, ContactPref, QuoteRequest, QuoteSubmission, TIMINGS, Timing } from './quote.model';
 
 /** 10 US digits (an optional leading 1 is dropped), or null if it isn't a valid NANP number. */
@@ -27,18 +26,19 @@ const formatUs = (value: string) => {
   return d ? `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}` : value;
 };
 
-/** A preferred date is required only when "on a specific date" is chosen. */
+/** A preferred date is required only when "specific date" is chosen. */
 function dateWhenNeeded(group: AbstractControl): ValidationErrors | null {
-  const timing = group.get('timing')?.value as Timing;
-  const date = group.get('date')?.value as string;
-  return timing === 'date' && !date ? { dateRequired: true } : null;
+  return group.get('timing')?.value === 'date' && !group.get('date')?.value ? { dateRequired: true } : null;
 }
 
-type Step = 0 | 1 | 2 | 3;
-
+/**
+ * Compact quote request: four essentials on one screen (load, pickup, drop-off, phone), optional
+ * details behind a single disclosure, then an in-place review. There is no backend yet, so the
+ * review says so plainly and offers the phone instead of pretending to send anything.
+ */
 @Component({
   selector: 'app-quote-form',
-  imports: [ReactiveFormsModule, Configurator, PhoneIcon],
+  imports: [ReactiveFormsModule, PhoneIcon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './quote-form.html',
   styleUrl: './quote-form.css',
@@ -52,128 +52,130 @@ export class QuoteForm {
   protected readonly phone = PHONE;
   protected readonly callAria = computed(() => fmt(this.i18n.t().common.callAria, { phone: PHONE.display }));
 
-  readonly loadType = model<LoadType>('exotic');
+  /** Load type, two-way bound with the page (preselected from ?type=). */
+  readonly loadType = model<LoadType>('everyday');
 
+  protected readonly loadTypes = LOAD_TYPES;
   protected readonly conditions = CONDITIONS;
   protected readonly timings = TIMINGS;
   protected readonly prefs = CONTACT_PREFS;
-  protected readonly stepKeys = ['load', 'details', 'contact', 'review'] as const;
 
-  protected readonly details = this.fb.group(
+  protected readonly form = this.fb.group(
     {
-      item: ['', [Validators.required, Validators.maxLength(120)]],
+      loadType: this.fb.control<LoadType>('everyday'),
       pickup: ['', [Validators.required, Validators.maxLength(80)]],
       destination: ['', [Validators.required, Validators.maxLength(80)]],
-      condition: this.fb.control<Condition | ''>('', Validators.required),
+      phone: ['', [Validators.required, usPhone]],
+      item: ['', Validators.maxLength(120)],
+      condition: this.fb.control<Condition | ''>(''),
       timing: this.fb.control<Timing>('flexible'),
       date: [''],
       notes: ['', Validators.maxLength(1000)],
+      name: ['', Validators.maxLength(80)],
+      preference: this.fb.control<ContactPref>('phone'),
     },
     { validators: dateWhenNeeded },
   );
+  protected readonly c = this.form.controls;
 
-  protected readonly contact = this.fb.group({
-    name: ['', Validators.maxLength(80)],
-    phone: ['', [Validators.required, usPhone]],
-    preference: this.fb.control<ContactPref>('phone'),
-  });
-
-  protected readonly step = signal<Step>(0);
+  protected readonly moreOpen = signal(false);
+  protected readonly reviewing = signal(false);
   protected readonly showErrors = signal(false);
   protected readonly copyStatus = signal<'idle' | 'copied' | 'failed'>('idle');
-  private readonly stepHeading = viewChild<ElementRef<HTMLElement>>('stepHeading');
+  private readonly reviewHeading = viewChild<ElementRef<HTMLElement>>('reviewHeading');
 
-  private readonly detailsValue = toSignal(this.details.valueChanges, { initialValue: this.details.getRawValue() });
-  protected readonly needsDate = computed(() => this.detailsValue().timing === 'date');
-  protected readonly stepLabel = computed(() => fmt(this.i18n.t().quote.stepOf, { i: this.step() + 1, n: 4 }));
+  private readonly value = toSignal(this.form.valueChanges, { initialValue: this.form.getRawValue() });
+  protected readonly needsDate = computed(() => this.value().timing === 'date');
+  protected readonly itemPlaceholder = computed(() => this.i18n.t().configurator.loads[this.value().loadType ?? 'everyday'].placeholder);
 
-  /** Summary rows for the review step, in the visitor's language. */
-  protected readonly summary = computed(() => {
-    this.step(); // recompute whenever the review step is entered
-    const t = this.i18n.t();
-    const q = t.quote;
-    const d = this.details.getRawValue();
-    const c = this.contact.getRawValue();
-    const none = q.review.notProvided;
-    const timing = d.timing === 'date' && d.date ? `${q.timings.date}: ${d.date}` : q.timings[d.timing];
-    return {
-      load: [{ label: q.review.loadType, value: t.loadTypes[this.loadType()].name }],
-      details: [
-        { label: q.fields.item.label, value: d.item || none },
-        { label: q.fields.pickup.label, value: d.pickup || none },
-        { label: q.fields.destination.label, value: d.destination || none },
-        { label: q.fields.condition.label, value: d.condition ? q.conditions[d.condition] : none },
-        { label: q.fields.timing.label, value: timing },
-        { label: q.fields.notes.label, value: d.notes || none },
-      ],
-      contact: [
-        { label: q.fields.name.label, value: c.name || none },
-        { label: q.fields.phone.label, value: c.phone ? formatUs(c.phone) : none },
-        { label: q.fields.contactPref.label, value: q.contactPrefs[c.preference] },
-      ],
-    };
-  });
-
-  protected readonly reviewBlocks = computed(() => {
-    const s = this.summary();
-    return [
-      { key: 'load' as const, step: 0 as Step, rows: s.load },
-      { key: 'details' as const, step: 1 as Step, rows: s.details },
-      { key: 'contact' as const, step: 2 as Step, rows: s.contact },
-    ];
-  });
-
-  protected invalid(control: AbstractControl | null): boolean {
-    return !!control && control.invalid && (control.touched || this.showErrors());
+  constructor() {
+    // Keep the control and the page's load type (from ?type= or the configurator) in sync.
+    effect(() => {
+      const type = this.loadType();
+      if (this.c.loadType.value !== type) this.c.loadType.setValue(type);
+    });
+    this.c.loadType.valueChanges.pipe(takeUntilDestroyed()).subscribe((type) => this.loadType.set(type));
   }
 
-  protected next(): void {
-    const group = this.step() === 1 ? this.details : this.step() === 2 ? this.contact : null;
-    if (group && group.invalid) {
-      group.markAllAsTouched();
+  /** Summary rows: the essentials always, optional details only when given. */
+  protected readonly rows = computed(() => {
+    this.reviewing();
+    const t = this.i18n.t();
+    const q = t.quote;
+    const v = this.form.getRawValue();
+    const rows = [
+      { label: q.review.loadType, value: t.loadTypes[v.loadType].name },
+      { label: q.fields.pickup.label, value: v.pickup.trim() },
+      { label: q.fields.destination.label, value: v.destination.trim() },
+      { label: q.fields.phone.label, value: formatUs(v.phone) },
+    ];
+    const optional = [
+      { label: q.fields.item.label, value: v.item.trim() },
+      { label: q.fields.condition.legend, value: v.condition ? q.conditions[v.condition] : '' },
+      { label: q.fields.timing.legend, value: v.timing === 'date' && v.date ? `${q.timings.date}: ${v.date}` : v.timing !== 'flexible' ? q.timings[v.timing] : '' },
+      { label: q.fields.notes.label, value: v.notes.trim() },
+      { label: q.fields.name.label, value: v.name.trim() },
+      { label: q.fields.contactPref.legend, value: v.preference !== 'phone' ? q.contactPrefs[v.preference] : '' },
+    ];
+    return [...rows, ...optional.filter((r) => r.value)];
+  });
+
+  protected invalid(control: AbstractControl): boolean {
+    return control.invalid && (control.touched || this.showErrors());
+  }
+
+  protected toggleMore(): void {
+    this.moreOpen.update((v) => !v);
+  }
+
+  protected review(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
       this.showErrors.set(true);
-      // After the error state renders, move focus to the first field that needs attention.
-      afterNextRender(() => this.doc.querySelector<HTMLElement>('.quote [aria-invalid="true"]')?.focus(), { injector: this.injector });
+      if (this.form.hasError('dateRequired')) this.moreOpen.set(true);
+      afterNextRender(() => this.doc.querySelector<HTMLElement>('.qf [aria-invalid="true"]')?.focus(), { injector: this.injector });
       return;
     }
     this.showErrors.set(false);
-    this.go((this.step() + 1) as Step);
-  }
-
-  protected back(): void {
-    this.go((this.step() - 1) as Step);
-  }
-
-  protected go(step: Step): void {
-    this.step.set(step);
     this.copyStatus.set('idle');
+    this.reviewing.set(true);
     afterNextRender(() => {
-      const h = this.stepHeading()?.nativeElement;
+      const h = this.reviewHeading()?.nativeElement;
       h?.focus({ preventScroll: true });
       h?.scrollIntoView({ block: 'nearest' });
     }, { injector: this.injector });
   }
 
+  protected edit(): void {
+    this.reviewing.set(false);
+    afterNextRender(() => this.doc.getElementById('q-pickup')?.focus(), { injector: this.injector });
+  }
+
+  protected startOver(): void {
+    this.form.reset({ loadType: this.loadType() });
+    this.moreOpen.set(false);
+    this.reviewing.set(false);
+  }
+
   protected buildRequest(): QuoteRequest {
-    const d = this.details.getRawValue();
+    const v = this.form.getRawValue();
     return {
       lang: this.i18n.lang(),
-      loadType: this.loadType(),
-      item: d.item.trim(),
-      pickup: d.pickup.trim(),
-      destination: d.destination.trim(),
-      condition: d.condition as Condition,
-      timing: d.timing,
-      date: d.timing === 'date' ? d.date : null,
-      notes: d.notes.trim(),
-      contact: { ...this.contact.getRawValue(), phone: usDigits(this.contact.getRawValue().phone) ?? '' },
+      loadType: v.loadType,
+      item: v.item.trim(),
+      pickup: v.pickup.trim(),
+      destination: v.destination.trim(),
+      condition: (v.condition || 'unsure') as Condition,
+      timing: v.timing,
+      date: v.timing === 'date' ? v.date : null,
+      notes: v.notes.trim(),
+      contact: { name: v.name.trim(), phone: usDigits(v.phone) ?? '', preference: v.preference },
     };
   }
 
-  /** Plain-text copy of the request so the visitor can share it manually. */
+  /** Plain-text copy so the visitor can read it out on the phone or text it. */
   protected async copy(): Promise<void> {
-    const s = this.summary();
-    const text = [...s.load, ...s.details, ...s.contact].map((r) => `${r.label}: ${r.value}`).join('\n');
+    const text = this.rows().map((r) => `${r.label}: ${r.value}`).join('\n');
     try {
       await navigator.clipboard.writeText(`Royal Prestige Towing\n${text}`);
       this.copyStatus.set('copied');
@@ -183,14 +185,8 @@ export class QuoteForm {
   }
 
   protected send(): void {
-    // Unreachable while submission is unavailable: the button is aria-disabled and explains why.
+    // Unreachable while submission is unavailable: the button is aria-disabled and says why.
     if (!this.submission.available) return;
     this.submission.submit(this.buildRequest()).subscribe();
-  }
-
-  protected reset(): void {
-    this.details.reset();
-    this.contact.reset();
-    this.go(0);
   }
 }

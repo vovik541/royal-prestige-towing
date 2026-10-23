@@ -1,4 +1,4 @@
-.cfg { display: grid; grid-template-columns: 4fr 8fr; gap: clamp(24px, 3.4vw, 56px); }
+.cfg { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: clamp(24px, 3.4vw, 56px); }
 .cfg__list { display: flex; flex-direction: column; border-top: 1px solid var(--line-2); align-self: start; }
 .cfg__list button { position: relative; text-align: left; background: transparent; border: 0; border-bottom: 1px solid var(--line); padding: 20px 96px 22px 18px; display: grid; gap: 3px; transition: background-color .3s, padding-left .35s var(--ease); }
 .cfg__list button:hover { background: rgba(255, 255, 255, .025); }
@@ -18,20 +18,20 @@
 @keyframes fade-in { from { opacity: 0; transform: scale(1.02); } }
 @keyframes fade-out { to { opacity: 0; } }
 .cfg__pictured { position: absolute; left: 32px; bottom: 10px; z-index: 2; font-size: var(--t-xs); color: var(--silver); background: rgba(15, 17, 20, .8); padding: 6px 10px; border-radius: 2px; }
-.cfg__info { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(20px, 3vw, 48px); }
+.cfg__info { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 48px); }
 .cfg__info h3 { font: 600 var(--t-h3)/1.2 var(--text); letter-spacing: -.01em; margin-bottom: 10px; }
 .cfg__info h4 { margin-bottom: 12px; padding-top: 6px; }
 .cfg__go { justify-self: start; }
 
 @media (max-width: 1100px) {
-  .cfg { grid-template-columns: 1fr; }
-  .cfg__list { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 0; gap: 8px; }
+  .cfg { grid-template-columns: minmax(0, 1fr); }
+  .cfg__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 0; gap: 8px; }
   .cfg__list button { border: 1px solid var(--line); border-radius: 2px; padding: 14px 16px; }
   .cfg__list button[aria-selected='true'] { padding-left: 16px; border-color: var(--copper); }
   .cfg__list button[aria-selected='true']::before, .opt__deck { display: none; }
 }
 @media (max-width: 640px) {
-  .cfg__list { grid-template-columns: 1fr 1fr; }
+  .cfg__list { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .cfg__list button:first-child { grid-column: 1 / -1; }
   .opt__d { display: none; }
   .opt__n { font-size: var(--t-sm); }
@@ -39,7 +39,7 @@
   .cfg__photo ::ng-deep .tie--tl, .cfg__photo ::ng-deep .tie--bl { left: calc(var(--gut) + 10px); }
   .cfg__photo ::ng-deep .tie--tr, .cfg__photo ::ng-deep .tie--br { right: calc(var(--gut) + 10px); }
   .cfg__pictured { left: calc(var(--gut) + 30px); }
-  .cfg__info { grid-template-columns: 1fr; gap: 24px; }
+  .cfg__info { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .cfg__go { justify-self: stretch; }
 }
 @media (prefers-reduced-motion: reduce) {

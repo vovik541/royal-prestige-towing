@@ -45,10 +45,12 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: calc(var(--bar-h) + 8px); -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: var(--carbon); color: var(--silver); font: 400 var(--t-md)/1.6 var(--text); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: var(--carbon); color: var(--silver); font: 400 var(--t-md)/1.6 var(--text); -webkit-font-smoothing: antialiased; }
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
-h1, h2, h3, h4 { margin: 0; font-weight: 600; }
+h1, h2, h3, h4 { margin: 0; font-weight: 600; overflow-wrap: break-word; hyphens: auto; }
+/* Long words (common in Ukrainian and Russian) wrap instead of widening their container */
+p, li, dt, dd, label, legend, figcaption, button, a { overflow-wrap: break-word; }
 p, ul, ol, dl, dd, figure { margin: 0; }
 ul, ol { padding: 0; }
 button, input, select, textarea { font: inherit; color: inherit; }

@@ -1,166 +1,126 @@
 @let t = i18n.t();
 @let q = t.quote;
-<div class="quote">
-  <ol class="steps" [attr.aria-label]="q.stepsLabel">
-    @for (k of stepKeys; track k; let i = $index) {
-      <li [class.is-current]="step() === i" [class.is-done]="step() > i" [attr.aria-current]="step() === i ? 'step' : null">
-        <span class="steps__bar" aria-hidden="true"></span>{{ q.steps[k] }}
-      </li>
-    }
-  </ol>
-
-  <div class="panel">
-    <p class="kicker">{{ stepLabel() }}</p>
-
-    @switch (step()) {
-      @case (0) {
-        <h2 class="panel__h" #stepHeading tabindex="-1">{{ t.configurator.title }}</h2>
-        <app-configurator [(type)]="loadType" idPrefix="quote-cfg" />
-      }
-
-      @case (1) {
-        <h2 class="panel__h" #stepHeading tabindex="-1">{{ q.steps.details }}</h2>
-        <p class="panel__sub muted">{{ t.loadTypes[loadType()].name }}</p>
-        @if (showErrors() && details.invalid) {
-          <p class="err-summary" role="alert">{{ q.errors.summary }}</p>
+@if (!reviewing()) {
+  <form class="qf" [formGroup]="form" (ngSubmit)="review()" novalidate [attr.aria-label]="q.formLabel">
+    <fieldset class="f">
+      <legend>{{ q.fields.load.legend }}</legend>
+      <div class="chips">
+        @for (lt of loadTypes; track lt) {
+          <label><input type="radio" name="loadType" formControlName="loadType" [value]="lt" [attr.value]="lt" /><span>{{ t.loadTypes[lt].short }}</span></label>
         }
-        <form [formGroup]="details" (ngSubmit)="next()" novalidate class="fields">
-          <div class="f f--wide">
-            <label for="q-item">{{ q.fields.item.label }}</label>
-            <p class="hint" id="q-item-hint">{{ q.fields.item.hint }}</p>
-            <input id="q-item" formControlName="item" autocomplete="off" [placeholder]="t.configurator.loads[loadType()].placeholder"
-              [attr.aria-invalid]="invalid(details.controls.item)" aria-describedby="q-item-hint q-item-err" />
-            @if (invalid(details.controls.item)) { <p class="err" id="q-item-err">{{ q.errors.itemRequired }}</p> }
-          </div>
-          <div class="f">
-            <label for="q-pickup">{{ q.fields.pickup.label }}</label>
-            <p class="hint" id="q-pickup-hint">{{ q.fields.pickup.hint }}</p>
-            <input id="q-pickup" formControlName="pickup" autocomplete="address-level2" [placeholder]="q.fields.pickup.placeholder"
-              [attr.aria-invalid]="invalid(details.controls.pickup)" aria-describedby="q-pickup-hint q-pickup-err" />
-            @if (invalid(details.controls.pickup)) { <p class="err" id="q-pickup-err">{{ q.errors.pickupRequired }}</p> }
-          </div>
-          <div class="f">
-            <label for="q-dest">{{ q.fields.destination.label }}</label>
-            <p class="hint" id="q-dest-hint">{{ q.fields.destination.hint }}</p>
-            <input id="q-dest" formControlName="destination" autocomplete="off" [placeholder]="q.fields.destination.placeholder"
-              [attr.aria-invalid]="invalid(details.controls.destination)" aria-describedby="q-dest-hint q-dest-err" />
-            @if (invalid(details.controls.destination)) { <p class="err" id="q-dest-err">{{ q.errors.destinationRequired }}</p> }
-          </div>
-          <fieldset class="f f--wide" [attr.aria-invalid]="invalid(details.controls.condition)" aria-describedby="q-cond-err">
-            <legend>{{ q.fields.condition.legend }}</legend>
-            <div class="seg">
-              @for (c of conditions; track c) {
-                <label><input type="radio" name="condition" formControlName="condition" [value]="c" [attr.value]="c" /><span>{{ q.conditions[c] }}</span></label>
-              }
-            </div>
-            @if (invalid(details.controls.condition)) { <p class="err" id="q-cond-err">{{ q.errors.conditionRequired }}</p> }
-          </fieldset>
-          <fieldset class="f">
-            <legend>{{ q.fields.timing.label }}</legend>
-            <div class="seg">
-              @for (tm of timings; track tm) {
-                <label><input type="radio" name="timing" formControlName="timing" [value]="tm" [attr.value]="tm" /><span>{{ q.timings[tm] }}</span></label>
-              }
-            </div>
-          </fieldset>
-          @if (needsDate()) {
-            <div class="f">
-              <label for="q-date">{{ q.fields.date.label }}</label>
-              <input id="q-date" type="date" formControlName="date"
-                [attr.aria-invalid]="(details.touched || showErrors()) && details.hasError('dateRequired')" aria-describedby="q-date-err" />
-              @if ((details.touched || showErrors()) && details.hasError('dateRequired')) { <p class="err" id="q-date-err">{{ q.errors.dateRequired }}</p> }
-            </div>
-          }
-          <div class="f f--wide">
-            <label for="q-notes">{{ q.fields.notes.label }} <span class="opt">({{ t.common.optional }})</span></label>
-            <p class="hint" id="q-notes-hint">{{ q.fields.notes.hint }}</p>
-            <textarea id="q-notes" formControlName="notes" rows="4" aria-describedby="q-notes-hint"></textarea>
-          </div>
-          <button type="submit" hidden></button>
-        </form>
-      }
+      </div>
+    </fieldset>
 
-      @case (2) {
-        <h2 class="panel__h" #stepHeading tabindex="-1">{{ q.steps.contact }}</h2>
-        <p class="panel__sub muted">{{ q.contactIntro }}</p>
-        @if (showErrors() && contact.invalid) {
-          <p class="err-summary" role="alert">{{ q.errors.summary }}</p>
-        }
-        <form [formGroup]="contact" (ngSubmit)="next()" novalidate class="fields">
-          <div class="f f--wide f--narrow">
-            <label for="q-phone">{{ q.fields.phone.label }}</label>
-            <p class="hint" id="q-phone-hint">{{ q.fields.phone.hint }}</p>
-            <input id="q-phone" type="tel" formControlName="phone" autocomplete="tel-national" inputmode="tel" maxlength="20"
-              [attr.aria-invalid]="invalid(contact.controls.phone)" aria-describedby="q-phone-hint q-phone-err" />
-            @if (invalid(contact.controls.phone)) {
-              <p class="err" id="q-phone-err">{{ contact.controls.phone.hasError('required') ? q.errors.phoneRequired : q.errors.phoneInvalid }}</p>
-            }
-          </div>
-          <div class="f f--wide f--narrow">
-            <label for="q-name">{{ q.fields.name.label }} <span class="opt">({{ t.common.optional }})</span></label>
-            <input id="q-name" formControlName="name" autocomplete="name" />
-          </div>
-          <fieldset class="f f--wide">
-            <legend>{{ q.fields.contactPref.label }}</legend>
-            <div class="seg">
-              @for (p of prefs; track p) {
-                <label><input type="radio" name="preference" formControlName="preference" [value]="p" [attr.value]="p" /><span>{{ q.contactPrefs[p] }}</span></label>
-              }
-            </div>
-          </fieldset>
-          <button type="submit" hidden></button>
-        </form>
-      }
+    <div class="row">
+      <div class="f">
+        <label for="q-pickup">{{ q.fields.pickup.label }}</label>
+        <input id="q-pickup" formControlName="pickup" autocomplete="address-level2" [placeholder]="q.fields.pickup.placeholder"
+          [attr.aria-invalid]="invalid(c.pickup)" aria-describedby="q-pickup-err" />
+        @if (invalid(c.pickup)) { <p class="err" id="q-pickup-err">{{ q.errors.pickupRequired }}</p> }
+      </div>
+      <div class="f">
+        <label for="q-dest">{{ q.fields.destination.label }}</label>
+        <input id="q-dest" formControlName="destination" autocomplete="off" [placeholder]="q.fields.destination.placeholder"
+          [attr.aria-invalid]="invalid(c.destination)" aria-describedby="q-dest-err" />
+        @if (invalid(c.destination)) { <p class="err" id="q-dest-err">{{ q.errors.destinationRequired }}</p> }
+      </div>
+    </div>
 
-      @case (3) {
-        <h2 class="panel__h" #stepHeading tabindex="-1">{{ q.review.title }}</h2>
-        <p class="panel__sub muted">{{ q.review.intro }}</p>
-        <div class="review">
-          @for (block of reviewBlocks(); track block.key) {
-            <section class="review__block">
-              <div class="review__head">
-                <h3>{{ q.steps[block.key] }}</h3>
-                <button type="button" class="btn btn--ghost btn--sm" (click)="go(block.step)">{{ q.edit }}</button>
-              </div>
-              <dl>
-                @for (r of block.rows; track r.label) {
-                  <div><dt>{{ r.label }}</dt><dd>{{ r.value }}</dd></div>
-                }
-              </dl>
-            </section>
-          }
-        </div>
-
-        @if (!submission.available) {
-          <div class="unavailable" role="note">
-            <h3>{{ q.review.unavailableTitle }}</h3>
-            <p>{{ q.review.unavailableText }}</p>
-            <a class="btn btn--copper btn--wrap unavailable__call" [href]="phone.href" [attr.aria-label]="callAria()"><app-phone-icon /><span>{{ t.common.callSerhii }} · <span class="nowrap">{{ phone.display }}</span></span></a>
-          </div>
-        }
-        <div class="review__actions">
-          <button type="button" class="btn btn--copper btn--lg" (click)="send()"
-            [attr.aria-disabled]="!submission.available" [attr.aria-describedby]="submission.available ? null : 'q-unavail'">
-            {{ submission.available ? q.review.submit : q.review.submitUnavailable }}
-          </button>
-          <span class="sr-only" id="q-unavail">{{ q.review.unavailableTitle }}</span>
-          <button type="button" class="btn btn--ghost btn--lg" (click)="copy()">{{ q.review.copy }}</button>
-          <button type="button" class="btn btn--ghost btn--lg" (click)="reset()">{{ q.review.startOver }}</button>
-        </div>
-        <p class="copy-status" aria-live="polite">
-          @if (copyStatus() === 'copied') { {{ q.review.copied }} }
-          @if (copyStatus() === 'failed') { {{ q.review.copyFailed }} }
-        </p>
-      }
-    }
-
-    <div class="nav">
-      @if (step() > 0) {
-        <button type="button" class="btn btn--ghost btn--lg" (click)="back()">{{ q.back }}</button>
-      }
-      @if (step() < 3) {
-        <button type="button" class="btn btn--copper btn--lg nav__next" (click)="next()">{{ q.next }}</button>
+    <div class="f f--phone">
+      <label for="q-phone">{{ q.fields.phone.label }} <span class="hint" id="q-phone-hint">{{ q.fields.phone.hint }}</span></label>
+      <input id="q-phone" type="tel" formControlName="phone" autocomplete="tel-national" inputmode="tel" maxlength="20"
+        [attr.aria-invalid]="invalid(c.phone)" aria-describedby="q-phone-hint q-phone-err" />
+      @if (invalid(c.phone)) {
+        <p class="err" id="q-phone-err">{{ c.phone.hasError('required') ? q.errors.phoneRequired : q.errors.phoneInvalid }}</p>
       }
     </div>
-  </div>
-</div>
+
+    <button type="button" class="more" [attr.aria-expanded]="moreOpen()" aria-controls="q-more" (click)="toggleMore()">
+      <span class="more__sign" aria-hidden="true"></span>
+      <span>{{ moreOpen() ? q.more.hide : q.more.show }}</span>
+      <span class="more__hint">{{ t.common.optional }} · {{ q.more.hint }}</span>
+    </button>
+
+    <div class="more__panel" id="q-more" [hidden]="!moreOpen()">
+      <div class="f">
+        <label for="q-item">{{ q.fields.item.label }}</label>
+        <input id="q-item" formControlName="item" autocomplete="off" [placeholder]="itemPlaceholder()" />
+      </div>
+      <fieldset class="f">
+        <legend>{{ q.fields.condition.legend }}</legend>
+        <div class="chips chips--sm">
+          @for (cd of conditions; track cd) {
+            <label><input type="radio" name="condition" formControlName="condition" [value]="cd" [attr.value]="cd" /><span>{{ q.conditions[cd] }}</span></label>
+          }
+        </div>
+      </fieldset>
+      <fieldset class="f">
+        <legend>{{ q.fields.timing.legend }}</legend>
+        <div class="chips chips--sm">
+          @for (tm of timings; track tm) {
+            <label><input type="radio" name="timing" formControlName="timing" [value]="tm" [attr.value]="tm" /><span>{{ q.timings[tm] }}</span></label>
+          }
+        </div>
+      </fieldset>
+      @if (needsDate()) {
+        <div class="f f--narrow">
+          <label for="q-date">{{ q.fields.date.label }}</label>
+          <input id="q-date" type="date" formControlName="date"
+            [attr.aria-invalid]="(c.date.touched || showErrors()) && form.hasError('dateRequired')" aria-describedby="q-date-err" />
+          @if ((c.date.touched || showErrors()) && form.hasError('dateRequired')) { <p class="err" id="q-date-err">{{ q.errors.dateRequired }}</p> }
+        </div>
+      }
+      <div class="f">
+        <label for="q-notes">{{ q.fields.notes.label }}</label>
+        <textarea id="q-notes" formControlName="notes" rows="3" [placeholder]="q.fields.notes.hint"></textarea>
+      </div>
+      <div class="row">
+        <div class="f">
+          <label for="q-name">{{ q.fields.name.label }}</label>
+          <input id="q-name" formControlName="name" autocomplete="name" />
+        </div>
+        <fieldset class="f">
+          <legend>{{ q.fields.contactPref.legend }}</legend>
+          <div class="chips chips--sm">
+            @for (p of prefs; track p) {
+              <label><input type="radio" name="preference" formControlName="preference" [value]="p" [attr.value]="p" /><span>{{ q.contactPrefs[p] }}</span></label>
+            }
+          </div>
+        </fieldset>
+      </div>
+    </div>
+
+    @if (showErrors() && form.invalid) { <p class="err-summary" role="alert">{{ q.errors.summary }}</p> }
+    <button type="submit" class="btn btn--copper btn--lg qf__go">{{ q.review.button }}</button>
+  </form>
+} @else {
+  <section class="review" aria-labelledby="q-review-h">
+    <div class="review__head">
+      <h2 class="review__h" id="q-review-h" #reviewHeading tabindex="-1">{{ q.review.title }}</h2>
+      <button type="button" class="btn btn--ghost btn--sm" (click)="edit()">{{ q.review.edit }}</button>
+    </div>
+    <dl>
+      @for (r of rows(); track r.label) {
+        <div><dt>{{ r.label }}</dt><dd>{{ r.value }}</dd></div>
+      }
+    </dl>
+    @if (!submission.available) {
+      <div class="unavailable" role="note">
+        <h3>{{ q.review.unavailableTitle }}</h3>
+        <p>{{ q.review.unavailableText }}</p>
+        <a class="btn btn--copper btn--wrap" [href]="phone.href" [attr.aria-label]="callAria()"><app-phone-icon /><span>{{ t.common.callSerhii }} · <span class="nowrap">{{ phone.display }}</span></span></a>
+      </div>
+    }
+    <div class="review__actions">
+      <button type="button" class="btn btn--ghost" (click)="send()" [attr.aria-disabled]="!submission.available">
+        {{ submission.available ? q.review.submit : q.review.submitUnavailable }}
+      </button>
+      <button type="button" class="btn btn--ghost" (click)="copy()">{{ q.review.copy }}</button>
+      <button type="button" class="btn btn--ghost" (click)="startOver()">{{ q.review.startOver }}</button>
+    </div>
+    <p class="copy-status" aria-live="polite">
+      @if (copyStatus() === 'copied') { {{ q.review.copied }} }
+      @if (copyStatus() === 'failed') { {{ q.review.copyFailed }} }
+    </p>
+  </section>
+}

@@ -11,6 +11,7 @@ import { FinalCta } from '../../shared/final-cta';
 import { Lightbox } from '../../shared/lightbox';
 import { OwnerProfile } from '../../shared/owner-profile';
 import { Photo } from '../../shared/photo';
+import { Pricing, pricingVisible } from '../../shared/pricing';
 import { Reveal } from '../../shared/reveal';
 
 const FEATURED = ['mclaren-front', 'lamborghini-urus', 'lathe-forklift'] as const;
@@ -18,7 +19,7 @@ const STRIP: PhotoId[] = ['bmw-alpina', 'cargo-van', 'mercedes-sedan', 'milling-
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, Configurator, AreaMap, DeckLine, Faq, FinalCta, Lightbox, OwnerProfile, Photo, Reveal],
+  imports: [RouterLink, Configurator, AreaMap, DeckLine, Faq, FinalCta, Lightbox, OwnerProfile, Photo, Pricing, Reveal],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.html',
   styleUrl: './home.css',
@@ -28,11 +29,12 @@ export class HomePage {
   private readonly router = inject(Router);
 
   protected readonly loadTypes = LOAD_TYPES;
+  protected readonly showPricing = pricingVisible();
   protected readonly featured = FEATURED;
   protected readonly strip = STRIP;
   /** Photos the viewer can step through: the three featured loads, then the strip. */
   protected readonly viewerItems: PhotoId[] = [...FEATURED, ...STRIP];
-  protected readonly loadType = signal<LoadType>('exotic');
+  protected readonly loadType = signal<LoadType>('everyday');
   private readonly viewer = viewChild.required(Lightbox);
 
   constructor() {

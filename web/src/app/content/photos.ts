@@ -2,7 +2,8 @@ import { PHOTO_SIZES, PhotoId } from './photo-sizes';
 
 export type { PhotoId };
 export type LoadType = 'exotic' | 'everyday' | 'commercial' | 'machinery' | 'special';
-export const LOAD_TYPES: readonly LoadType[] = ['exotic', 'everyday', 'commercial', 'machinery', 'special'];
+/** Display order everywhere (configurator, filters, quote form): everyday vehicles are the main service. */
+export const LOAD_TYPES: readonly LoadType[] = ['everyday', 'exotic', 'commercial', 'machinery', 'special'];
 export const isLoadType = (v: unknown): v is LoadType => LOAD_TYPES.includes(v as LoadType);
 
 export interface PhotoMeta {
@@ -13,21 +14,24 @@ export interface PhotoMeta {
   focus: string;
 }
 
-/** Every real client photograph, in portfolio order. Alt text and captions live in the dictionaries. */
+/**
+ * Every real client photograph, in portfolio order: everyday vehicles lead, interleaved with the
+ * exotic and machinery work that proves the standard. Alt text and captions live in the dictionaries.
+ */
 export const PHOTOS: readonly PhotoMeta[] = [
+  { id: 'mercedes-sedan', category: 'everyday', focus: '45% 60%' },
   { id: 'mclaren-front', category: 'exotic', focus: '45% 58%' },
+  { id: 'vw-beetle', category: 'everyday', focus: '40% 55%' },
   { id: 'lamborghini-urus', category: 'exotic', focus: '55% 60%' },
+  { id: 'cargo-van', category: 'commercial', focus: '60% 50%' },
   { id: 'lathe-forklift', category: 'machinery', focus: '40% 55%' },
+  { id: 'volvo-c70', category: 'everyday', focus: '50% 60%' },
   { id: 'mclaren-side', category: 'exotic', focus: '52% 60%' },
   { id: 'bmw-alpina', category: 'special', focus: '50% 55%' },
-  { id: 'cargo-van', category: 'commercial', focus: '60% 50%' },
-  { id: 'mercedes-sedan', category: 'everyday', focus: '45% 60%' },
   { id: 'milling-machine', category: 'machinery', focus: '50% 50%' },
   { id: 'mclaren-rear', category: 'exotic', focus: '50% 40%' },
-  { id: 'vw-beetle', category: 'everyday', focus: '40% 55%' },
-  { id: 'volvo-c70', category: 'everyday', focus: '50% 60%' },
-  { id: 'lathe-secured', category: 'machinery', focus: '45% 45%' },
   { id: 'vintage-microtruck', category: 'special', focus: '40% 50%' },
+  { id: 'lathe-secured', category: 'machinery', focus: '45% 45%' },
   { id: 'owner-serhii', category: null, focus: '50% 30%' },
 ];
 

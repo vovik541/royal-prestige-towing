@@ -33,9 +33,9 @@ import { ServiceCard } from '../../shared/service-card';
   `,
   styles: `
     .list { padding-top: 0; }
-    .grid { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px 32px; }
-    @media (max-width: 1000px) { .grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 640px) { .grid { grid-template-columns: 1fr; gap: 48px; } }
+    .grid { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 56px 32px; }
+    @media (max-width: 1000px) { .grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+    @media (max-width: 640px) { .grid { grid-template-columns: minmax(0, 1fr); gap: 48px; } }
   `,
 })
 export class ServicesPage {

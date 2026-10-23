@@ -17,7 +17,7 @@ import { Reveal } from './reveal';
         <app-photo id="owner-serhii" sizes="(max-width: 640px) 92vw, (max-width: 900px) 420px, 34vw" />
         <figcaption><strong>{{ t.photos['owner-serhii'].caption }}</strong><span>{{ t.owner.role }}</span></figcaption>
       </figure>
-      <div>
+      <div class="copy">
         @if (headingLevel() === 1) {
           <h1 class="display-h" appReveal>{{ t.owner.title }}</h1>
         } @else {
@@ -36,27 +36,37 @@ import { Reveal } from './reveal';
   `,
   styles: `
     :host { display: block; }
-    .grid { display: grid; grid-template-columns: 4fr 7fr; gap: clamp(32px, 6vw, 104px); align-items: center; }
+    .grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 104px); align-items: center; }
     .photo app-photo { aspect-ratio: 4 / 5; border-radius: 2px; }
     .photo ::ng-deep img { filter: saturate(.8) contrast(1.03); }
     figcaption { display: flex; justify-content: space-between; gap: 12px; margin-top: 14px; font-size: var(--t-xs); color: var(--silver-2); }
     figcaption strong { color: var(--silver); font-weight: 600; }
     .lede { margin-top: 24px; max-width: 34em; }
     .handover { list-style: none; margin-top: 36px; border-top: 1px solid var(--line); }
-    .handover li { display: grid; grid-template-columns: 160px 1fr; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+    .handover li { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--line); }
     .handover__t { font: 600 22px/1.1 var(--display); text-transform: uppercase; letter-spacing: .02em; color: var(--copper); }
     .handover li > span:last-child { color: var(--silver-2); font-size: var(--t-sm); }
     .note { margin-top: 24px; color: var(--silver-2); font-size: var(--t-sm); }
     .call { margin-top: 28px; }
     .call app-phone-icon { color: var(--copper); }
     @media (max-width: 900px) {
-      .grid { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: minmax(0, 1fr); }
       .photo { max-width: 420px; }
     }
     @media (max-width: 640px) {
-      .photo { max-width: none; }
-      .photo app-photo { aspect-ratio: 1; }
-      .handover li { grid-template-columns: 1fr; gap: 4px; }
+      /* Editorial phone layout: title across, a compact 4:5 portrait beside the introduction. */
+      .grid { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); grid-template-areas: 'title title' 'photo lede' 'steps steps' 'note note' 'call call'; gap: 18px 16px; align-items: start; }
+      .copy { display: contents; }
+      .copy > h1, .copy > h2 { grid-area: title; }
+      .photo { grid-area: photo; max-width: none; }
+      .photo app-photo { aspect-ratio: 4 / 5; }
+      .photo ::ng-deep img { object-position: 50% 24%; }
+      figcaption { flex-direction: column; gap: 2px; margin-top: 8px; font-size: 12px; }
+      .lede { grid-area: lede; margin-top: 0; font-size: 15px; line-height: 1.55; }
+      .handover { grid-area: steps; margin-top: 6px; }
+      .handover li { grid-template-columns: minmax(0, 1fr); gap: 4px; padding: 14px 0; }
+      .note { grid-area: note; margin-top: 0; }
+      .call { grid-area: call; margin-top: 0; justify-self: stretch; }
     }
   `,
 })

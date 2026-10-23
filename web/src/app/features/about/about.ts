@@ -60,16 +60,16 @@ import { Reveal } from '../../shared/reveal';
   `,
   styles: `
     .owner { padding-top: 0; }
-    .story { display: grid; grid-template-columns: 6fr 6fr; gap: clamp(32px, 5vw, 80px); align-items: center; }
+    .story { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
     .story .lede { margin-top: 20px; max-width: 34em; }
-    .trio { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .trio { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
     .trio app-photo { aspect-ratio: 4 / 3; }
     .trio app-photo:last-child { grid-column: 1 / -1; aspect-ratio: 16 / 8; }
-    .principles { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 36px; }
+    .principles { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; margin-top: 36px; }
     .principles li { border-top: 1px solid var(--line-2); padding-top: 20px; display: grid; gap: 8px; align-content: start; }
     .principles h3 { font: 600 var(--t-h3)/1.2 var(--text); }
     .principles p { color: var(--silver-2); }
-    @media (max-width: 900px) { .story, .principles { grid-template-columns: 1fr; } }
+    @media (max-width: 900px) { .story, .principles { grid-template-columns: minmax(0, 1fr); } }
   `,
 })
 export class AboutPage {

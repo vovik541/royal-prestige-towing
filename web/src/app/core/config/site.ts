@@ -32,5 +32,38 @@ export const BUSINESS = {
   confirmedArea: ['Sacramento'],
 } as const;
 
+export interface PriceTier {
+  /** Distance band in miles; `to: null` means "and beyond". */
+  from: number;
+  to: number | null;
+  /** Starting price in USD; null = custom quote. */
+  price: number | null;
+}
+
+/**
+ * Local transport starting rates, confirmed by the owner. They are estimates, shown with the
+ * `approxPrefix` (~$60) and a disclaimer — never as guaranteed final quotes. This is the only place
+ * prices live; set `status: 'provisional'` to hide them from production builds again.
+ */
+export const PRICING = {
+  status: 'confirmed' as 'provisional' | 'confirmed',
+  currency: 'USD',
+  /** Marks every numeric price as approximate. */
+  approxPrefix: '~',
+  tiers: [
+    { from: 0, to: 5, price: 60 },
+    { from: 5, to: 10, price: 80 },
+    { from: 10, to: 15, price: 100 },
+    { from: 15, to: null, price: null },
+  ] as readonly PriceTier[],
+};
+
+/** Payment is arranged directly with the business; there is no online checkout. */
+export const PAYMENT_METHODS = ['zelle', 'cash'] as const;
+export type PaymentMethod = (typeof PAYMENT_METHODS)[number];
+
+/** Developer credit shown in the footer. Plain text: no confirmed ReIskra URL exists yet. */
+export const DEVELOPER = { brand: 'ReIskra', person: 'Volodymyr Khymych' } as const;
+
 /** Where quote requests are POSTed once a backend exists. null = submission unavailable. */
 export const QUOTE_ENDPOINT: string | null = null;

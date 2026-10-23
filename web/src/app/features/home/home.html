@@ -15,7 +15,7 @@
       </div>
     </div>
     <figure class="hero__media">
-      <app-photo id="mclaren-side" [ties]="true" [priority]="true" sizes="(max-width: 900px) 100vw, 58vw" />
+      <app-photo id="mclaren-side" [ties]="true" [priority]="true" sizes="(max-width: 640px) 100vw, (max-width: 900px) 100vw, 58vw" />
       <figcaption><span>{{ t.photos['mclaren-side'].caption }}</span><span>{{ t.common.securedAtFour }}</span></figcaption>
     </figure>
   </div>
@@ -51,6 +51,13 @@
     <app-configurator [(type)]="loadType" [continueLink]="true" idPrefix="home-cfg" />
   </div>
 </section>
+
+<!-- Pricing (hidden in production builds until the owner confirms the rates) -->
+@if (showPricing) {
+  <section class="section pricing-sec" id="pricing" aria-labelledby="pricing-h">
+    <div class="wrap"><app-pricing appReveal /></div>
+  </section>
+}
 
 <!-- Exotic spotlight -->
 <section class="section" id="exotic" aria-labelledby="ex-h">
