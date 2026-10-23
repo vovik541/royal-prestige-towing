@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
   const match = /(?:^|;\s*)rpt_lang=(\w+)/.exec(req.headers.cookie ?? '');
   const lang = match && LANGS.includes(match[1]) ? match[1] : 'en';
   res.setHeader('Vary', 'Cookie');
-  res.redirect(302, `/${lang}/`);
+  res.redirect(302, `/${lang}`);
 });
 
 /**

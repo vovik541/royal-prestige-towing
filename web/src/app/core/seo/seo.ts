@@ -18,10 +18,10 @@ export interface PageSeo {
 const OG_LOCALE: Record<Lang, string> = { en: 'en_US', uk: 'uk_UA', ru: 'ru_RU' };
 const DEFAULT_IMAGE = '/images/og-default.jpg';
 
-/** Absolute URL for a language and language-neutral path. Home pages end with a slash: /en/ */
+/** Absolute URL for a language and language-neutral path, without a trailing slash: /en, /en/services */
 export function pageUrl(lang: Lang, path: string): string {
   const clean = path.replace(/^\/+|\/+$/g, '');
-  return clean ? `${SITE.url}/${lang}/${clean}` : `${SITE.url}/${lang}/`;
+  return clean ? `${SITE.url}/${lang}/${clean}` : `${SITE.url}/${lang}`;
 }
 
 export const ORG_ID = `${SITE.url}/#business`;

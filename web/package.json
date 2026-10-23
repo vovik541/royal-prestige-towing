@@ -6,6 +6,9 @@
     "start": "ng serve",
     "prebuild": "node scripts/generate-seo-files.mjs",
     "build": "ng build",
+    "build:cloudflare": "npm run build && node scripts/prepare-cloudflare.mjs",
+    "preview:cloudflare": "wrangler dev",
+    "deploy:cloudflare": "wrangler deploy",
     "images": "python scripts/build-images.py",
     "seo": "node scripts/generate-seo-files.mjs",
     "watch": "ng build --watch --configuration development",
@@ -33,6 +36,7 @@
     "@types/express": "^5.0.1",
     "@types/node": "^20.17.19",
     "prettier": "^3.8.1",
-    "typescript": "~5.9.2"
+    "typescript": "~5.9.2",
+    "wrangler": "^4.152.0"
   }
 }

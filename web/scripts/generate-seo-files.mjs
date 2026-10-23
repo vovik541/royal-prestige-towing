@@ -11,7 +11,7 @@ const site = config.siteUrl.replace(/\/+$/, '');
 const tag = { en: 'en-US', uk: 'uk', ru: 'ru' };
 
 const paths = [...config.staticPages, ...config.servicePages.map((s) => `services/${s}`)];
-const url = (lang, path) => (path ? `${site}/${lang}/${path}` : `${site}/${lang}/`);
+const url = (lang, path) => (path ? `${site}/${lang}/${path}` : `${site}/${lang}`);
 const lastmod = new Date().toISOString().slice(0, 10);
 
 const entries = paths.flatMap((path) =>

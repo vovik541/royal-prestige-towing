@@ -1,6 +1,6 @@
 # Royal Prestige Towing — website (Angular SSR)
 
-Production implementation of the approved design (`../design-exploration/concept-01-refined/`).
+Production website for Royal Prestige Towing, built from the approved refined Concept 01 design.
 Angular 21 LTS · standalone components · signals · SSR + prerendering + hydration · English / Ukrainian / Russian.
 
 > Angular 22 requires Node ≥ 22.22.3; this machine runs Node 22.12, so the app uses Angular 21 LTS.
@@ -17,9 +17,27 @@ npm run images         # re-crop originals from the repo root into public/images
 ```
 
 Hosting: `dist/web/browser` is fully prerendered static HTML (any static host/CDN works);
-`dist/web/server/server.mjs` adds the `/` → language redirect, real 404s and on-demand SSR.
-Add the production domain to `security.allowedHosts` in `angular.json` (or `NG_ALLOWED_HOSTS`),
-otherwise Angular refuses to server-render unknown hosts and falls back to client rendering.
+`dist/web/server/server.mjs` adds the `/` → language redirect, real 404s and on-demand SSR on Node.
+For the Node server, add the production domain to `security.allowedHosts` in `angular.json`
+(or `NG_ALLOWED_HOSTS`), otherwise Angular refuses to server-render unknown hosts.
+
+## Cloudflare Workers
+
+The Worker serves the prerendered output as static assets; Angular's Express server is not used
+on Workers. `cloudflare/worker.ts` only handles `/` (language redirect); unknown URLs get the
+localized `404.html` with HTTP 404. Configuration: `wrangler.jsonc` (this folder).
+
+```bash
+npm run build:cloudflare     # ng build + scripts/prepare-cloudflare.mjs (404.html, .assetsignore)
+npm run preview:cloudflare   # wrangler dev — local preview of the Worker
+npm run deploy:cloudflare    # wrangler deploy (needs approval/credentials)
+```
+
+Workers Builds (Git integration) settings for the `royal-prestige-towing` Worker:
+root directory `web`, build command `npm ci && npm run build:cloudflare`,
+deploy command `npx wrangler deploy`. On-demand SSR on Workers is not needed while every
+public page is prerendered; if it is ever required, switch `src/server.ts` to the fetch-based
+`AngularAppEngine` and build for the Workers runtime instead of Node.
 
 ## Structure
 
@@ -43,8 +61,8 @@ src/app/features/           home, services, service detail, our work, about, are
 
 | Path | Page |
 |---|---|
-| `/` | 302 → `/{last chosen language}/` (cookie `rpt_lang`) or `/en/` |
-| `/:lang/` | Home |
+| `/` | 302 → `/{last chosen language}` (cookie `rpt_lang`) or `/en` |
+| `/:lang` | Home (`/en/` redirects to `/en` on Cloudflare) |
 | `/:lang/services` | Services overview |
 | `/:lang/services/exotic-car-transport` | Luxury & exotic car transport |
 | `/:lang/services/vehicle-transport` | Vehicle transportation |

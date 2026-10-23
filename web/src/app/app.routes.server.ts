@@ -16,5 +16,7 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Prerender,
     getPrerenderParams: async () => LANGS.flatMap((lang) => SITE.servicePages.map((slug) => ({ lang, slug }))),
   },
+  // Localized 404 pages for static hosting (scripts/prepare-cloudflare.mjs turns them into 404.html).
+  { path: ':lang/404', renderMode: RenderMode.Prerender, getPrerenderParams: perLang },
   { path: '**', renderMode: RenderMode.Server, status: 404 },
 ];

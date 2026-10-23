@@ -1,0 +1,20 @@
+// Cloudflare Workers deployment for the Angular app in this folder (web/).
+// Build first with `npm run build:cloudflare`; Workers Builds must use web/ as its root directory.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "royal-prestige-towing",
+  "main": "cloudflare/worker.ts",
+  "compatibility_date": "2026-10-19",
+  "assets": {
+    // Prerendered Angular output: all 33 localized pages, scripts, styles and images.
+    "directory": "./dist/web/browser",
+    "binding": "ASSETS",
+    // /en/services/index.html is served at /en/services (matches the canonical URLs).
+    "html_handling": "drop-trailing-slash",
+    // Unknown URLs get the nearest localized 404.html with HTTP 404.
+    "not_found_handling": "404-page",
+    // Only the bare domain runs the Worker (language redirect); everything else is served directly.
+    "run_worker_first": ["/"]
+  },
+  "observability": { "enabled": true }
+}
