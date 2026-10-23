@@ -85,7 +85,7 @@ button { cursor: pointer; }
 .btn--line:hover { background: rgba(197, 138, 84, .1); }
 .btn--sm { min-height: 40px; padding: 0 16px; font-size: 14px; }
 .btn--lg { min-height: 56px; padding: 0 30px; font-size: 16px; }
-/* Long labels (e.g. "Call Serhii · +1 (916) 470-5606") may wrap instead of widening their container */
+/* Long labels (e.g. "Call Serhii · +1 (916) 470-5605") may wrap instead of widening their container */
 .btn--wrap { white-space: normal; line-height: 1.25; padding-block: 12px; }
 .nowrap { white-space: nowrap; }
 .btn[aria-disabled='true'], .btn:disabled { opacity: .45; cursor: not-allowed; transform: none; }

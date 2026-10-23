@@ -8,11 +8,11 @@ export const SITE = {
   servicePages: config.servicePages,
 } as const;
 
-const PHONE_E164 = '+19164705606';
+const PHONE_E164 = '+19164705605';
 
 /** The business telephone, confirmed by the owner. Every call/SMS link and display reads from here. */
 export const PHONE = {
-  display: '+1 (916) 470-5606',
+  display: '+1 (916) 470-5605',
   /** E.164 form for tel:/sms: links and structured data. */
   e164: PHONE_E164,
   href: `tel:${PHONE_E164}`,

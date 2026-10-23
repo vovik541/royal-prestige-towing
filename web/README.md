@@ -105,7 +105,7 @@ request. Nothing claims a request was sent. To connect a backend: implement `POS
 
 ## Contact
 
-Phone +1 (916) 470-5606 is the only public contact method besides the quote form; it lives in
+Phone +1 (916) 470-5605 is the only public contact method besides the quote form; it lives in
 `PHONE` in `src/app/core/config/site.ts` (display, E.164, tel: link) and is used by the header,
 the mobile Call Now / Get a Quote bar, owner section, final CTA, quote page, footer and JSON-LD.
 Email is intentionally not offered anywhere on the site.
