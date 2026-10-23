@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input, viewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { I18n } from '../../core/i18n/i18n';
-import { ORG_ID, Seo, breadcrumbSchema, faqSchema } from '../../core/seo/seo';
+import { AREA_SERVED, ORG_ID, Seo, breadcrumbSchema, faqSchema } from '../../core/seo/seo';
 import { photoSources } from '../../content/photos';
 import { SERVICES, ServiceSlug, service } from '../../content/services';
 import { Breadcrumbs } from '../../shared/breadcrumbs';
@@ -53,7 +53,7 @@ export class ServiceDetailPage {
             serviceType: c.name,
             description: c.seo.description,
             provider: { '@id': ORG_ID },
-            areaServed: { '@type': 'City', name: 'Sacramento' },
+            areaServed: AREA_SERVED,
           },
           breadcrumbSchema(lang, [
             { name: t.nav.home, path: '' },

@@ -5,8 +5,11 @@
 <section class="hero" aria-labelledby="hero-h">
   <div class="hero__grid wrap">
     <div class="hero__copy">
-      <p class="kicker">{{ h.hero.kicker }}</p>
-      <h1 id="hero-h" class="hero-h hero__title">{{ h.hero.titleA }}<br />{{ h.hero.titleB }}</h1>
+      <!-- One H1: the descriptive line (what, where) plus the slogan as the visual headline. -->
+      <h1 id="hero-h" class="hero__h1">
+        <span class="kicker">{{ h.hero.kicker }}</span>
+        <span class="hero-h hero__title">{{ h.hero.titleA }}<br />{{ h.hero.titleB }}</span>
+      </h1>
       <app-deck-line class="hero__deck" />
       <p class="lede hero__lede">{{ h.hero.lede }}</p>
       <div class="hero__actions">

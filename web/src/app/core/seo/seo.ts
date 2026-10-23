@@ -26,19 +26,38 @@ export function pageUrl(lang: Lang, path: string): string {
 
 export const ORG_ID = `${SITE.url}/#business`;
 
-/** The business node. Only confirmed facts: telephone yes; no email, address, hours or ratings. */
-export function businessSchema(lang: Lang): object {
+const CALIFORNIA = { '@type': 'State', name: 'California', containedInPlace: { '@type': 'Country', name: 'United States' } };
+
+/**
+ * Where the business operates: Sacramento is the base; San Francisco and the Bay Area are served
+ * destinations on scheduled routes (not branches); the rest of Northern California is by arrangement.
+ */
+export const AREA_SERVED = [
+  { '@type': 'City', name: 'Sacramento', containedInPlace: CALIFORNIA },
+  { '@type': 'City', name: 'San Francisco', containedInPlace: CALIFORNIA },
+  { '@type': 'Place', name: 'San Francisco Bay Area', containedInPlace: CALIFORNIA },
+  { '@type': 'Place', name: 'Northern California', containedInPlace: CALIFORNIA },
+];
+
+/**
+ * The business node, identical on every page and language (stable @id, language-neutral url).
+ * Only confirmed facts: telephone and the Sacramento base; no street address, hours or ratings.
+ */
+export function businessSchema(): object {
   return {
     '@type': 'AutomotiveBusiness',
     '@id': ORG_ID,
     name: BUSINESS.name,
     alternateName: BUSINESS.shortName,
-    url: pageUrl(lang, ''),
+    url: pageUrl(DEFAULT_LANG, ''),
     image: SITE.url + DEFAULT_IMAGE,
     logo: SITE.url + '/favicon.svg',
+    slogan: 'Every load, handled like a McLaren.',
+    description: 'Owner-operated flatbed vehicle and equipment transport based in Sacramento, California.',
     telephone: BUSINESS.phone.e164,
-    areaServed: { '@type': 'City', name: 'Sacramento', containedInPlace: { '@type': 'State', name: 'California' } },
-    employee: { '@type': 'Person', name: BUSINESS.owner, jobTitle: 'Owner' },
+    address: { '@type': 'PostalAddress', addressLocality: BUSINESS.city, addressRegion: BUSINESS.region, addressCountry: BUSINESS.country },
+    areaServed: AREA_SERVED,
+    founder: { '@type': 'Person', name: BUSINESS.owner, jobTitle: 'Owner' },
   };
 }
 
@@ -116,7 +135,7 @@ export class Seo {
     this.doc.getElementById('ld-json')?.remove();
     if (page.noindex) return;
     const graph = [
-      businessSchema(lang),
+      businessSchema(),
       { '@type': 'WebSite', '@id': `${SITE.url}/#website`, url: SITE.url, name: BUSINESS.name, inLanguage: LANGS.map((l) => LANG_TAG[l]), publisher: { '@id': ORG_ID } },
       { '@type': 'WebPage', '@id': url, url, name: page.title, description: page.description, inLanguage: LANG_TAG[lang], isPartOf: { '@id': `${SITE.url}/#website` } },
       ...(page.schema ?? []),

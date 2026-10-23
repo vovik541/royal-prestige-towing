@@ -2,6 +2,7 @@
 .hero { padding-top: clamp(32px, 4.4vw, 72px); background: radial-gradient(55% 70% at 78% 38%, rgba(147, 166, 188, .09), transparent 70%); }
 .hero__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
 .hero__title { margin-top: 22px; max-width: 9.5em; }
+.hero__h1 > span { display: block; }
 .hero__deck { margin-top: 28px; width: 220px; }
 .hero__lede { margin-top: 26px; max-width: 30em; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }

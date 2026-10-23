@@ -119,14 +119,14 @@ export const en = {
 
   home: {
     seo: {
-      title: 'Royal Prestige Towing — Vehicle & Equipment Transport, Sacramento',
-      description: 'Owner-operated flatbed transport from Sacramento for everyday cars and SUVs, exotics, vans and industrial machinery. Loaded slowly, strapped at the wheels, delivered in person.',
+      title: 'Flatbed Towing & Vehicle Transport Sacramento | Royal Prestige Towing',
+      description: 'Owner-operated flatbed vehicle and equipment transport based in Sacramento. Serving Greater Sacramento, Northern California and San Francisco Bay Area routes. Request a quote.',
     },
     hero: {
-      kicker: 'Royal Prestige Towing — Sacramento',
+      kicker: 'Flatbed vehicle & equipment transport in Sacramento & Northern California',
       titleA: 'Every load,',
       titleB: 'handled like a McLaren.',
-      lede: 'Owner-operated flatbed transport for everyday cars and SUVs — and for exotics, vans and industrial machinery. Loaded slowly, strapped at the wheels, and delivered by the person you spoke to.',
+      lede: 'Owner-operated flatbed transport from Sacramento for everyday cars and SUVs, exotics, work vans and machinery — around Greater Sacramento and on routes across Northern California, including San Francisco. Loaded slowly, strapped at the wheels, delivered by the person you spoke to.',
     },
     indexLabel: 'What we transport',
     position: {
@@ -160,7 +160,7 @@ export const en = {
     },
     areas: {
       title: 'Based in Sacramento',
-      body: 'Sacramento is home base. Routes along I-80, I-5 and US-50 are a natural fit, and we’re still confirming how far into the Bay Area and Northern California we run regularly. Share your route and you’ll get a straight answer.',
+      body: 'Based in Sacramento, Royal Prestige Towing provides flatbed vehicle and equipment transport across Greater Sacramento and selected routes throughout Northern California, including San Francisco and the Bay Area. Tell us where your vehicle needs to go, and Serhii will confirm availability and give you a route-specific quote.',
       cta: 'Service areas',
     },
     process: {
@@ -193,7 +193,7 @@ export const en = {
     { q: 'Can you move machinery that has to be lifted on?', a: 'Yes, when there’s a forklift or loading equipment on site — like the lathe in our photos. Send dimensions, weight and a photo, and we’ll tell you whether it fits.' },
     { q: 'Can you take a vehicle that doesn’t run?', a: 'Tell us whether it rolls, steers and brakes. We’ll confirm before pickup whether we can load it safely.' },
     { q: 'How is the price worked out?', a: 'By distance, the type of load and how easy pickup and drop-off are. Send a request and you’ll get one clear number.' },
-    { q: 'Do you go to the Bay Area?', a: 'We’re based in Sacramento and still confirming regular Bay Area coverage. Share your route and we’ll answer straight away.' },
+    { q: 'Do you go to San Francisco and the Bay Area?', a: 'Yes. Sacramento to San Francisco and other Bay Area routes run as scheduled, longer-distance transport — planned in advance and quoted for your specific route.' },
     { q: 'How do I pay?', a: 'Zelle or cash. Payment is arranged directly with Serhii — there’s no online checkout.' },
   ],
 
@@ -205,11 +205,11 @@ export const en = {
 
   services: {
     seo: {
-      title: 'Transport Services — Exotic, Everyday, Commercial & Machinery | Royal Prestige Towing',
-      description: 'Flatbed transport from Sacramento for exotic and sports cars, everyday vehicles, vans and work trucks, shop machinery, and longer routes on request.',
+      title: 'Vehicle & Equipment Transport Services Sacramento | Royal Prestige Towing',
+      description: 'Flatbed transport from Sacramento for everyday cars and SUVs, exotic cars, work vans and machinery — locally around Sacramento and on longer Northern California routes.',
     },
     title: 'Transport services',
-    intro: 'One trailer, one owner, and the same careful method for every load — from a supercar to a shop lathe. Choose a service to see how it works.',
+    intro: 'One trailer, one owner, and the same careful method for every load — from a supercar to a shop lathe, around Sacramento or on a longer Northern California route. Choose a service to see how it works.',
     cardCta: 'How it works',
     otherServices: 'Other services',
     askTitle: 'What we’ll ask you',
@@ -222,8 +222,8 @@ export const en = {
         name: 'Luxury & exotic car transport',
         short: 'McLaren, Lamborghini and other low, wide, high-value cars — loaded slowly and strapped at the wheels.',
         seo: {
-          title: 'Exotic & Luxury Car Transport from Sacramento | Royal Prestige Towing',
-          description: 'Flatbed transport for supercars and luxury vehicles: clearance checked before loading, ratchet straps over the tires, one owner-driver from pickup to delivery.',
+          title: 'Exotic & Luxury Car Transport, Sacramento & Northern California | Royal Prestige Towing',
+          description: 'Luxury and exotic car transport from Sacramento across Northern California: low-clearance loading checked before the ramp, straps over the tires, one owner-driver from pickup to delivery.',
         },
         title: 'Luxury & exotic car transport',
         intro: 'A supercar asks for patience more than muscle. Every exotic we carry goes up the ramp slowly, rides on its tires, and stays with the person who loaded it until it’s handed back.',
@@ -242,8 +242,8 @@ export const en = {
         name: 'Vehicle transportation',
         short: 'Sedans, coupes, SUVs and daily drivers — moves, purchases, sales and cars that just need to be somewhere else.',
         seo: {
-          title: 'Car & SUV Transport in the Sacramento Area | Royal Prestige Towing',
-          description: 'Careful flatbed transport for everyday cars and SUVs: buying out of town, moving, selling or relocating a vehicle. Same straps and attention as an exotic.',
+          title: 'Car & SUV Transport Sacramento — Flatbed Car Hauling | Royal Prestige Towing',
+          description: 'Flatbed car hauling in Sacramento for sedans, SUVs and daily drivers: buying out of town, moving or selling. Wheel straps, slow loading and a personal handover.',
         },
         title: 'Vehicle transportation',
         intro: 'Bought a car out of town, selling one, moving, or simply done driving it? An everyday vehicle gets exactly the same handling as anything else on our deck.',
@@ -262,8 +262,8 @@ export const en = {
         name: 'Commercial vehicle transportation',
         short: 'Cargo vans and work vehicles, checked for height and weight before we confirm the job.',
         seo: {
-          title: 'Commercial Van & Work Vehicle Transport, Sacramento | Royal Prestige Towing',
-          description: 'Flatbed transport for cargo vans and work vehicles. Roof height and weight are checked before we confirm, and pickup is planned around your schedule.',
+          title: 'Commercial Vehicle & Work Van Transport, Sacramento | Royal Prestige Towing',
+          description: 'Commercial vehicle hauling from Sacramento for cargo vans and work vehicles. Roof height and weight are checked before we confirm, and pickup is planned around your schedule.',
         },
         title: 'Commercial vehicle transportation',
         intro: 'A work van is a business tool, and when it’s off the road the business feels it. We check the vehicle’s size and weight up front so the day goes as planned.',
@@ -282,8 +282,8 @@ export const en = {
         name: 'Equipment & machinery hauling',
         short: 'Lathes, mills and shop equipment — forklift-loaded, blocked on timber, wrapped and strapped.',
         seo: {
-          title: 'Machinery & Equipment Hauling from Sacramento | Royal Prestige Towing',
-          description: 'Flatbed hauling for shop machinery such as lathes and milling machines: forklift-loaded, set on timber, wrapped and strapped from several directions.',
+          title: 'Equipment & Machinery Hauling, Sacramento | Royal Prestige Towing',
+          description: 'Equipment hauling from Sacramento for lathes, mills and shop machinery, subject to size, weight and loading equipment on site: forklift-loaded, blocked, wrapped and strapped.',
         },
         title: 'Equipment & machinery hauling',
         intro: 'Machinery doesn’t roll and doesn’t forgive. Shop machines go on by forklift, sit on timber, and are wrapped and strapped from several directions before the trailer moves.',
@@ -300,21 +300,21 @@ export const en = {
       },
       'long-distance-transport': {
         name: 'Long-distance vehicle transportation',
-        short: 'Longer routes beyond the Sacramento area, considered case by case with an honest answer on what’s possible.',
+        short: 'Sacramento to San Francisco, the Bay Area and other agreed Northern California destinations — scheduled in advance and quoted per route.',
         seo: {
-          title: 'Long-Distance Vehicle Transport from Sacramento | Royal Prestige Towing',
-          description: 'Longer vehicle transport routes from Sacramento, considered case by case. Share your route and you’ll get an honest answer on timing and whether we can take it.',
+          title: 'Long-Distance Vehicle Transport, Sacramento to San Francisco | Royal Prestige Towing',
+          description: 'Long-distance vehicle transport across Northern California, including Sacramento to San Francisco and the Bay Area. Scheduled in advance with a route-specific quote.',
         },
         title: 'Long-distance vehicle transportation',
-        intro: 'Some vehicles need to go further than the next town. Longer routes are considered one at a time, and we’ll tell you honestly whether we can take yours and when.',
+        intro: 'Some vehicles need to go further than the next town. We run scheduled longer routes from Sacramento — to San Francisco, the Bay Area and other Northern California destinations — planned in advance and quoted for your route.',
         points: [
-          { title: 'Route by route', text: 'We’re still confirming which longer routes we run regularly. Share yours and we’ll answer directly.' },
+          { title: 'Planned in advance', text: 'Longer routes are scheduled ahead of time. Availability depends on the load, the route and the calendar, and the price is quoted for your trip.' },
           { title: 'The same handling', text: 'A longer trip doesn’t change the method: wheel straps, slow loading and regular checks along the way.' },
           { title: 'Clear timing', text: 'You’ll know the pickup window and the expected delivery day before you commit.' },
         ],
         ask: ['What you’re moving', 'Pickup and destination cities', 'When it needs to be there and how flexible the dates are'],
         faq: [
-          { q: 'Do you go out of state?', a: 'Coverage beyond Northern California hasn’t been confirmed yet. Ask about your route and you’ll get a straight answer.' },
+          { q: 'Do you go out of state?', a: 'Our longer routes are within Northern California, including San Francisco and the Bay Area. For anything further, ask about your route and you’ll get a straight answer.' },
           { q: 'How long does a long trip take?', a: 'It depends on distance and scheduling. You’ll get an expected delivery day with your quote.' },
         ],
       },
@@ -345,7 +345,7 @@ export const en = {
       description: 'Royal Prestige Towing is an owner-operated transport business based in Sacramento, run by Serhii Hoida. Meet the person who quotes, loads and delivers your vehicle.',
     },
     title: 'About Royal Prestige Towing',
-    intro: 'A Sacramento transport business built around one idea: whatever you need moved deserves the care people usually save for six-figure cars.',
+    intro: 'Royal Prestige Towing is Serhii Hoida’s owner-operated transport business in Sacramento, built around one idea: whatever you need moved deserves the care people usually save for six-figure cars.',
     storyTitle: 'Why RPT exists',
     story: [
       'Most people choosing a transport company are deciding who to trust with something they value. Royal Prestige Towing keeps that decision simple: one owner, one trailer, and one consistent way of working.',
@@ -361,33 +361,34 @@ export const en = {
 
   areas: {
     seo: {
-      title: 'Service Areas — Sacramento Base & Northern California | Royal Prestige Towing',
-      description: 'Royal Prestige Towing is based in Sacramento. See how we approach routes in Northern California and the Bay Area — coverage outside Sacramento is confirmed route by route.',
+      title: 'Service Areas — Sacramento, Northern California & Bay Area | Royal Prestige Towing',
+      description: 'Based in Sacramento: flatbed vehicle and equipment transport across Greater Sacramento, regional Northern California routes along I-80 and scheduled trips to San Francisco and the Bay Area.',
     },
     title: 'Service areas',
-    intro: 'Sacramento is our home base. Beyond it, we confirm routes one at a time rather than promising coverage we haven’t yet established.',
-    legendTitle: 'How coverage works',
+    intro: 'Sacramento is our home base. From here we cover Greater Sacramento, regional routes across Northern California and scheduled longer trips to San Francisco and the Bay Area — each one confirmed with a route-specific quote.',
+    legendTitle: 'Where we go',
     regions: [
-      { status: 'home', name: 'Sacramento', text: 'Our home base and the center of everything we do.' },
-      { status: 'near', name: 'Nearby Northern California', text: 'Places such as Davis, Auburn, Placerville and Stockton — ask and we’ll confirm your route.' },
-      { status: 'tbc', name: 'Bay Area', text: 'We’re confirming regular coverage of the Bay Area. Share your route for a straight answer.' },
-      { status: 'tbc', name: 'Longer routes', text: 'Considered case by case. See long-distance transport for details.' },
+      { tier: 'sacramento', status: 'home', name: 'Sacramento & Greater Sacramento', text: 'Home base. Local moves around Sacramento and nearby communities are our everyday work.' },
+      { tier: 'norcal', status: 'near', name: 'Northern California & the I-80 corridor', text: 'Regional routes, for example toward Davis or along I-80. Availability depends on the load and schedule, and each route is quoted individually.' },
+      { tier: 'bay', status: 'tbc', name: 'San Francisco & the Bay Area', text: 'Scheduled longer-distance transport, including Sacramento to San Francisco. Arranged in advance with a custom quote.' },
+      { tier: 'longer', status: 'tbc', name: 'Other longer routes', text: 'Other Northern California destinations by arrangement. See long-distance transport for details.' },
     ],
-    statuses: { home: 'Home base', near: 'Ask to confirm', tbc: 'Being confirmed' },
+    statuses: { home: 'Home base', near: 'Regional routes', tbc: 'By arrangement' },
+    citiesNote: 'Serving Greater Sacramento, Northern California, and the San Francisco Bay Area. Availability, scheduling, and pricing are confirmed individually based on your pickup and delivery locations.',
     corridorsTitle: 'The roads out of Sacramento',
-    corridors: 'Interstate 80, Interstate 5 and US Route 50 all meet in Sacramento, which makes routes along them a natural fit. That’s geography, not a promise — your specific route is always confirmed first.',
-    mapLabel: 'Schematic map: Sacramento home base, with provisional routes toward Davis, Yuba City, Auburn, Placerville, Stockton and the Bay Area',
-    mapCaption: 'Schematic, not to scale. Coverage outside Sacramento is provisional.',
+    corridors: 'Interstate 80, Interstate 5 and US Route 50 all meet in Sacramento, which makes routes along them a natural fit — I-80 runs straight to the Bay Area. Your specific route, timing and price are always confirmed before booking.',
+    mapLabel: 'Schematic map: Sacramento home base, with regional routes toward Davis, Yuba City, Auburn, Placerville and Stockton, and scheduled routes to San Francisco and the Bay Area',
+    mapCaption: 'Schematic, not to scale. Routes outside Sacramento are confirmed and quoted individually.',
     places: { sf: 'San Francisco', oakland: 'Oakland', sanjose: 'San Jose', davis: 'Davis', stockton: 'Stockton', auburn: 'Auburn', placerville: 'Placerville', yuba: 'Yuba City', sacramento: 'Sacramento' },
   },
 
   quote: {
     seo: {
       title: 'Get a Transport Quote | Royal Prestige Towing',
-      description: 'Describe your vehicle or equipment and route to request a transport quote from Royal Prestige Towing in Sacramento.',
+      description: 'Request a flatbed transport quote from Royal Prestige Towing in Sacramento: share your vehicle or equipment, pickup and drop-off — around Sacramento, Northern California or the Bay Area.',
     },
     title: 'Request a transport quote',
-    intro: 'Four quick details. Add more only if you want to.',
+    intro: 'Share the load, pickup and drop-off — around Sacramento, across Northern California or to the Bay Area. Four quick details; add more only if you want to.',
     formLabel: 'Transport quote request',
     fields: {
       load: { legend: 'What are we moving?' },

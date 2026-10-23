@@ -32,8 +32,8 @@ export const BUSINESS = {
   region: 'CA',
   country: 'US',
   phone: PHONE,
-  /** Only the home base is confirmed; everything else is provisional. */
-  confirmedArea: ['Sacramento'],
+  /** Home base and confirmed destinations; other places are quoted route by route. */
+  confirmedArea: ['Sacramento', 'San Francisco'],
 } as const;
 
 export interface PriceTier {

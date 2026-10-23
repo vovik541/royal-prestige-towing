@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { I18n } from '../../core/i18n/i18n';
+import { AreaTier, citiesIn } from '../../content/service-areas';
 import { Seo, breadcrumbSchema } from '../../core/seo/seo';
 import { AreaMap } from '../../shared/area-map';
 import { Breadcrumbs } from '../../shared/breadcrumbs';
@@ -8,7 +9,7 @@ import { DeckLine } from '../../shared/deck-line';
 import { FinalCta } from '../../shared/final-cta';
 import { Reveal } from '../../shared/reveal';
 
-/** Sacramento base and how coverage beyond it is confirmed route by route. */
+/** Sacramento base, regional Northern California routes and scheduled Bay Area transport. */
 @Component({
   selector: 'app-areas',
   imports: [RouterLink, AreaMap, Breadcrumbs, DeckLine, FinalCta, Reveal],
@@ -35,9 +36,19 @@ import { Reveal } from '../../shared/reveal';
                 <span class="status status--{{ r.status }}">{{ statusLabel(r.status) }}</span>
                 <h3>{{ r.name }}</h3>
                 <p>{{ r.text }}</p>
+                @if (cities(r.tier); as list) {
+                  @if (list.length) {
+                    <ul class="cities" [attr.aria-label]="r.name">
+                      @for (c of list; track c.name.en) {
+                        <li>{{ c.name[lang()] }}</li>
+                      }
+                    </ul>
+                  }
+                }
               </li>
             }
           </ul>
+          <p class="cities-note">{{ a.citiesNote }}</p>
         </div>
         <app-area-map appReveal />
       </div>
@@ -59,9 +70,11 @@ import { Reveal } from '../../shared/reveal';
     .top { padding-top: 0; }
     .grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
     .regions { list-style: none; margin-top: 28px; border-top: 1px solid var(--line); }
-    .regions li { padding: 20px 0; border-bottom: 1px solid var(--line); display: grid; gap: 6px; }
+    .regions > li { padding: 20px 0; border-bottom: 1px solid var(--line); display: grid; gap: 6px; }
     .regions h3 { font: 600 var(--t-h3)/1.2 var(--text); }
-    .regions p { color: var(--silver-2); font-size: var(--t-sm); }
+    .regions > li > p { color: var(--silver-2); font-size: var(--t-sm); }
+    .cities { list-style: none; display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 6px; font-size: var(--t-xs); color: var(--silver-2); }
+    .cities-note { margin-top: 16px; font-size: var(--t-xs); color: var(--silver-2); max-width: 40em; }
     .status { justify-self: start; font-size: var(--t-xs); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 4px 8px; border-radius: 2px; border: 1px solid var(--line-2); color: var(--silver-2); }
     .status--home { border-color: var(--copper); color: var(--copper-hi); }
     .status--near { border-color: var(--steel); color: var(--steel); }
@@ -85,6 +98,9 @@ export class AreasPage {
       });
     });
   }
+
+  protected readonly lang = this.i18n.lang;
+  protected readonly cities = (tier: string) => citiesIn(tier as AreaTier);
 
   protected statusLabel(status: string): string {
     const s = this.i18n.t().areas.statuses;

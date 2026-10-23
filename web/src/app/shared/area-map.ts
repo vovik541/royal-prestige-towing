@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { I18n } from '../core/i18n/i18n';
 
 /**
- * Schematic (not geographic) map of routes out of Sacramento. Only Sacramento is drawn as
- * confirmed; nearby towns are "ask to confirm" and the Bay Area is "being confirmed".
+ * Schematic (not geographic) map of routes out of Sacramento: the home base, regional routes
+ * (quoted per route) and the Bay Area, served by scheduled routes arranged in advance.
  */
 @Component({
   selector: 'app-area-map',
