@@ -39,8 +39,10 @@
 }
 @media (max-width: 640px) {
   :root { --t-md: 16px; --bar-h: 64px; }
-  /* Room for the fixed Call Now / Get a Quote bar (layout/shell.ts) so it never hides content. */
+  /* Room for the fixed Call Now / Text Us bar (layout/shell.ts) so it never hides content. */
   body { padding-bottom: calc(73px + env(safe-area-inset-bottom)); }
+  /* The open mobile menu has its own Call button; the bar never sits on top of it. */
+  body:has(#site-menu:not([hidden])) .dock { display: none; }
 }
 
 *, *::before, *::after { box-sizing: border-box; }

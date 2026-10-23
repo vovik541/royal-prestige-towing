@@ -35,8 +35,9 @@
     <a [routerLink]="i18n.link('contact')">{{ t.nav.contact }}</a>
   </nav>
   <div class="sheet__foot">
-    <div class="sheet__actions">
+    <div class="sheet__actions" appContactZone>
       <a class="btn btn--copper btn--lg btn--wrap" [href]="phone.href" [attr.aria-label]="callAria()"><app-phone-icon /><span>{{ t.common.callNow }} · <span class="nowrap">{{ phone.display }}</span></span></a>
+      <a class="btn btn--ghost btn--lg sheet__sms" [href]="phone.sms" [attr.aria-label]="smsAria()"><app-message-icon />{{ t.common.textUs }}</a>
       <a class="btn btn--ghost btn--lg" [routerLink]="i18n.link('contact')">{{ t.common.getQuote }}</a>
     </div>
     <app-lang-switcher [full]="true" />

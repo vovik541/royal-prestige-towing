@@ -34,6 +34,7 @@ import { LangSwitcher } from './lang-switcher';
         <div class="foot__col">
           <h2>{{ t.footer.contact }}</h2>
           <a class="tel" [href]="phone.href" [attr.aria-label]="callAria()">{{ phone.display }}</a>
+          <a [href]="phone.sms" [attr.aria-label]="smsAria()">{{ t.common.textUs }}</a>
           <a [routerLink]="i18n.link('contact')">{{ t.common.getQuote }}</a>
           <h2 class="foot__langs">{{ t.footer.languages }}</h2>
           <app-lang-switcher [full]="true" />
@@ -72,4 +73,5 @@ export class Footer {
   protected readonly phone = PHONE;
   protected readonly dev = DEVELOPER;
   protected readonly callAria = () => fmt(this.i18n.t().common.callAria, { phone: PHONE.display });
+  protected readonly smsAria = () => fmt(this.i18n.t().common.smsAria, { phone: PHONE.display });
 }

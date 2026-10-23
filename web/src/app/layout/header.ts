@@ -3,14 +3,16 @@ import { NavigationStart, Router, RouterLink, RouterLinkActive } from '@angular/
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs';
 import { PHONE } from '../core/config/site';
+import { ContactZone } from '../core/contact-bar';
 import { I18n, fmt } from '../core/i18n/i18n';
 import { DeckLine } from '../shared/deck-line';
+import { MessageIcon } from '../shared/message-icon';
 import { PhoneIcon } from '../shared/phone-icon';
 import { LangSwitcher } from './lang-switcher';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, RouterLinkActive, DeckLine, LangSwitcher, PhoneIcon],
+  imports: [RouterLink, RouterLinkActive, ContactZone, DeckLine, LangSwitcher, MessageIcon, PhoneIcon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { '(window:scroll)': 'onScroll()', '(document:keydown.escape)': 'close()' },
   templateUrl: './header.html',
@@ -22,6 +24,7 @@ export class Header {
 
   protected readonly phone = PHONE;
   protected readonly callAria = computed(() => fmt(this.i18n.t().common.callAria, { phone: PHONE.display }));
+  protected readonly smsAria = computed(() => fmt(this.i18n.t().common.smsAria, { phone: PHONE.display }));
   protected readonly open = signal(false);
   protected readonly scrolled = signal(false);
 

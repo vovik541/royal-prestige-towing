@@ -53,6 +53,8 @@ input[type='date'] { color-scheme: dark; }
 .unavailable h3 { font-size: var(--t-md); }
 .unavailable p { color: var(--silver-2); font-size: var(--t-sm); }
 .unavailable .btn { justify-self: start; margin-top: 4px; }
+.unavailable .sms { margin-top: 0; }
+.unavailable .sms app-message-icon { color: var(--copper); }
 .review__actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .copy-status { min-height: 1.4em; font-size: var(--t-sm); color: var(--steel); }
 

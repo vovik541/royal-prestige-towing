@@ -4,6 +4,7 @@ import { AbstractControl, NonNullableFormBuilder, ReactiveFormsModule, Validatio
 import { PHONE } from '../../core/config/site';
 import { I18n, fmt } from '../../core/i18n/i18n';
 import { LOAD_TYPES, LoadType } from '../../content/photos';
+import { MessageIcon } from '../../shared/message-icon';
 import { PhoneIcon } from '../../shared/phone-icon';
 import { CONDITIONS, CONTACT_PREFS, Condition, ContactPref, QuoteRequest, QuoteSubmission, TIMINGS, Timing } from './quote.model';
 
@@ -38,7 +39,7 @@ function dateWhenNeeded(group: AbstractControl): ValidationErrors | null {
  */
 @Component({
   selector: 'app-quote-form',
-  imports: [ReactiveFormsModule, PhoneIcon],
+  imports: [ReactiveFormsModule, MessageIcon, PhoneIcon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './quote-form.html',
   styleUrl: './quote-form.css',
@@ -51,6 +52,7 @@ export class QuoteForm {
   protected readonly submission = inject(QuoteSubmission);
   protected readonly phone = PHONE;
   protected readonly callAria = computed(() => fmt(this.i18n.t().common.callAria, { phone: PHONE.display }));
+  protected readonly smsAria = computed(() => fmt(this.i18n.t().common.smsAria, { phone: PHONE.display }));
 
   /** Load type, two-way bound with the page (preselected from ?type=). */
   readonly loadType = model<LoadType>('everyday');

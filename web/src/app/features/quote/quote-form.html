@@ -109,6 +109,7 @@
         <h3>{{ q.review.unavailableTitle }}</h3>
         <p>{{ q.review.unavailableText }}</p>
         <a class="btn btn--copper btn--wrap" [href]="phone.href" [attr.aria-label]="callAria()"><app-phone-icon /><span>{{ t.common.callSerhii }} · <span class="nowrap">{{ phone.display }}</span></span></a>
+        <a class="btn btn--ghost sms" [href]="phone.sms" [attr.aria-label]="smsAria()"><app-message-icon />{{ t.common.textUs }}</a>
       </div>
     }
     <div class="review__actions">

@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { PHONE } from '../core/config/site';
+import { ContactZone } from '../core/contact-bar';
 import { I18n, fmt } from '../core/i18n/i18n';
+import { MessageIcon } from './message-icon';
 import { PhoneIcon } from './phone-icon';
 import { Photo } from './photo';
 import { Reveal } from './reveal';
@@ -8,7 +10,7 @@ import { Reveal } from './reveal';
 /** Serhii Hoida: portrait, the "you'll deal with Serhii" promise and his three-step handover. */
 @Component({
   selector: 'app-owner-profile',
-  imports: [Photo, PhoneIcon, Reveal],
+  imports: [ContactZone, MessageIcon, Photo, PhoneIcon, Reveal],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @let t = i18n.t();
@@ -30,7 +32,10 @@ import { Reveal } from './reveal';
           }
         </ol>
         <p class="note">{{ t.owner.note }}</p>
-        <a class="btn btn--line btn--wrap call" [href]="phone.href" [attr.aria-label]="callAria()"><app-phone-icon /><span>{{ t.common.callSerhii }} · <span class="nowrap">{{ phone.display }}</span></span></a>
+        <div class="call" appContactZone>
+          <a class="btn btn--line btn--wrap" [href]="phone.href" [attr.aria-label]="callAria()"><app-phone-icon /><span>{{ t.common.callSerhii }} · <span class="nowrap">{{ phone.display }}</span></span></a>
+          <a class="btn btn--line" [href]="phone.sms" [attr.aria-label]="smsAria()"><app-message-icon />{{ t.common.textUs }}</a>
+        </div>
       </div>
     </div>
   `,
@@ -47,8 +52,8 @@ import { Reveal } from './reveal';
     .handover__t { font: 600 22px/1.1 var(--display); text-transform: uppercase; letter-spacing: .02em; color: var(--copper); }
     .handover li > span:last-child { color: var(--silver-2); font-size: var(--t-sm); }
     .note { margin-top: 24px; color: var(--silver-2); font-size: var(--t-sm); }
-    .call { margin-top: 28px; }
-    .call app-phone-icon { color: var(--copper); }
+    .call { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .call app-phone-icon, .call app-message-icon { color: var(--copper); }
     @media (max-width: 900px) {
       .grid { grid-template-columns: minmax(0, 1fr); }
       .photo { max-width: 420px; }
@@ -66,7 +71,8 @@ import { Reveal } from './reveal';
       .handover { grid-area: steps; margin-top: 6px; }
       .handover li { grid-template-columns: minmax(0, 1fr); gap: 4px; padding: 14px 0; }
       .note { grid-area: note; margin-top: 0; }
-      .call { grid-area: call; margin-top: 0; justify-self: stretch; }
+      .call { grid-area: call; margin-top: 0; }
+      .call .btn { flex: 1 1 auto; }
     }
   `,
 })
@@ -75,4 +81,5 @@ export class OwnerProfile {
   readonly headingLevel = input<1 | 2>(2);
   protected readonly phone = PHONE;
   protected readonly callAria = computed(() => fmt(this.i18n.t().common.callAria, { phone: PHONE.display }));
+  protected readonly smsAria = computed(() => fmt(this.i18n.t().common.smsAria, { phone: PHONE.display }));
 }

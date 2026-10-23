@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input, linkedSignal } from '@angular/core';
 import { PHONE } from '../../core/config/site';
+import { ContactZone } from '../../core/contact-bar';
 import { I18n, fmt } from '../../core/i18n/i18n';
 import { Seo, breadcrumbSchema } from '../../core/seo/seo';
 import { LoadType, isLoadType } from '../../content/photos';
 import { Breadcrumbs } from '../../shared/breadcrumbs';
+import { MessageIcon } from '../../shared/message-icon';
 import { PaymentNote } from '../../shared/payment-note';
 import { PhoneIcon } from '../../shared/phone-icon';
 import { Pricing, pricingVisible } from '../../shared/pricing';
@@ -12,7 +14,7 @@ import { QuoteForm } from './quote-form';
 /** Contact / get a quote. `?type=machinery` preselects a load type (from the configurator or a service page). */
 @Component({
   selector: 'app-quote-page',
-  imports: [Breadcrumbs, PaymentNote, PhoneIcon, Pricing, QuoteForm],
+  imports: [Breadcrumbs, ContactZone, MessageIcon, PaymentNote, PhoneIcon, Pricing, QuoteForm],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @let t = i18n.t();
@@ -25,11 +27,12 @@ import { QuoteForm } from './quote-form';
     </header>
     <section class="section body" [attr.aria-label]="t.quote.formLabel">
       <div class="grid wrap">
-        <app-quote-form [(loadType)]="loadType" />
+        <app-quote-form [(loadType)]="loadType" appContactZone />
         <aside class="aside">
-          <div class="call">
+          <div class="call" appContactZone>
             <p>{{ t.common.preferToTalk }}</p>
             <a class="call__tel" [href]="phone.href" [attr.aria-label]="callAria()"><app-phone-icon />{{ phone.display }}</a>
+            <a class="call__sms" [href]="phone.sms" [attr.aria-label]="smsAria()"><app-message-icon />{{ t.common.textUs }}</a>
           </div>
           @if (showPricing) {
             <app-pricing [compact]="true" />
@@ -52,6 +55,9 @@ import { QuoteForm } from './quote-form';
     .call__tel { display: inline-flex; align-items: center; gap: 10px; font: 600 clamp(26px, 2.4vw, 34px)/1.2 var(--display); letter-spacing: .02em; text-decoration: none; }
     .call__tel app-phone-icon { color: var(--copper); width: 22px; height: 22px; transform: translateY(-3px); }
     .call__tel:hover { color: #fff; }
+    .call__sms { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 600; }
+    .call__sms app-message-icon { color: var(--copper); }
+    .call__sms:hover { color: #fff; }
     @media (max-width: 900px) {
       .grid { grid-template-columns: minmax(0, 1fr); }
       .aside { position: static; }
@@ -63,6 +69,7 @@ export class QuotePage {
   protected readonly phone = PHONE;
   protected readonly showPricing = pricingVisible();
   protected readonly callAria = computed(() => fmt(this.i18n.t().common.callAria, { phone: PHONE.display }));
+  protected readonly smsAria = computed(() => fmt(this.i18n.t().common.smsAria, { phone: PHONE.display }));
 
   /** Query parameter ?type= (component input binding). */
   readonly type = input<string | undefined>();
