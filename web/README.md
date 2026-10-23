@@ -96,16 +96,23 @@ The domain is a placeholder (`royal-prestige-towing.example`) — set `siteUrl` 
 
 ## Quote request
 
-Configurator → details → optional contact → review. Typed reactive forms, inline accessible
-errors with focus management, no prices. `QUOTE_ENDPOINT` is `null`, so the review step states
+Configurator → details → contact (US phone required, name optional; email is never collected) →
+review. Typed reactive forms, inline accessible errors with focus management, no prices. `QUOTE_ENDPOINT` is `null`, so the review step states
 that online submission isn't connected and the send button is disabled; visitors can copy their
 request. Nothing claims a request was sent. To connect a backend: implement `POST /api/quote`
 (see `src/server.ts`) accepting `QuoteRequest` (`features/quote/quote.model.ts`), then set
 `QUOTE_ENDPOINT = '/api/quote'` and add success/error states.
 
+## Contact
+
+Phone +1 (916) 470-5606 is the only public contact method besides the quote form; it lives in
+`PHONE` in `src/app/core/config/site.ts` (display, E.164, tel: link) and is used by the header,
+the mobile Call Now / Get a Quote bar, owner section, final CTA, quote page, footer and JSON-LD.
+Email is intentionally not offered anywhere on the site.
+
 ## Still to confirm with the owner
 
-Phone (the note's (916) 470-5606 is unverified and not shown) · email · production domain ·
+Production domain ·
 coverage beyond Sacramento · owner-operated claims (Serhii quotes, loads and delivers himself;
 wheel straps only) · enclosed transport, non-running vehicles, machinery weight/size limits ·
 vehicle names in captions · use of the portrait · how quote requests should be delivered.

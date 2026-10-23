@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 
 /**
  * Future quote API: POST /api/quote would validate the QuoteRequest payload and deliver it
- * (email, CRM…). Until then QUOTE_ENDPOINT in src/app/core/config/site.ts stays null and the
+ * (for example to the owner's phone or a CRM). Until then QUOTE_ENDPOINT in src/app/core/config/site.ts stays null and the
  * site states plainly that online submission is unavailable.
  */
 

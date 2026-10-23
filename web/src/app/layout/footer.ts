@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { I18n } from '../core/i18n/i18n';
+import { PHONE } from '../core/config/site';
+import { I18n, fmt } from '../core/i18n/i18n';
 import { SERVICES } from '../content/services';
 import { DeckLine } from '../shared/deck-line';
 import { LangSwitcher } from './lang-switcher';
@@ -32,8 +33,8 @@ import { LangSwitcher } from './lang-switcher';
         </nav>
         <div class="foot__col">
           <h2>{{ t.footer.contact }}</h2>
-          <p class="tbc">{{ t.common.phonePending }}</p>
-          <p class="tbc">{{ t.common.emailPending }}</p>
+          <a class="tel" [href]="phone.href" [attr.aria-label]="callAria()">{{ phone.display }}</a>
+          <a [routerLink]="i18n.link('contact')">{{ t.common.getQuote }}</a>
           <h2 class="foot__langs">{{ t.footer.languages }}</h2>
           <app-lang-switcher [full]="true" />
         </div>
@@ -55,10 +56,10 @@ import { LangSwitcher } from './lang-switcher';
     .foot__langs { margin-top: 16px; }
     .foot__col a { text-decoration: none; color: var(--silver-2); transition: color .2s; }
     .foot__col a:hover { color: var(--silver); }
+    .foot__col .tel { color: var(--silver); font-weight: 600; font-size: var(--t-md); }
     .foot__base { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--line); font-size: var(--t-xs); color: var(--silver-2); }
     @media (max-width: 1000px) { .foot__grid { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 640px) {
-      .foot { padding-bottom: 104px; }
       .foot__brand, .foot__col:last-child { grid-column: 1 / -1; }
     }
   `,
@@ -67,4 +68,6 @@ export class Footer {
   protected readonly i18n = inject(I18n);
   protected readonly services = SERVICES;
   protected readonly year = new Date().getFullYear();
+  protected readonly phone = PHONE;
+  protected readonly callAria = () => fmt(this.i18n.t().common.callAria, { phone: PHONE.display });
 }

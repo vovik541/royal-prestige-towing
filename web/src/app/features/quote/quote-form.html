@@ -81,27 +81,24 @@
       }
 
       @case (2) {
-        <h2 class="panel__h" #stepHeading tabindex="-1">{{ q.steps.contact }} <span class="opt">({{ t.common.optional }})</span></h2>
+        <h2 class="panel__h" #stepHeading tabindex="-1">{{ q.steps.contact }}</h2>
         <p class="panel__sub muted">{{ q.contactIntro }}</p>
         @if (showErrors() && contact.invalid) {
           <p class="err-summary" role="alert">{{ q.errors.summary }}</p>
         }
         <form [formGroup]="contact" (ngSubmit)="next()" novalidate class="fields">
-          <div class="f f--wide">
-            <label for="q-name">{{ q.fields.name.label }}</label>
-            <input id="q-name" formControlName="name" autocomplete="name" />
-          </div>
-          <div class="f">
+          <div class="f f--wide f--narrow">
             <label for="q-phone">{{ q.fields.phone.label }}</label>
-            <input id="q-phone" type="tel" formControlName="phone" autocomplete="tel" inputmode="tel"
-              [attr.aria-invalid]="invalid(contact.controls.phone)" aria-describedby="q-phone-err" />
-            @if (invalid(contact.controls.phone)) { <p class="err" id="q-phone-err">{{ q.errors.phoneInvalid }}</p> }
+            <p class="hint" id="q-phone-hint">{{ q.fields.phone.hint }}</p>
+            <input id="q-phone" type="tel" formControlName="phone" autocomplete="tel-national" inputmode="tel" maxlength="20"
+              [attr.aria-invalid]="invalid(contact.controls.phone)" aria-describedby="q-phone-hint q-phone-err" />
+            @if (invalid(contact.controls.phone)) {
+              <p class="err" id="q-phone-err">{{ contact.controls.phone.hasError('required') ? q.errors.phoneRequired : q.errors.phoneInvalid }}</p>
+            }
           </div>
-          <div class="f">
-            <label for="q-email">{{ q.fields.email.label }}</label>
-            <input id="q-email" type="email" formControlName="email" autocomplete="email"
-              [attr.aria-invalid]="invalid(contact.controls.email)" aria-describedby="q-email-err" />
-            @if (invalid(contact.controls.email)) { <p class="err" id="q-email-err">{{ q.errors.emailInvalid }}</p> }
+          <div class="f f--wide f--narrow">
+            <label for="q-name">{{ q.fields.name.label }} <span class="opt">({{ t.common.optional }})</span></label>
+            <input id="q-name" formControlName="name" autocomplete="name" />
           </div>
           <fieldset class="f f--wide">
             <legend>{{ q.fields.contactPref.label }}</legend>
@@ -138,6 +135,7 @@
           <div class="unavailable" role="note">
             <h3>{{ q.review.unavailableTitle }}</h3>
             <p>{{ q.review.unavailableText }}</p>
+            <a class="btn btn--copper btn--wrap unavailable__call" [href]="phone.href" [attr.aria-label]="callAria()"><app-phone-icon /><span>{{ t.common.callSerhii }} · <span class="nowrap">{{ phone.display }}</span></span></a>
           </div>
         }
         <div class="review__actions">

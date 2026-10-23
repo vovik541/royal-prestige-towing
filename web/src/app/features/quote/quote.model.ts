@@ -7,7 +7,7 @@ import { LoadType } from '../../content/photos';
 
 export const CONDITIONS = ['runs', 'rolls', 'static', 'unsure'] as const;
 export const TIMINGS = ['flexible', 'week', 'date'] as const;
-export const CONTACT_PREFS = ['phone', 'text', 'email'] as const;
+export const CONTACT_PREFS = ['phone', 'text'] as const;
 export type Condition = (typeof CONDITIONS)[number];
 export type Timing = (typeof TIMINGS)[number];
 export type ContactPref = (typeof CONTACT_PREFS)[number];
@@ -23,7 +23,11 @@ export interface QuoteRequest {
   timing: Timing;
   date: string | null;
   notes: string;
-  contact: { name: string; phone: string; email: string; preference: ContactPref };
+  /**
+   * The public form collects a phone number only. `email` stays optional in the payload so a
+   * future API that accepts it is not broken, but the website never asks for or sends it.
+   */
+  contact: { name: string; phone: string; email?: string; preference: ContactPref };
 }
 
 /**

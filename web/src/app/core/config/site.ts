@@ -8,9 +8,17 @@ export const SITE = {
   servicePages: config.servicePages,
 } as const;
 
+/** The business telephone, confirmed by the owner. Every phone link and display reads from here. */
+export const PHONE = {
+  display: '+1 (916) 470-5606',
+  /** E.164 form for tel: links and structured data. */
+  e164: '+19164705606',
+  href: 'tel:+19164705606',
+} as const;
+
 /**
- * Business facts. Anything not yet confirmed by the owner is null and rendered as
- * "pending confirmation" — never as a guessed value.
+ * Business facts. Only confirmed details are published; email is deliberately not a public
+ * contact method (phone and the quote form only).
  */
 export const BUSINESS = {
   name: 'Royal Prestige Towing',
@@ -19,9 +27,7 @@ export const BUSINESS = {
   city: 'Sacramento',
   region: 'CA',
   country: 'US',
-  /** Unverified: a handwritten note may list (916) 470-5606. Do not publish until confirmed. */
-  phone: null as string | null,
-  email: null as string | null,
+  phone: PHONE,
   /** Only the home base is confirmed; everything else is provisional. */
   confirmedArea: ['Sacramento'],
 } as const;

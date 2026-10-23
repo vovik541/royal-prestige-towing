@@ -5,7 +5,7 @@
 .steps .is-current { color: var(--silver); }
 .steps .is-current .steps__bar { background: var(--copper); }
 
-.panel { background: var(--carbon-2); border: 1px solid var(--line); border-radius: 2px; padding: clamp(22px, 3.2vw, 48px); display: grid; gap: 20px; }
+.panel { min-width: 0; background: var(--carbon-2); border: 1px solid var(--line); border-radius: 2px; padding: clamp(22px, 3.2vw, 48px); display: grid; gap: 20px; }
 .panel__h { font: 600 var(--t-section)/1.12 var(--text); letter-spacing: -.02em; }
 .panel__h:focus { outline: none; }
 .panel__sub { margin-top: -8px; max-width: 46em; }
@@ -14,6 +14,7 @@
 .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 16px; }
 .f { display: grid; gap: 8px; align-content: start; min-width: 0; border: 0; padding: 0; margin: 0; }
 .f--wide { grid-column: 1 / -1; }
+.f--narrow { max-width: 420px; }
 .f label, .f legend { font-size: var(--t-sm); font-weight: 600; padding: 0; }
 .f legend { margin-bottom: 8px; }
 .hint { font-size: var(--t-xs); color: var(--silver-2); margin-top: -4px; }
@@ -43,9 +44,10 @@ fieldset[aria-invalid='true'] .seg span { border-color: rgba(227, 160, 147, .6);
 .review dl div { display: grid; gap: 2px; min-width: 0; }
 .review dt { font-size: var(--t-xs); color: var(--silver-2); }
 .review dd { font-weight: 600; overflow-wrap: anywhere; }
-.unavailable { border-left: 2px solid var(--steel); background: var(--graphite); padding: 18px 20px; display: grid; gap: 6px; }
+.unavailable { min-width: 0; border-left: 2px solid var(--steel); background: var(--graphite); padding: 18px 20px; display: grid; gap: 6px; }
 .unavailable h3 { font-size: var(--t-md); }
 .unavailable p { color: var(--silver-2); font-size: var(--t-sm); }
+.unavailable__call { justify-self: start; margin-top: 8px; }
 .review__actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .copy-status { min-height: 1.6em; font-size: var(--t-sm); color: var(--steel); }
 
@@ -59,5 +61,6 @@ fieldset[aria-invalid='true'] .seg span { border-color: rgba(227, 160, 147, .6);
   .seg span { width: 100%; justify-content: center; padding: 0 10px; text-align: center; }
   .review dl { grid-template-columns: 1fr 1fr; }
   .review__actions .btn, .nav .btn { flex: 1 1 100%; }
+  .unavailable__call { justify-self: stretch; }
   .nav { flex-direction: column-reverse; }
 }

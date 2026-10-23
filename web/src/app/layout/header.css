@@ -11,19 +11,34 @@
 .nav a:hover, .nav a.is-active { color: var(--silver); }
 .nav a:hover::after, .nav a.is-active::after { right: 0; }
 .bar__end { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+.call { display: flex; align-items: center; gap: 10px; text-decoration: none; padding: 4px 4px 4px 0; color: var(--silver); white-space: nowrap; }
+.call__icon { color: var(--copper); transition: transform .3s var(--ease); }
+.call__text { display: grid; line-height: 1.15; }
+.call__label { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--copper); }
+.call__num { font-size: var(--t-sm); font-weight: 600; letter-spacing: .01em; transition: color .2s; }
+.call:hover .call__num { color: #fff; }
+.call:hover .call__icon { transform: rotate(-8deg); }
 .menu-btn { display: none; min-height: 40px; padding: 0 14px; background: transparent; border: 1px solid var(--line-2); border-radius: 2px; font-size: 14px; font-weight: 600; }
 
 .sheet { position: fixed; inset: var(--bar-h) 0 0; z-index: 49; background: var(--carbon); padding: 8px var(--gut) 40px; display: flex; flex-direction: column; justify-content: space-between; gap: 32px; overflow-y: auto; }
 .sheet[hidden] { display: none; }
 .sheet nav { display: flex; flex-direction: column; }
 .sheet nav a { font: 600 30px/1 var(--display); text-transform: uppercase; letter-spacing: .01em; text-decoration: none; padding: 16px 0; border-bottom: 1px solid var(--line); }
-.sheet__foot { display: grid; gap: 16px; }
+.sheet__foot { display: grid; gap: 20px; }
+.sheet__actions { display: grid; gap: 10px; }
 
+@media (max-width: 1400px) {
+  .mark__name { display: none; }
+}
 @media (max-width: 1180px) {
   .nav, .bar__lang { display: none; }
   .menu-btn { display: inline-flex; align-items: center; }
 }
+@media (max-width: 1180px) and (min-width: 641px) {
+  .mark__name { display: inline; }
+}
 @media (max-width: 640px) {
   .bar__in { gap: 12px; }
-  .bar__cta, .mark__name { display: none; }
+  /* Phones get the fixed Call Now / Get a Quote bar instead (layout/shell.ts). */
+  .bar__cta, .mark__name, .call { display: none; }
 }

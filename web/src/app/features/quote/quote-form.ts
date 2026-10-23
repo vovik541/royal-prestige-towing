@@ -1,12 +1,31 @@
 import { ChangeDetectionStrategy, Component, DOCUMENT, ElementRef, Injector, afterNextRender, computed, inject, model, signal, viewChild } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { AbstractControl, NonNullableFormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { PHONE } from '../../core/config/site';
 import { I18n, fmt } from '../../core/i18n/i18n';
 import { LoadType } from '../../content/photos';
+import { PhoneIcon } from '../../shared/phone-icon';
 import { Configurator } from './configurator';
 import { CONDITIONS, CONTACT_PREFS, Condition, ContactPref, QuoteRequest, QuoteSubmission, TIMINGS, Timing } from './quote.model';
 
-const PHONE = /^[+()\d\s.-]{7,20}$/;
+/** 10 US digits (an optional leading 1 is dropped), or null if it isn't a valid NANP number. */
+export function usDigits(value: string): string | null {
+  if (!/^[+()\d\s.-]*$/.test(value)) return null;
+  let d = value.replace(/\D/g, '');
+  if (d.length === 11 && d.startsWith('1')) d = d.slice(1);
+  return /^[2-9]\d{2}[2-9]\d{6}$/.test(d) ? d : null;
+}
+
+/** Accepts US phone numbers in common formats: (916) 555-1234, 916-555-1234, +1 916 555 1234. */
+function usPhone(control: AbstractControl): ValidationErrors | null {
+  const value = String(control.value ?? '').trim();
+  return !value || usDigits(value) ? null : { usPhone: true };
+}
+
+const formatUs = (value: string) => {
+  const d = usDigits(value);
+  return d ? `(${d.slice(0, 3)}) ${d.slice(3, 6)}-${d.slice(6)}` : value;
+};
 
 /** A preferred date is required only when "on a specific date" is chosen. */
 function dateWhenNeeded(group: AbstractControl): ValidationErrors | null {
@@ -19,7 +38,7 @@ type Step = 0 | 1 | 2 | 3;
 
 @Component({
   selector: 'app-quote-form',
-  imports: [ReactiveFormsModule, Configurator],
+  imports: [ReactiveFormsModule, Configurator, PhoneIcon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './quote-form.html',
   styleUrl: './quote-form.css',
@@ -30,6 +49,8 @@ export class QuoteForm {
   private readonly doc = inject(DOCUMENT);
   private readonly injector = inject(Injector);
   protected readonly submission = inject(QuoteSubmission);
+  protected readonly phone = PHONE;
+  protected readonly callAria = computed(() => fmt(this.i18n.t().common.callAria, { phone: PHONE.display }));
 
   readonly loadType = model<LoadType>('exotic');
 
@@ -53,8 +74,7 @@ export class QuoteForm {
 
   protected readonly contact = this.fb.group({
     name: ['', Validators.maxLength(80)],
-    phone: ['', Validators.pattern(PHONE)],
-    email: ['', [Validators.email, Validators.maxLength(120)]],
+    phone: ['', [Validators.required, usPhone]],
     preference: this.fb.control<ContactPref>('phone'),
   });
 
@@ -88,8 +108,7 @@ export class QuoteForm {
       ],
       contact: [
         { label: q.fields.name.label, value: c.name || none },
-        { label: q.fields.phone.label, value: c.phone || none },
-        { label: q.fields.email.label, value: c.email || none },
+        { label: q.fields.phone.label, value: c.phone ? formatUs(c.phone) : none },
         { label: q.fields.contactPref.label, value: q.contactPrefs[c.preference] },
       ],
     };
@@ -147,7 +166,7 @@ export class QuoteForm {
       timing: d.timing,
       date: d.timing === 'date' ? d.date : null,
       notes: d.notes.trim(),
-      contact: this.contact.getRawValue(),
+      contact: { ...this.contact.getRawValue(), phone: usDigits(this.contact.getRawValue().phone) ?? '' },
     };
   }
 

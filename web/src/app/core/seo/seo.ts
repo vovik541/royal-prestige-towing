@@ -26,7 +26,7 @@ export function pageUrl(lang: Lang, path: string): string {
 
 export const ORG_ID = `${SITE.url}/#business`;
 
-/** The business node. Only confirmed facts: no phone, email, address, hours or ratings yet. */
+/** The business node. Only confirmed facts: telephone yes; no email, address, hours or ratings. */
 export function businessSchema(lang: Lang): object {
   return {
     '@type': 'AutomotiveBusiness',
@@ -36,6 +36,7 @@ export function businessSchema(lang: Lang): object {
     url: pageUrl(lang, ''),
     image: SITE.url + DEFAULT_IMAGE,
     logo: SITE.url + '/favicon.svg',
+    telephone: BUSINESS.phone.e164,
     areaServed: { '@type': 'City', name: 'Sacramento', containedInPlace: { '@type': 'State', name: 'California' } },
     employee: { '@type': 'Person', name: BUSINESS.owner, jobTitle: 'Owner' },
   };

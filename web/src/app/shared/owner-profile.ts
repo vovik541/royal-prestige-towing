@@ -1,12 +1,14 @@
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
-import { I18n } from '../core/i18n/i18n';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { PHONE } from '../core/config/site';
+import { I18n, fmt } from '../core/i18n/i18n';
+import { PhoneIcon } from './phone-icon';
 import { Photo } from './photo';
 import { Reveal } from './reveal';
 
 /** Serhii Hoida: portrait, the "you'll deal with Serhii" promise and his three-step handover. */
 @Component({
   selector: 'app-owner-profile',
-  imports: [Photo, Reveal],
+  imports: [Photo, PhoneIcon, Reveal],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @let t = i18n.t();
@@ -28,6 +30,7 @@ import { Reveal } from './reveal';
           }
         </ol>
         <p class="note">{{ t.owner.note }}</p>
+        <a class="btn btn--line btn--wrap call" [href]="phone.href" [attr.aria-label]="callAria()"><app-phone-icon /><span>{{ t.common.callSerhii }} · <span class="nowrap">{{ phone.display }}</span></span></a>
       </div>
     </div>
   `,
@@ -44,6 +47,8 @@ import { Reveal } from './reveal';
     .handover__t { font: 600 22px/1.1 var(--display); text-transform: uppercase; letter-spacing: .02em; color: var(--copper); }
     .handover li > span:last-child { color: var(--silver-2); font-size: var(--t-sm); }
     .note { margin-top: 24px; color: var(--silver-2); font-size: var(--t-sm); }
+    .call { margin-top: 28px; }
+    .call app-phone-icon { color: var(--copper); }
     @media (max-width: 900px) {
       .grid { grid-template-columns: 1fr; }
       .photo { max-width: 420px; }
@@ -58,4 +63,6 @@ import { Reveal } from './reveal';
 export class OwnerProfile {
   protected readonly i18n = inject(I18n);
   readonly headingLevel = input<1 | 2>(2);
+  protected readonly phone = PHONE;
+  protected readonly callAria = computed(() => fmt(this.i18n.t().common.callAria, { phone: PHONE.display }));
 }

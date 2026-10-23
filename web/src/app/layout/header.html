@@ -14,6 +14,10 @@
 
     <div class="bar__end">
       <app-lang-switcher class="bar__lang" />
+      <a class="call" [href]="phone.href" [attr.aria-label]="callAria()">
+        <app-phone-icon class="call__icon" />
+        <span class="call__text"><span class="call__label">{{ t.common.callNow }}</span><span class="call__num">{{ phone.display }}</span></span>
+      </a>
       <a class="btn btn--copper btn--sm bar__cta" [routerLink]="i18n.link('contact')">{{ t.nav.quote }}</a>
       <button class="menu-btn" type="button" [attr.aria-expanded]="open()" aria-controls="site-menu" (click)="toggle()">
         {{ open() ? t.nav.close : t.nav.menu }}
@@ -31,7 +35,10 @@
     <a [routerLink]="i18n.link('contact')">{{ t.nav.contact }}</a>
   </nav>
   <div class="sheet__foot">
+    <div class="sheet__actions">
+      <a class="btn btn--copper btn--lg btn--wrap" [href]="phone.href" [attr.aria-label]="callAria()"><app-phone-icon /><span>{{ t.common.callNow }} · <span class="nowrap">{{ phone.display }}</span></span></a>
+      <a class="btn btn--ghost btn--lg" [routerLink]="i18n.link('contact')">{{ t.common.getQuote }}</a>
+    </div>
     <app-lang-switcher [full]="true" />
-    <p class="tbc">{{ t.common.phonePending }}</p>
   </div>
 </div>

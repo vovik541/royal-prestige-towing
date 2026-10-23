@@ -39,6 +39,8 @@
 }
 @media (max-width: 640px) {
   :root { --t-md: 16px; --bar-h: 64px; }
+  /* Room for the fixed Call Now / Get a Quote bar (layout/shell.ts) so it never hides content. */
+  body { padding-bottom: calc(73px + env(safe-area-inset-bottom)); }
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -69,7 +71,7 @@ button { cursor: pointer; }
 .tbc { color: var(--silver-2); font-size: var(--t-sm); font-style: italic; }
 
 /* Buttons — 2px corners, flat fills, copper reserved for the main action */
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 0 24px; border: 1px solid transparent; border-radius: 2px; font: 600 var(--t-sm)/1 var(--text); letter-spacing: .01em; text-decoration: none; white-space: nowrap; background: none; transition: background-color .25s, border-color .25s, color .25s, transform .2s var(--ease); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; text-align: center; min-height: 48px; padding: 0 24px; border: 1px solid transparent; border-radius: 2px; font: 600 var(--t-sm)/1 var(--text); letter-spacing: .01em; text-decoration: none; white-space: nowrap; background: none; transition: background-color .25s, border-color .25s, color .25s, transform .2s var(--ease); }
 .btn:active { transform: translateY(1px); }
 .btn--copper { background: var(--copper); color: var(--copper-ink); }
 .btn--copper:hover { background: var(--copper-hi); }
@@ -79,6 +81,9 @@ button { cursor: pointer; }
 .btn--line:hover { background: rgba(197, 138, 84, .1); }
 .btn--sm { min-height: 40px; padding: 0 16px; font-size: 14px; }
 .btn--lg { min-height: 56px; padding: 0 30px; font-size: 16px; }
+/* Long labels (e.g. "Call Serhii · +1 (916) 470-5606") may wrap instead of widening their container */
+.btn--wrap { white-space: normal; line-height: 1.25; padding-block: 12px; }
+.nowrap { white-space: nowrap; }
 .btn[aria-disabled='true'], .btn:disabled { opacity: .45; cursor: not-allowed; transform: none; }
 .icon-btn { width: 44px; height: 44px; display: grid; place-items: center; background: transparent; border: 1px solid var(--line-2); border-radius: 2px; transition: border-color .2s, background-color .2s; }
 .icon-btn:hover:not(:disabled) { border-color: var(--silver-2); background: var(--graphite); }
