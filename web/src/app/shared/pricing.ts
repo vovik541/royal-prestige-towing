@@ -51,27 +51,35 @@ export const pricingVisible = (): boolean => PRICING.status === 'confirmed' || i
     .head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; }
     .title-sm { font: 600 var(--t-h3)/1.2 var(--text); }
     .intro { margin-top: 10px; color: var(--silver-2); }
-    .tiers { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 28px; border-top: 1px solid var(--line-2); }
-    .tiers li { display: grid; gap: 6px; padding: 18px 20px 4px 0; }
-    .tiers li + li { padding-left: 20px; border-left: 1px solid var(--line); }
+    /*
+     * One spacing rule for every cell: --cell-x on both sides of each divider, nothing at the
+     * outer edges. Four columns on wide screens; two columns (compact, and on phones) use the
+     * odd/even rules below. Only padding-block changes per layout, so the sides never conflict.
+     */
+    .tiers { --cell-x: 20px; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 28px; border-top: 1px solid var(--line-2); }
+    .tiers li { display: grid; gap: 6px; align-content: start; padding: 18px var(--cell-x) 4px; }
+    .tiers li:first-child { padding-left: 0; }
+    .tiers li:last-child { padding-right: 0; }
+    .tiers li:not(:first-child) { border-left: 1px solid var(--line); }
     .dist { font-size: var(--t-xs); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--steel); }
     .price { font: 600 clamp(34px, 3.4vw, 48px)/1 var(--display); letter-spacing: .01em; color: var(--silver); }
     .price.custom { font-size: clamp(22px, 2vw, 28px); line-height: 1.15; color: var(--copper-hi); hyphens: auto; }
     .note { margin-top: 20px; color: var(--silver-2); font-size: var(--t-sm); max-width: 52em; }
     .foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px 32px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); }
     .actions { display: flex; flex-wrap: wrap; gap: 10px; }
-    :host(.compact) .tiers { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 16px; }
-    :host(.compact) .tiers li { padding: 14px 12px 12px 0; border-left: 0; }
-    :host(.compact) .tiers li:nth-child(even) { padding-left: 16px; border-left: 1px solid var(--line); }
+    :host(.compact) .tiers { --cell-x: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 16px; }
+    :host(.compact) .tiers li { padding-block: 14px 12px; }
+    :host(.compact) .tiers li:nth-child(odd) { padding-left: 0; border-left: 0; }
+    :host(.compact) .tiers li:nth-child(even) { padding-right: 0; }
     :host(.compact) .tiers li:nth-child(n + 3) { border-top: 1px solid var(--line); }
     :host(.compact) .price { font-size: 32px; }
     :host(.compact) .price.custom { font-size: 20px; }
     :host(.compact) .foot { margin-top: 16px; padding-top: 14px; }
     @media (max-width: 760px) {
-      .tiers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .tiers li { padding: 16px 12px 14px 0; border-left: 0 !important; }
-      .tiers li + li { padding-left: 0; }
-      .tiers li:nth-child(even) { padding-left: 16px; border-left: 1px solid var(--line) !important; }
+      .tiers { --cell-x: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .tiers li { padding-block: 16px 14px; }
+      .tiers li:nth-child(odd) { padding-left: 0; border-left: 0; }
+      .tiers li:nth-child(even) { padding-right: 0; }
       .tiers li:nth-child(n + 3) { border-top: 1px solid var(--line); }
       .actions { width: 100%; }
       .actions .btn { flex: 1 1 0; }
@@ -82,7 +90,7 @@ export const pricingVisible = (): boolean => PRICING.status === 'confirmed' || i
     @media (max-width: 380px) {
       .price.custom { font-size: 17px; }
       :host(.compact) .price.custom { font-size: 16px; }
-      :host(.compact) .tiers li:nth-child(even) { padding-left: 12px; }
+      .tiers, :host(.compact) .tiers { --cell-x: 12px; }
     }
   `,
 })
