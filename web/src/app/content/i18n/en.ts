@@ -91,11 +91,11 @@ export const en = {
 
   home: {
     seo: {
-      title: 'Flatbed Towing & Vehicle Transport Sacramento | Royal Prestige Towing',
+      title: 'Scheduled Flatbed Vehicle Transport, Sacramento | Royal Prestige Towing',
       description: 'Owner-operated flatbed vehicle transport based in Sacramento: everyday cars, auto auction pickups, exotics and equipment. Serving Greater Sacramento, Northern California and Bay Area routes. Call or text.',
     },
     hero: {
-      kicker: 'Flatbed vehicle & equipment transport in Sacramento & Northern California',
+      kicker: 'Scheduled flatbed vehicle & equipment transport in Sacramento & Northern California',
       titleA: 'Every load,',
       titleB: 'handled like a McLaren.',
       lede: 'Owner-operated flatbed transport from Sacramento for everyday cars and SUVs, auction purchases, exotics and machinery — around Greater Sacramento and on routes across Northern California, including San Francisco. Loaded slowly, strapped at the wheels, delivered by the person you spoke to.',
@@ -162,6 +162,7 @@ export const en = {
   faq: [
     { q: 'Is RPT only for luxury cars?', a: 'No. Everyday cars are most of what we do, along with auction pickups, exotics and equipment — and every load gets the same care.' },
     { q: 'Can you pick up a car I bought at auction?', a: 'Yes. We pick up from participating auction yards around Sacramento, such as Copart and IAA locations, once the vehicle is released to you. Call or text with the auction, lot number and destination.' },
+    { q: 'Do you offer towing directly from freeways or highways?', a: 'No. Royal Prestige Towing provides scheduled vehicle transportation and auction pickups, but does not perform roadside vehicle recovery or pickups directly from freeways or highways. We can still transport vehicles between cities using highway routes.' },
     { q: 'Do you use an open or enclosed trailer?', a: 'The loads on this site traveled on our open flatbed car-hauler. If your vehicle needs enclosed transport, mention it in your request and we’ll talk through options.' },
     { q: 'Can you move machinery that has to be lifted on?', a: 'Yes, when there’s a forklift or loading equipment on site — like the lathe in our photos. Send dimensions, weight and a photo, and we’ll tell you whether it fits.' },
     { q: 'Can you take a vehicle that doesn’t run?', a: 'Tell us whether it rolls, steers and brakes. We’ll confirm before pickup whether we can load it safely.' },
@@ -239,7 +240,7 @@ export const en = {
           description: 'Auction vehicle pickup and delivery from Sacramento-area yards such as Copart and IAA, and on agreed Northern California routes. Call or text for a route-specific quote.',
         },
         title: 'Auto auction pickup & delivery',
-        intro: 'Bought a vehicle at auction? Call or text Serhii to arrange pickup and delivery from participating auction locations in the Sacramento area and on agreed Northern California routes.',
+        intro: 'Purchased a vehicle from Copart, IAA, ADESA Brasher’s or another auto auction? Call or text Serhii to arrange pickup and delivery from participating auction locations around Sacramento and on agreed Northern California routes.',
         points: [
           { title: 'From the auction yard', text: 'Once the auction has released the vehicle to you, we collect it from the yard and haul it on our flatbed to the destination you choose.' },
           { title: 'Coordinated pickup', text: 'Pickup is scheduled around the yard’s hours and release process. We’ll ask for the location, lot number and any gate pass or release paperwork.' },
@@ -247,7 +248,7 @@ export const en = {
         ],
         ask: ['Auction name and yard location', 'Lot or stock number, and the gate pass or release reference', 'Vehicle year, make and model', 'Whether it runs, rolls and steers', 'Delivery address and when you need it there'],
         faq: [
-          { q: 'Can you pick up from any auction?', a: 'We pick up from participating auction locations around Sacramento and on agreed Northern California routes. Each auction sets its own release and pickup rules, so we confirm the details for your yard before booking.' },
+          { q: 'Which auctions do you pick up from?', a: 'Copart, IAA and ADESA Brasher’s locations around Sacramento, and other auctions by arrangement. Each auction sets its own release and pickup rules, so we confirm the details for your yard before booking.' },
           { q: 'What do you need from me for an auction pickup?', a: 'The auction and yard, the lot or stock number, and the release or gate pass the auction gives you. The vehicle must be paid for and released to you, and the auction may require your authorization for us to collect it.' },
           { q: 'Do the local rates apply to auction pickups?', a: 'Not automatically. Auction pickups are quoted per route, because yard location, vehicle condition and any auction fees vary. Call or text for a route-specific quote.' },
         ],
@@ -365,7 +366,7 @@ export const en = {
     intro: 'No forms and no dispatch desk. Call or text and you’ll reach the owner, who quotes, loads and delivers your vehicle.',
     includeTitle: 'What to include in your message',
     include: ['Vehicle make and model (or what the equipment is)', 'Auction name or pickup location', 'Destination', 'Whether the vehicle runs, if you know', 'Lot number or pickup reference, for auction vehicles'],
-    includeNote: 'Photos help, especially for equipment or a vehicle that doesn’t run.',
+    includeNote: 'Photos help, especially for equipment or a vehicle that doesn’t run. Pickup needs to be from an accessible location such as an auction yard, a business or a driveway — not a freeway or highway shoulder.',
     coverageTitle: 'Where we go',
     coverage: 'Based in Sacramento, serving Greater Sacramento, Northern California and the San Francisco Bay Area. Availability, scheduling and pricing are confirmed for each route.',
   },
@@ -373,7 +374,7 @@ export const en = {
   auction: {
     kicker: 'Auto auction pickup & delivery',
     title: 'Bought it at auction? We’ll bring it home.',
-    lede: 'Call or text Serhii to arrange pickup and delivery from participating auction locations in the Sacramento area and on agreed Northern California routes.',
+    lede: 'Purchased a vehicle from Copart, IAA, ADESA Brasher’s or another auto auction? Call or text Serhii to arrange pickup and delivery. Pickup needs the auction’s release authorization and a scheduled time.',
     points: [
       { title: 'Pickup from the yard', text: 'We collect the vehicle from the auction lot once it’s released to you and deliver it to the address you choose.' },
       { title: 'Scheduled with you', text: 'Send the auction location, lot number and pickup details, and we’ll coordinate a pickup window that works with the yard.' },

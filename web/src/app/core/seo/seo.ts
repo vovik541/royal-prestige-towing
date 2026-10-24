@@ -53,7 +53,7 @@ export function businessSchema(): object {
     image: SITE.url + DEFAULT_IMAGE,
     logo: SITE.url + '/brand/logo-silver.png',
     slogan: 'Every load, handled like a McLaren.',
-    description: 'Owner-operated flatbed vehicle and equipment transport based in Sacramento, California.',
+    description: 'Owner-operated scheduled flatbed vehicle transport and auction pickup based in Sacramento, California.',
     telephone: BUSINESS.phone.e164,
     address: { '@type': 'PostalAddress', addressLocality: BUSINESS.city, addressRegion: BUSINESS.region, addressCountry: BUSINESS.country },
     areaServed: AREA_SERVED,
