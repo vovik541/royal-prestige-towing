@@ -7,9 +7,7 @@
       <h1 class="display-h">{{ c.title }}</h1>
       <app-deck-line />
       <p class="lede">{{ c.intro }}</p>
-      <div class="actions">
-        <a class="btn btn--copper btn--lg" [routerLink]="i18n.link('contact')" [queryParams]="meta().loadType ? { type: meta().loadType } : {}">{{ t.common.planTransport }}</a>
-      </div>
+      <app-call-text class="actions" size="lg" [quote]="true" />
     </div>
     <app-photo class="head__photo" [id]="meta().hero" [ties]="true" [priority]="true" sizes="(max-width: 900px) 100vw, 46vw" />
   </div>
@@ -26,6 +24,12 @@
   </div>
 </section>
 
+@if (slug() === 'auto-auction-transport') {
+  <section class="section" aria-labelledby="yards-h">
+    <app-auction-pickup class="wrap" headingId="yards-h" [compact]="true" />
+  </section>
+}
+
 <section class="section band" aria-labelledby="ask-h">
   <div class="ask wrap">
     <div>
@@ -37,7 +41,7 @@
     <div class="ask__cta" appReveal="140">
       <h3>{{ t.services.ctaTitle }}</h3>
       <p class="muted">{{ t.services.ctaText }}</p>
-      <a class="btn btn--copper" [routerLink]="i18n.link('contact')" [queryParams]="meta().loadType ? { type: meta().loadType } : {}">{{ t.nav.quote }}</a>
+      <app-call-text [quote]="true" />
     </div>
   </div>
 </section>
@@ -79,5 +83,5 @@
   </div>
 </section>
 
-<app-final-cta [loadType]="meta().loadType" />
+<app-final-cta />
 <app-lightbox [items]="photos()" />

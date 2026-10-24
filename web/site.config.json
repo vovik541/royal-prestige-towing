@@ -3,12 +3,23 @@
   "siteUrl": "https://royal-prestige-towing.example",
   "indexable": true,
   "defaultLang": "en",
-  "langs": ["en", "uk", "ru"],
-  "staticPages": ["", "services", "our-work", "about", "service-areas", "contact"],
+  "langs": [
+    "en",
+    "uk",
+    "ru"
+  ],
+  "staticPages": [
+    "",
+    "services",
+    "our-work",
+    "about",
+    "service-areas",
+    "contact"
+  ],
   "servicePages": [
     "vehicle-transport",
+    "auto-auction-transport",
     "exotic-car-transport",
-    "commercial-vehicle-transport",
     "equipment-machinery-hauling",
     "long-distance-transport"
   ]

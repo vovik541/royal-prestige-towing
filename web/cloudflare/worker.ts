@@ -6,14 +6,11 @@
  * This script only handles what static files cannot:
  *   - "/" redirects to the visitor's last chosen language (cookie set by the language
  *     switcher) or to English, mirroring src/server.ts;
- *   - POST /api/quote validates a quote request and emails it to Serhii (./quote.ts);
  *   - everything else is passed to the assets binding, which serves the localized
  *     404.html files with a real 404 status for unknown URLs.
  */
 
-import { QuoteEnv, handleQuote } from './quote';
-
-interface Env extends QuoteEnv {
+interface Env {
   ASSETS: { fetch(request: Request): Promise<Response> };
 }
 
@@ -31,8 +28,6 @@ export default {
         headers: { Location: `/${lang}${url.search}`, Vary: 'Cookie', 'Cache-Control': 'private, no-store' },
       });
     }
-
-    if (url.pathname === '/api/quote') return handleQuote(request, env);
 
     return env.ASSETS.fetch(request);
   },

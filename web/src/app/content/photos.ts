@@ -1,10 +1,9 @@
 import { PHOTO_SIZES, PhotoId } from './photo-sizes';
 
 export type { PhotoId };
-export type LoadType = 'exotic' | 'everyday' | 'commercial' | 'machinery' | 'special';
-/** Display order everywhere (configurator, filters, quote form): everyday vehicles are the main service. */
-export const LOAD_TYPES: readonly LoadType[] = ['everyday', 'exotic', 'commercial', 'machinery', 'special'];
-export const isLoadType = (v: unknown): v is LoadType => LOAD_TYPES.includes(v as LoadType);
+/** Portfolio categories, in filter order: everyday vehicles first. */
+export type LoadType = 'everyday' | 'exotic' | 'machinery' | 'special';
+export const LOAD_TYPES: readonly LoadType[] = ['everyday', 'exotic', 'machinery', 'special'];
 
 export interface PhotoMeta {
   id: PhotoId;
@@ -23,7 +22,7 @@ export const PHOTOS: readonly PhotoMeta[] = [
   { id: 'mclaren-front', category: 'exotic', focus: '45% 58%' },
   { id: 'vw-beetle', category: 'everyday', focus: '40% 55%' },
   { id: 'lamborghini-urus', category: 'exotic', focus: '55% 60%' },
-  { id: 'cargo-van', category: 'commercial', focus: '60% 50%' },
+  { id: 'cargo-van', category: 'special', focus: '60% 50%' },
   { id: 'lathe-forklift', category: 'machinery', focus: '40% 55%' },
   { id: 'volvo-c70', category: 'everyday', focus: '50% 60%' },
   { id: 'mclaren-side', category: 'exotic', focus: '52% 60%' },
@@ -53,12 +52,3 @@ export function photoSources(id: PhotoId) {
     height: largest[1],
   };
 }
-
-/** The configurator's picture for each load type. */
-export const LOAD_PHOTO: Record<LoadType, PhotoId> = {
-  exotic: 'lamborghini-urus',
-  everyday: 'mercedes-sedan',
-  commercial: 'cargo-van',
-  machinery: 'lathe-forklift',
-  special: 'vintage-microtruck',
-};

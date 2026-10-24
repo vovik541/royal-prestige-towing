@@ -36,7 +36,8 @@
   .nav, .bar__lang { display: none; }
   .menu-btn { display: inline-flex; align-items: center; }
 }
-@media (max-width: 1180px) and (min-width: 641px) {
+/* Tablet without the nav: room for the lockup only once the call link and Text button fit beside it. */
+@media (max-width: 1180px) and (min-width: 901px) {
   .mark__full { display: block; height: 32px; }
   .mark__mono { display: none; }
 }

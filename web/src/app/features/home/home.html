@@ -12,11 +12,7 @@
       </h1>
       <app-deck-line class="hero__deck" />
       <p class="lede hero__lede">{{ h.hero.lede }}</p>
-      <div class="hero__actions">
-        <a class="btn btn--copper btn--lg" [routerLink]="i18n.link('contact')">{{ t.common.planTransport }}</a>
-        <a class="btn btn--ghost btn--lg hero__loads" [routerLink]="i18n.link('our-work')">{{ t.common.seeLoads }}</a>
-        <a class="btn btn--line btn--lg btn--wrap hero__call" [href]="phone.href" [attr.aria-label]="callAria()"><app-phone-icon /><span>{{ t.common.callNow }} · <span class="nowrap">{{ phone.display }}</span></span></a>
-      </div>
+      <app-call-text class="hero__actions" size="lg" [quote]="true" [withNumber]="true" />
     </div>
     <figure class="hero__media">
       <app-photo id="mclaren-side" [ties]="true" [priority]="true" sizes="(max-width: 640px) 100vw, (max-width: 900px) 100vw, 58vw" />
@@ -24,8 +20,8 @@
     </figure>
   </div>
   <ul class="index wrap" [attr.aria-label]="h.indexLabel">
-    @for (lt of loadTypes; track lt) {
-      <li><button type="button" (click)="pick(lt)"><span class="index__n">{{ t.loadTypes[lt].short }}</span><span class="index__d">{{ t.loadTypes[lt].hint }}</span></button></li>
+    @for (s of indexItems; track s.slug) {
+      <li><a [routerLink]="i18n.link('services/' + s.slug)"><span class="index__n">{{ t.loadTypes[s.key].short }}</span><span class="index__d">{{ t.loadTypes[s.key].hint }}</span></a></li>
     }
   </ul>
 </section>
@@ -45,15 +41,9 @@
   </div>
 </section>
 
-<!-- Configurator -->
-<section class="section band" id="configurator" aria-labelledby="cfg-h">
-  <div class="wrap">
-    <div class="cfg-head">
-      <h2 id="cfg-h" class="display-h" appReveal>{{ t.configurator.title }}</h2>
-      <p class="muted" appReveal="70">{{ t.configurator.intro }}</p>
-    </div>
-    <app-configurator [(type)]="loadType" [continueLink]="true" idPrefix="home-cfg" />
-  </div>
+<!-- Auto auction pickup -->
+<section class="section band" id="auction" aria-labelledby="auction-h">
+  <app-auction-pickup class="wrap" headingId="auction-h" [moreLink]="true" />
 </section>
 
 <!-- Pricing (hidden in production builds until the owner confirms the rates) -->

@@ -1,44 +1,44 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, signal, viewChild } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { PHONE } from '../../core/config/site';
-import { I18n, fmt } from '../../core/i18n/i18n';
+import { ChangeDetectionStrategy, Component, effect, inject, viewChild } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { I18n } from '../../core/i18n/i18n';
 import { Seo, faqSchema } from '../../core/seo/seo';
-import { LOAD_TYPES, LoadType, PhotoId } from '../../content/photos';
-import { Configurator } from '../quote/configurator';
+import { PhotoId } from '../../content/photos';
 import { AreaMap } from '../../shared/area-map';
+import { AuctionPickup } from '../../shared/auction-pickup';
+import { CallText } from '../../shared/call-text';
 import { DeckLine } from '../../shared/deck-line';
 import { Faq } from '../../shared/faq';
 import { FinalCta } from '../../shared/final-cta';
 import { Lightbox } from '../../shared/lightbox';
 import { OwnerProfile } from '../../shared/owner-profile';
-import { PhoneIcon } from '../../shared/phone-icon';
 import { Photo } from '../../shared/photo';
 import { Pricing, pricingVisible } from '../../shared/pricing';
 import { Reveal } from '../../shared/reveal';
 
 const FEATURED = ['mclaren-front', 'lamborghini-urus', 'lathe-forklift'] as const;
-const STRIP: PhotoId[] = ['bmw-alpina', 'cargo-van', 'mercedes-sedan', 'milling-machine', 'vw-beetle', 'volvo-c70', 'vintage-microtruck', 'lathe-secured'];
+const STRIP: PhotoId[] = ['bmw-alpina', 'mercedes-sedan', 'milling-machine', 'vw-beetle', 'volvo-c70', 'vintage-microtruck', 'lathe-secured'];
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, Configurator, AreaMap, DeckLine, Faq, FinalCta, Lightbox, OwnerProfile, PhoneIcon, Photo, Pricing, Reveal],
+  imports: [RouterLink, AreaMap, AuctionPickup, CallText, DeckLine, Faq, FinalCta, Lightbox, OwnerProfile, Photo, Pricing, Reveal],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class HomePage {
   protected readonly i18n = inject(I18n);
-  protected readonly phone = PHONE;
-  protected readonly callAria = computed(() => fmt(this.i18n.t().common.callAria, { phone: PHONE.display }));
-  private readonly router = inject(Router);
-
-  protected readonly loadTypes = LOAD_TYPES;
+  /** The strip under the hero: one link per service, everyday vehicles first. */
+  protected readonly indexItems = [
+    { key: 'everyday', slug: 'vehicle-transport' },
+    { key: 'auction', slug: 'auto-auction-transport' },
+    { key: 'exotic', slug: 'exotic-car-transport' },
+    { key: 'machinery', slug: 'equipment-machinery-hauling' },
+  ] as const;
   protected readonly showPricing = pricingVisible();
   protected readonly featured = FEATURED;
   protected readonly strip = STRIP;
   /** Photos the viewer can step through: the three featured loads, then the strip. */
   protected readonly viewerItems: PhotoId[] = [...FEATURED, ...STRIP];
-  protected readonly loadType = signal<LoadType>('everyday');
   private readonly viewer = viewChild.required(Lightbox);
 
   constructor() {
@@ -49,10 +49,6 @@ export class HomePage {
     });
   }
 
-  protected pick(type: LoadType): void {
-    this.loadType.set(type);
-    this.router.navigate([], { fragment: 'configurator' });
-  }
 
   protected statusLabel(status: string): string {
     const s = this.i18n.t().areas.statuses;

@@ -13,9 +13,8 @@
     "html_handling": "drop-trailing-slash",
     // Unknown URLs get the nearest localized 404.html with HTTP 404.
     "not_found_handling": "404-page",
-    // The Worker runs for the bare domain (language redirect) and the quote API; everything else is served directly.
-    "run_worker_first": ["/", "/api/*"]
+    // Only the bare domain runs the Worker (language redirect); everything else is served directly.
+    "run_worker_first": ["/"]
   },
-  // Quote emails (cloudflare/quote.ts) need RESEND_API_KEY, QUOTE_TO and QUOTE_FROM as Worker secrets.
   "observability": { "enabled": true }
 }

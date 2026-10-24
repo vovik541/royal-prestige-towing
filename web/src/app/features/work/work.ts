@@ -65,7 +65,7 @@ const PAGE_SIZE = 6;
       </div>
     </section>
 
-    <app-final-cta [loadType]="filter()" />
+    <app-final-cta />
     <app-lightbox [items]="ids()" />
   `,
   styles: `

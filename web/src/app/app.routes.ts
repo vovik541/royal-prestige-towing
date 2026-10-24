@@ -36,7 +36,7 @@ export const routes: Routes = [
       { path: 'our-work', loadComponent: () => import('./features/work/work').then((m) => m.WorkPage) },
       { path: 'about', loadComponent: () => import('./features/about/about').then((m) => m.AboutPage) },
       { path: 'service-areas', loadComponent: () => import('./features/areas/areas').then((m) => m.AreasPage) },
-      { path: 'contact', loadComponent: () => import('./features/quote/quote-page').then((m) => m.QuotePage) },
+      { path: 'contact', loadComponent: () => import('./features/contact/contact-page').then((m) => m.ContactPage) },
       // Prerendered as the localized 404.html for static hosting; also used for any unknown path.
       { path: '404', loadComponent: () => import('./features/not-found/not-found').then((m) => m.NotFoundPage) },
       { path: '**', loadComponent: () => import('./features/not-found/not-found').then((m) => m.NotFoundPage) },

@@ -6,16 +6,15 @@
 .hero__deck { margin-top: 28px; width: 220px; }
 .hero__lede { margin-top: 26px; max-width: 30em; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
-.hero__call { display: none; }
-.hero__call app-phone-icon { color: var(--copper); }
 .hero__media app-photo { aspect-ratio: 7 / 6; }
 .hero__media figcaption { display: flex; justify-content: space-between; gap: 16px; padding-top: 14px; font-size: var(--t-xs); color: var(--silver-2); }
-.index { list-style: none; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin-top: clamp(48px, 6vw, 88px); }
+.index { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: clamp(48px, 6vw, 88px); }
 .index li + li { border-left: 1px solid var(--line); }
-.index button { width: 100%; height: 100%; text-align: left; background: none; border: 0; border-top: 1px solid var(--line); padding: 22px 20px 4px; display: grid; gap: 4px; align-content: start; position: relative; }
-.index li:first-child button { padding-left: 0; }
-.index button::before { content: ''; position: absolute; top: -1px; left: 0; width: 0; height: 2px; background: var(--copper); transition: width .4s var(--ease); }
-.index button:hover::before { width: 56px; }
+.index a { width: 100%; height: 100%; text-align: left; background: none; border: 0; border-top: 1px solid var(--line); padding: 22px 20px 4px; display: grid; gap: 4px; align-content: start; position: relative; }
+.index li:first-child a { padding-left: 0; }
+.index a::before { content: ''; position: absolute; top: -1px; left: 0; width: 0; height: 2px; background: var(--copper); transition: width .4s var(--ease); }
+.index a:hover::before { width: 56px; }
+.index a { text-decoration: none; }
 .index__n { font-weight: 600; font-size: var(--t-sm); }
 .index__d { font-size: var(--t-xs); color: var(--silver-2); }
 
@@ -29,7 +28,6 @@
 .principles span { font-size: var(--t-sm); color: var(--silver-2); }
 
 /* Configurator head */
-.cfg-head { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 32px; align-items: end; margin-bottom: clamp(40px, 4.4vw, 64px); }
 
 /* Exotic */
 .exotic { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(32px, 6vw, 104px); align-items: center; }
@@ -99,13 +97,13 @@
 
 @media (max-width: 1100px) {
   .hero__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-  .index { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .index li:nth-child(4) { border-left: 0; }
-  .index li:nth-child(4) button { padding-left: 0; }
+  .index { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .index li:nth-child(3) { border-left: 0; }
+  .index li:nth-child(3) a { padding-left: 0; }
   .principles { grid-template-columns: minmax(0, 1fr); gap: 16px; }
 }
 @media (max-width: 900px) {
-  .hero__grid, .position, .exotic, .area, .faq, .cfg-head { grid-template-columns: minmax(0, 1fr); }
+  .hero__grid, .position, .exotic, .area, .faq { grid-template-columns: minmax(0, 1fr); }
   .hero__media { order: -1; margin-inline: calc(var(--gut) * -1); }
   .hero__media app-photo { aspect-ratio: 16 / 11; }
   .hero__media figcaption { padding-inline: var(--gut); }
@@ -140,13 +138,7 @@
   .hero__title { margin-top: 10px; font-size: clamp(40px, 12vw, 54px); text-shadow: 0 2px 18px rgba(0, 0, 0, .55); }
   .hero__deck { margin-top: 18px; width: 140px; }
   .hero__lede { margin-top: 16px; font-size: 16px; line-height: 1.5; }
-  .hero__actions { margin-top: 24px; flex-wrap: nowrap; gap: 8px; }
-  .hero__actions .btn { flex: 1 1 0; min-width: 0; padding: 0 10px; white-space: normal; line-height: 1.2; }
-  /* Phones: the second action is a direct call (urgent help), stacked under the primary one. */
-  .hero__actions { flex-wrap: wrap; }
-  .hero__actions .btn { flex-basis: 100%; }
-  .hero__loads { display: none; }
-  .hero__call { display: inline-flex; border-color: var(--copper); color: #fff; font-weight: 700; }
+  .hero__actions { margin-top: 24px; gap: 8px; }
   /* Short phones: keep the actions above the fixed contact bar — they move up under the headline. */
   @media (max-height: 780px) {
     .hero__copy { display: flex; flex-direction: column; padding-top: clamp(130px, min(44vw, 24svh), 200px); }
@@ -158,7 +150,7 @@
   .index li:nth-child(even) button { padding-left: 14px; }
   .index li:nth-child(odd) button { padding-left: 0; }
   .index li:last-child { grid-column: 1 / -1; }
-  .index button { padding-top: 16px; padding-bottom: 14px; }
+  .index a { padding-top: 16px; padding-bottom: 14px; }
   .method div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
   .feature { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; gap: 10px; }
   .feat--0 { grid-column: 1 / -1; grid-row: auto; aspect-ratio: 4 / 3; }

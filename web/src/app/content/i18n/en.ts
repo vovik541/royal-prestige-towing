@@ -17,8 +17,7 @@ export const en = {
     work: 'Our work',
     about: 'About',
     areas: 'Service areas',
-    contact: 'Get a quote',
-    quote: 'Request a quote',
+    contact: 'Contact',
     menu: 'Menu',
     close: 'Close',
     language: 'Language',
@@ -29,20 +28,18 @@ export const en = {
   },
 
   common: {
-    planTransport: 'Plan your transport',
-    seeLoads: 'See recent loads',
     allServices: 'All services',
     viewAllWork: 'View all projects',
     learnMore: 'Learn more',
     phone: 'Phone',
     callNow: 'Call Now',
     callSerhii: 'Call Serhii',
-    getQuote: 'Get a Quote',
+    callQuote: 'Call for a Quote',
+    textQuote: 'Text for a Quote',
     callAria: 'Call Royal Prestige Towing at {phone}',
     textUs: 'Text Us',
     smsAria: 'Text Royal Prestige Towing at {phone}',
     contactActions: 'Call or text',
-    preferToTalk: 'Prefer to talk? Call Serhii directly.',
     pictured: 'Pictured',
     enlarge: 'Enlarge photo: {name}',
     photoViewer: 'Photo viewer',
@@ -53,52 +50,27 @@ export const en = {
     scrollBack: 'Scroll back',
     scrollForward: 'Scroll forward',
     securedAtFour: 'Secured at four wheels',
-    optional: 'optional',
-    required: 'required',
   },
 
   loadTypes: {
-    exotic: { name: 'Exotic & sports cars', short: 'Exotic & sports', hint: 'McLaren, Lamborghini' },
-    everyday: { name: 'Everyday cars & SUVs', short: 'Everyday cars', hint: 'Sedans, coupes, SUVs' },
-    commercial: { name: 'Vans & commercial vehicles', short: 'Vans & commercial', hint: 'Cargo and work vehicles' },
-    machinery: { name: 'Machinery & equipment', short: 'Machinery', hint: 'Lathes, mills, equipment' },
-    special: { name: 'Classics & the unusual', short: 'Classics & unusual', hint: 'Projects and oddities' },
-  },
-
-  configurator: {
-    title: 'What are you moving?',
-    intro: 'Choose a load to see how it rides on our deck and what we’ll need to know. Your choice carries into the quote request.',
-    listLabel: 'Load type',
-    askTitle: 'We’ll ask you about',
-    continue: 'Continue to your request',
-    loads: {
-      exotic: {
-        ride: 'Low cars go up slowly, with the approach checked before the nose reaches the ramp. Straps go over the tires, so nothing pulls on the suspension or bodywork.',
-        ask: ['Year, make and model', 'Ground clearance, or whether it has a nose lift', 'Pickup and drop-off addresses, and any gate or garage limits'],
-        placeholder: 'e.g. 2021 McLaren 720S Spider',
-      },
-      everyday: {
-        ride: 'Moving, selling, buying out of town, or just done driving it? Your daily driver gets the same wheel straps and the same careful loading as anything else on our deck.',
-        ask: ['Year, make and model', 'Whether it runs, rolls and steers', 'Pickup and drop-off addresses'],
-        placeholder: 'e.g. 2016 Honda Accord',
-      },
-      commercial: {
-        ride: 'High-roof vans and work vehicles are checked for height and weight before we confirm. Let us know about any racking or cargo still inside.',
-        ask: ['Make, model and roof height', 'Approximate weight, and whether it is loaded', 'Pickup and drop-off addresses'],
-        placeholder: 'e.g. Ram ProMaster 2500 high roof',
-      },
-      machinery: {
-        ride: 'Shop machines go on by forklift, sit on timber, and are wrapped and strapped at several points so they can’t shift or tip.',
-        ask: ['What the machine is, with a photo', 'Footprint, height and weight', 'Whether a forklift is available at both ends'],
-        placeholder: 'e.g. Engine lathe, approx. 3,000 lb',
-      },
-      special: {
-        ride: 'Project cars, classics, odd little vehicles that don’t fit anyone’s form. If it has wheels or a footprint, ask — we’ll tell you honestly whether it fits.',
-        ask: ['What it is, with a photo or two', 'Whether it rolls and steers', 'Pickup and drop-off addresses'],
-        placeholder: 'e.g. 1987 BMW Alpina B10, not running',
-      },
+    everyday: {
+      short: 'Everyday cars',
+      hint: 'Sedans, coupes, SUVs',
+    },
+    auction: {
+      short: 'Auction pickups',
+      hint: 'Copart, IAA, ADESA yards',
+    },
+    exotic: {
+      short: 'Exotic & sports',
+      hint: 'McLaren, Lamborghini',
+    },
+    machinery: {
+      short: 'Machinery',
+      hint: 'Lathes, mills, equipment',
     },
   },
+
 
   photos: {
     'mclaren-side': { alt: 'Orange McLaren 720S Spider strapped by its wheels to the RPT car-hauler deck', caption: 'McLaren 720S Spider' },
@@ -120,13 +92,13 @@ export const en = {
   home: {
     seo: {
       title: 'Flatbed Towing & Vehicle Transport Sacramento | Royal Prestige Towing',
-      description: 'Owner-operated flatbed vehicle and equipment transport based in Sacramento. Serving Greater Sacramento, Northern California and San Francisco Bay Area routes. Request a quote.',
+      description: 'Owner-operated flatbed vehicle transport based in Sacramento: everyday cars, auto auction pickups, exotics and equipment. Serving Greater Sacramento, Northern California and Bay Area routes. Call or text.',
     },
     hero: {
       kicker: 'Flatbed vehicle & equipment transport in Sacramento & Northern California',
       titleA: 'Every load,',
       titleB: 'handled like a McLaren.',
-      lede: 'Owner-operated flatbed transport from Sacramento for everyday cars and SUVs, exotics, work vans and machinery — around Greater Sacramento and on routes across Northern California, including San Francisco. Loaded slowly, strapped at the wheels, delivered by the person you spoke to.',
+      lede: 'Owner-operated flatbed transport from Sacramento for everyday cars and SUVs, auction purchases, exotics and machinery — around Greater Sacramento and on routes across Northern California, including San Francisco. Loaded slowly, strapped at the wheels, delivered by the person you spoke to.',
     },
     indexLabel: 'What we transport',
     position: {
@@ -188,7 +160,8 @@ export const en = {
   },
 
   faq: [
-    { q: 'Is RPT only for luxury cars?', a: 'No. Exotics are a big part of what we do, but everyday vehicles, vans and equipment are just as welcome — and every one gets the same care.' },
+    { q: 'Is RPT only for luxury cars?', a: 'No. Everyday cars are most of what we do, along with auction pickups, exotics and equipment — and every load gets the same care.' },
+    { q: 'Can you pick up a car I bought at auction?', a: 'Yes. We pick up from participating auction yards around Sacramento, such as Copart and IAA locations, once the vehicle is released to you. Call or text with the auction, lot number and destination.' },
     { q: 'Do you use an open or enclosed trailer?', a: 'The loads on this site traveled on our open flatbed car-hauler. If your vehicle needs enclosed transport, mention it in your request and we’ll talk through options.' },
     { q: 'Can you move machinery that has to be lifted on?', a: 'Yes, when there’s a forklift or loading equipment on site — like the lathe in our photos. Send dimensions, weight and a photo, and we’ll tell you whether it fits.' },
     { q: 'Can you take a vehicle that doesn’t run?', a: 'Tell us whether it rolls, steers and brakes. We’ll confirm before pickup whether we can load it safely.' },
@@ -200,13 +173,13 @@ export const en = {
   finalCta: {
     titleA: 'Tell us what’s going',
     titleB: 'on the deck.',
-    lede: 'Describe the load and the route. Serhii will come back to you personally with a clear quote.',
+    lede: 'Call or text Serhii with the vehicle and the route. He’ll come back to you personally with a clear, route-specific quote.',
   },
 
   services: {
     seo: {
       title: 'Vehicle & Equipment Transport Services Sacramento | Royal Prestige Towing',
-      description: 'Flatbed transport from Sacramento for everyday cars and SUVs, exotic cars, work vans and machinery — locally around Sacramento and on longer Northern California routes.',
+      description: 'Flatbed transport from Sacramento for everyday cars and SUVs, auto auction pickups, exotic cars and machinery — locally around Sacramento and on longer Northern California routes.',
     },
     title: 'Transport services',
     intro: 'One trailer, one owner, and the same careful method for every load — from a supercar to a shop lathe, around Sacramento or on a longer Northern California route. Choose a service to see how it works.',
@@ -216,7 +189,7 @@ export const en = {
     faqTitle: 'Common questions',
     photosTitle: 'From the deck',
     ctaTitle: 'Ready to plan this transport?',
-    ctaText: 'Start a request with this service already selected.',
+    ctaText: 'Call or text Serhii with these details for a route-specific quote.',
     items: {
       'exotic-car-transport': {
         name: 'Luxury & exotic car transport',
@@ -254,28 +227,29 @@ export const en = {
         ],
         ask: ['Year, make and model', 'Whether it runs, rolls, steers and brakes', 'Pickup and drop-off addresses and a contact at each end'],
         faq: [
-          { q: 'Do you transport cars bought from a dealer or auction?', a: 'Tell us where the car is and how pickup works there, and we’ll confirm whether we can collect it.' },
+          { q: 'Do you transport cars bought from a dealer or auction?', a: 'Yes. For auction purchases, see auto auction pickup — we’ll need the yard, lot number and release details. For a dealer, tell us where the car is and how pickup works there.' },
           { q: 'Can I leave belongings in the car?', a: 'Please ask first. Loose items can shift in transit, so we prefer cars to be empty.' },
         ],
       },
-      'commercial-vehicle-transport': {
-        name: 'Commercial vehicle transportation',
-        short: 'Cargo vans and work vehicles, checked for height and weight before we confirm the job.',
+      'auto-auction-transport': {
+        name: 'Auto auction pickup & delivery',
+        short: 'Vehicles bought at Copart, IAA and other auctions — collected from the yard and delivered where you need them.',
         seo: {
-          title: 'Commercial Vehicle & Work Van Transport, Sacramento | Royal Prestige Towing',
-          description: 'Commercial vehicle hauling from Sacramento for cargo vans and work vehicles. Roof height and weight are checked before we confirm, and pickup is planned around your schedule.',
+          title: 'Auto Auction Vehicle Pickup & Transport, Sacramento | Royal Prestige Towing',
+          description: 'Auction vehicle pickup and delivery from Sacramento-area yards such as Copart and IAA, and on agreed Northern California routes. Call or text for a route-specific quote.',
         },
-        title: 'Commercial vehicle transportation',
-        intro: 'A work van is a business tool, and when it’s off the road the business feels it. We check the vehicle’s size and weight up front so the day goes as planned.',
+        title: 'Auto auction pickup & delivery',
+        intro: 'Bought a vehicle at auction? Call or text Serhii to arrange pickup and delivery from participating auction locations in the Sacramento area and on agreed Northern California routes.',
         points: [
-          { title: 'Checked before we commit', text: 'Roof height, wheelbase and weight are confirmed against our trailer before we say yes.' },
-          { title: 'Cargo and racking', text: 'Let us know what’s still inside. Shelving and loose tools change how a van rides.' },
-          { title: 'Planned around your day', text: 'Pickup and delivery windows are agreed with you in advance.' },
+          { title: 'From the auction yard', text: 'Once the auction has released the vehicle to you, we collect it from the yard and haul it on our flatbed to the destination you choose.' },
+          { title: 'Coordinated pickup', text: 'Pickup is scheduled around the yard’s hours and release process. We’ll ask for the location, lot number and any gate pass or release paperwork.' },
+          { title: 'Running or not', text: 'Tell us whether it runs, rolls and steers. Some non-running vehicles need extra handling; we’ll confirm before booking whether we can load it.' },
         ],
-        ask: ['Make, model and roof height', 'Approximate weight and whether it’s loaded', 'Pickup and drop-off addresses and access details'],
+        ask: ['Auction name and yard location', 'Lot or stock number, and the gate pass or release reference', 'Vehicle year, make and model', 'Whether it runs, rolls and steers', 'Delivery address and when you need it there'],
         faq: [
-          { q: 'Can you move a high-roof van?', a: 'Often, yes. We confirm height and weight first — the ProMaster in our photos is a high-roof model.' },
-          { q: 'Do you move box trucks?', a: 'Send the make, model and weight. We’ll tell you plainly whether it’s within what our trailer can carry.' },
+          { q: 'Can you pick up from any auction?', a: 'We pick up from participating auction locations around Sacramento and on agreed Northern California routes. Each auction sets its own release and pickup rules, so we confirm the details for your yard before booking.' },
+          { q: 'What do you need from me for an auction pickup?', a: 'The auction and yard, the lot or stock number, and the release or gate pass the auction gives you. The vehicle must be paid for and released to you, and the auction may require your authorization for us to collect it.' },
+          { q: 'Do the local rates apply to auction pickups?', a: 'Not automatically. Auction pickups are quoted per route, because yard location, vehicle condition and any auction fees vary. Call or text for a route-specific quote.' },
         ],
       },
       'equipment-machinery-hauling': {
@@ -324,10 +298,10 @@ export const en = {
   work: {
     seo: {
       title: 'Our Work — Real Transport Projects | Royal Prestige Towing',
-      description: 'Photos of real loads on the Royal Prestige Towing trailer: McLaren and Lamborghini, everyday cars, commercial vans and shop machinery.',
+      description: 'Photos of real loads on the Royal Prestige Towing flatbed: everyday cars, McLaren and Lamborghini, classics and shop machinery.',
     },
     title: 'Our work',
-    intro: 'Every photo here is a real load on our deck — supercars, daily drivers, work vans and shop machinery.',
+    intro: 'Every photo here is a real load on our deck — daily drivers, supercars, classics and shop machinery.',
     filterLabel: 'Filter by category',
     all: 'All',
     showing: 'Showing {n} photos',
@@ -336,7 +310,7 @@ export const en = {
     pageN: 'Page {i}',
     prevPage: 'Previous',
     nextPage: 'Next',
-    categories: { exotic: 'Exotic', everyday: 'Everyday', commercial: 'Commercial', machinery: 'Machinery', special: 'Classics & unusual' },
+    categories: { exotic: 'Exotic', everyday: 'Everyday', machinery: 'Machinery', special: 'Other vehicles' },
   },
 
   about: {
@@ -382,60 +356,37 @@ export const en = {
     places: { sf: 'San Francisco', oakland: 'Oakland', sanjose: 'San Jose', davis: 'Davis', stockton: 'Stockton', auburn: 'Auburn', placerville: 'Placerville', yuba: 'Yuba City', sacramento: 'Sacramento' },
   },
 
-  quote: {
+  contact: {
     seo: {
-      title: 'Get a Transport Quote | Royal Prestige Towing',
-      description: 'Request a flatbed transport quote from Royal Prestige Towing in Sacramento: share your vehicle or equipment, pickup and drop-off — around Sacramento, Northern California or the Bay Area.',
+      title: 'Contact Royal Prestige Towing — Call or Text Serhii | Sacramento',
+      description: 'Call or text Serhii at Royal Prestige Towing for a route-specific transport quote: everyday cars, auction pickups, exotics and equipment around Sacramento and Northern California.',
     },
-    title: 'Request a transport quote',
-    intro: 'Share the load, pickup and drop-off — around Sacramento, across Northern California or to the Bay Area. Four quick details; add more only if you want to.',
-    formLabel: 'Transport quote request',
-    fields: {
-      load: { legend: 'What are we moving?' },
-      pickup: { label: 'Pickup', placeholder: 'City or ZIP' },
-      destination: { label: 'Drop-off', placeholder: 'City or ZIP' },
-      phone: { label: 'Your phone', hint: 'US number, 10 digits.' },
-      item: { label: 'Make and model' },
-      condition: { legend: 'Does it run and roll?' },
-      timing: { legend: 'When?' },
-      date: { label: 'Preferred date' },
-      notes: { label: 'Anything else we should know?', hint: 'Low clearance, weight, gate or garage limits.' },
-      name: { label: 'Your name' },
-      contactPref: { legend: 'Best way to reach you' },
+    title: 'Call or text Serhii',
+    intro: 'No forms and no dispatch desk. Call or text and you’ll reach the owner, who quotes, loads and delivers your vehicle.',
+    includeTitle: 'What to include in your message',
+    include: ['Vehicle make and model (or what the equipment is)', 'Auction name or pickup location', 'Destination', 'Whether the vehicle runs, if you know', 'Lot number or pickup reference, for auction vehicles'],
+    includeNote: 'Photos help, especially for equipment or a vehicle that doesn’t run.',
+    coverageTitle: 'Where we go',
+    coverage: 'Based in Sacramento, serving Greater Sacramento, Northern California and the San Francisco Bay Area. Availability, scheduling and pricing are confirmed for each route.',
+  },
+
+  auction: {
+    kicker: 'Auto auction pickup & delivery',
+    title: 'Bought it at auction? We’ll bring it home.',
+    lede: 'Call or text Serhii to arrange pickup and delivery from participating auction locations in the Sacramento area and on agreed Northern California routes.',
+    points: [
+      { title: 'Pickup from the yard', text: 'We collect the vehicle from the auction lot once it’s released to you and deliver it to the address you choose.' },
+      { title: 'Scheduled with you', text: 'Send the auction location, lot number and pickup details, and we’ll coordinate a pickup window that works with the yard.' },
+      { title: 'Quoted per route', text: 'Every auction pickup gets a route-specific quote. Non-running vehicles may need extra handling, so tell us their condition up front.' },
+    ],
+    yardsTitle: 'Auction locations near Sacramento',
+    areas: {
+      sacramento: 'Greater Sacramento',
+      corridor: 'I-80 & I-5 corridor',
+      bay: 'San Francisco Bay Area',
     },
-    more: { show: 'Add details', hide: 'Hide details', hint: 'Make, condition, timing, notes' },
-    conditions: { runs: 'Runs and drives', rolls: 'Rolls, doesn’t run', static: 'Doesn’t roll', unsure: 'Not sure' },
-    timings: { flexible: 'Flexible', week: 'Within a week', date: 'Specific date' },
-    contactPrefs: { phone: 'Call', text: 'Text' },
-    errors: {
-      pickupRequired: 'Enter a pickup city or ZIP code.',
-      destinationRequired: 'Enter a drop-off city or ZIP code.',
-      phoneRequired: 'Enter a phone number so Serhii can reach you.',
-      phoneInvalid: 'Enter a valid US phone number (10 digits).',
-      dateRequired: 'Choose a preferred date.',
-      summary: 'Please check the highlighted fields.',
-    },
-    review: {
-      button: 'Review request',
-      title: 'Your request',
-      edit: 'Edit',
-      loadType: 'Load',
-      notProvided: 'Not provided',
-      unavailableTitle: 'Online submission isn’t connected yet',
-      unavailableText: 'Nothing has been sent. To get your quote now, call Serhii — you can copy these details to read them out or text them.',
-      submitUnavailable: 'Sending is not available yet',
-      submit: 'Send request',
-      copy: 'Copy details',
-      copied: 'Request details copied to your clipboard.',
-      copyFailed: 'Copying isn’t available in this browser. Select the summary text to copy it.',
-      startOver: 'Start over',
-      privacyNotice: 'When you send this request, your information goes to Serhii by email and is used only to review and respond to your transport request. It will not be used for unrelated marketing.',
-      consentLabel: 'I agree that Serhii may call or text me using the contact information I provided to respond to my request.',
-      consentRequired: 'Please confirm that Serhii may call or text you about this request.',
-      sending: 'Sending…',
-      sent: 'Request sent. Serhii will contact you using the details you provided.',
-      sendFailed: 'The request couldn’t be sent. Please call or text Serhii instead.',
-    },
+    note: 'Listed for convenience; we are not affiliated with these auctions. Pickup depends on each auction’s release rules, your buyer authorization and the lot’s status, and is confirmed for each location.',
+    more: 'Auction pickup details',
   },
 
   pricing: {

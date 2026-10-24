@@ -16,7 +16,7 @@ import { DeckLine } from '../../shared/deck-line';
       <p class="lede muted">{{ t.notFound.text }}</p>
       <div class="actions">
         <a class="btn btn--copper btn--lg" [routerLink]="i18n.link()">{{ t.notFound.home }}</a>
-        <a class="btn btn--ghost btn--lg" [routerLink]="i18n.link('contact')">{{ t.nav.quote }}</a>
+        <a class="btn btn--ghost btn--lg" [routerLink]="i18n.link('contact')">{{ t.nav.contact }}</a>
       </div>
     </section>
   `,

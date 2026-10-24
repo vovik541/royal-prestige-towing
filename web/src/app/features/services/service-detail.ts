@@ -4,7 +4,9 @@ import { I18n } from '../../core/i18n/i18n';
 import { AREA_SERVED, ORG_ID, Seo, breadcrumbSchema, faqSchema } from '../../core/seo/seo';
 import { photoSources } from '../../content/photos';
 import { SERVICES, ServiceSlug, service } from '../../content/services';
+import { AuctionPickup } from '../../shared/auction-pickup';
 import { Breadcrumbs } from '../../shared/breadcrumbs';
+import { CallText } from '../../shared/call-text';
 import { DeckLine } from '../../shared/deck-line';
 import { Faq } from '../../shared/faq';
 import { FinalCta } from '../../shared/final-cta';
@@ -16,7 +18,7 @@ import { ServiceCard } from '../../shared/service-card';
 /** One template for every service page; copy comes from the dictionary, photos from content/services. */
 @Component({
   selector: 'app-service-detail',
-  imports: [RouterLink, Breadcrumbs, DeckLine, Faq, FinalCta, Lightbox, Photo, Reveal, ServiceCard],
+  imports: [RouterLink, AuctionPickup, Breadcrumbs, CallText, DeckLine, Faq, FinalCta, Lightbox, Photo, Reveal, ServiceCard],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './service-detail.html',
   styleUrl: './service-detail.css',

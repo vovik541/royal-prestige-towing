@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, isDevMode } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { PHONE, PRICING } from '../core/config/site';
+import { PRICING } from '../core/config/site';
 import { I18n, fmt } from '../core/i18n/i18n';
+import { CallText } from './call-text';
 import { PaymentNote } from './payment-note';
-import { PhoneIcon } from './phone-icon';
 
 /**
  * Local transport starting rates (PRICING in core/config/site.ts), shown as approximate
@@ -14,7 +13,7 @@ export const pricingVisible = (): boolean => PRICING.status === 'confirmed' || i
 
 @Component({
   selector: 'app-pricing',
-  imports: [RouterLink, PaymentNote, PhoneIcon],
+  imports: [CallText, PaymentNote],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { '[class.compact]': 'compact()' },
   template: `
@@ -39,10 +38,7 @@ export const pricingVisible = (): boolean => PRICING.status === 'confirmed' || i
     <div class="foot">
       <app-payment-note />
       @if (!compact()) {
-        <div class="actions">
-          <a class="btn btn--copper" [href]="phone.href" [attr.aria-label]="callAria()"><app-phone-icon />{{ t.common.callNow }}</a>
-          <a class="btn btn--ghost" [routerLink]="i18n.link('contact')">{{ t.common.getQuote }}</a>
-        </div>
+        <app-call-text class="actions" [quote]="true" />
       }
     </div>
   `,
@@ -66,7 +62,6 @@ export const pricingVisible = (): boolean => PRICING.status === 'confirmed' || i
     .price.custom { font-size: clamp(22px, 2vw, 28px); line-height: 1.15; color: var(--copper-hi); hyphens: auto; }
     .note { margin-top: 20px; color: var(--silver-2); font-size: var(--t-sm); max-width: 52em; }
     .foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px 32px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); }
-    .actions { display: flex; flex-wrap: wrap; gap: 10px; }
     :host(.compact) .tiers { --cell-x: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 16px; }
     :host(.compact) .tiers li { padding-block: 14px 12px; }
     :host(.compact) .tiers li:nth-child(odd) { padding-left: 0; border-left: 0; }
@@ -81,10 +76,8 @@ export const pricingVisible = (): boolean => PRICING.status === 'confirmed' || i
       .tiers li:nth-child(odd) { padding-left: 0; border-left: 0; }
       .tiers li:nth-child(even) { padding-right: 0; }
       .tiers li:nth-child(n + 3) { border-top: 1px solid var(--line); }
-      .actions { width: 100%; }
-      .actions .btn { flex: 1 1 0; }
     }
-    /* Phones already have the fixed Call Now / Get a Quote bar; don't repeat it in the same view. */
+    /* Phones already have the floating Call / Text bar; don't repeat it in the same view. */
     @media (max-width: 640px) { .actions { display: none; } }
     /* Long Cyrillic "custom quote" labels must fit a half-width cell on 320px phones. */
     @media (max-width: 380px) {
@@ -98,8 +91,6 @@ export class Pricing {
   protected readonly i18n = inject(I18n);
   readonly compact = input(false);
 
-  protected readonly phone = PHONE;
-  protected readonly callAria = computed(() => fmt(this.i18n.t().common.callAria, { phone: PHONE.display }));
 
   protected readonly tiers = computed(() => {
     const t = this.i18n.t().pricing;

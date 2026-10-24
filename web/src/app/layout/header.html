@@ -18,7 +18,7 @@
         <app-phone-icon class="call__icon" />
         <span class="call__text"><span class="call__label">{{ t.common.callNow }}</span><span class="call__num">{{ phone.display }}</span></span>
       </a>
-      <a class="btn btn--copper btn--sm bar__cta" [routerLink]="i18n.link('contact')">{{ t.nav.quote }}</a>
+      <a class="btn btn--copper btn--sm bar__cta" [href]="phone.sms" [attr.aria-label]="smsAria()">{{ t.common.textUs }}</a>
       <button class="menu-btn" type="button" [attr.aria-expanded]="open()" aria-controls="site-menu" (click)="toggle()">
         {{ open() ? t.nav.close : t.nav.menu }}
       </button>
@@ -38,7 +38,6 @@
     <div class="sheet__actions" appContactZone>
       <a class="btn btn--copper btn--lg btn--wrap" [href]="phone.href" [attr.aria-label]="callAria()"><app-phone-icon /><span>{{ t.common.callNow }} · <span class="nowrap">{{ phone.display }}</span></span></a>
       <a class="btn btn--ghost btn--lg sheet__sms" [href]="phone.sms" [attr.aria-label]="smsAria()"><app-message-icon />{{ t.common.textUs }}</a>
-      <a class="btn btn--ghost btn--lg" [routerLink]="i18n.link('contact')">{{ t.common.getQuote }}</a>
     </div>
     <app-lang-switcher [full]="true" />
   </div>

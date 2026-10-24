@@ -46,15 +46,17 @@ site.config.json            domain, indexability, page list (shared by app + sit
 scripts/build-images.py     crop + WebP derivatives (480/800/full) + og image + photo-sizes.ts
 scripts/generate-seo-files.mjs  sitemap.xml (with hreflang) and robots.txt
 src/styles.css              design tokens and shared primitives (buttons, frame/tie-downs, bands)
-src/app/core/config/site.ts business facts (unconfirmed = null) and QUOTE_ENDPOINT
+src/app/core/config/site.ts business facts: phone, pricing, payment methods
 src/app/core/i18n/          languages, I18n signal service (EN eager, UK/RU lazy)
 src/app/core/seo/seo.ts     title, description, canonical, hreflang, OG/Twitter, JSON-LD
-src/app/content/            en/uk/ru dictionaries, photo + service metadata
+src/app/content/            en/uk/ru dictionaries, photo + service metadata, service areas,
+                            auction yards (auctions.ts, with verification + owner-review status)
 src/app/layout/             shell, header, language switcher, footer
 src/app/shared/             photo, deck-line motif, reveal, lightbox, FAQ, owner profile,
-                            area map, final CTA, breadcrumbs, service card
+                            area map, final CTA, breadcrumbs, service card, call/text buttons,
+                            auction pickup section
 src/app/features/           home, services, service detail, our work, about, areas,
-                            quote (configurator, form, model), not found
+                            contact (call / text only), not found
 ```
 
 ## Routes (each in /en, /uk, /ru — 33 prerendered pages)
@@ -64,15 +66,15 @@ src/app/features/           home, services, service detail, our work, about, are
 | `/` | 302 → `/{last chosen language}` (cookie `rpt_lang`) or `/en` |
 | `/:lang` | Home (`/en/` redirects to `/en` on Cloudflare) |
 | `/:lang/services` | Services overview |
-| `/:lang/services/exotic-car-transport` | Luxury & exotic car transport |
 | `/:lang/services/vehicle-transport` | Vehicle transportation |
-| `/:lang/services/commercial-vehicle-transport` | Commercial vehicle transportation |
+| `/:lang/services/auto-auction-transport` | Auto auction pickup & delivery (with auction yard list) |
+| `/:lang/services/exotic-car-transport` | Luxury & exotic car transport |
 | `/:lang/services/equipment-machinery-hauling` | Equipment & machinery hauling |
 | `/:lang/services/long-distance-transport` | Long-distance vehicle transportation |
 | `/:lang/our-work` | Portfolio with filters and photo viewer |
 | `/:lang/about` | About RPT and Serhii Hoida |
-| `/:lang/service-areas` | Sacramento base, provisional coverage |
-| `/:lang/contact` | Quote request (`?type=exotic\|everyday\|commercial\|machinery\|special`) |
+| `/:lang/service-areas` | Sacramento base, coverage tiers and cities |
+| `/:lang/contact` | Call / text Serhii: what to include, coverage, pricing, payment |
 | anything else | 404 page, HTTP 404, `noindex` |
 
 ## Translations
@@ -94,25 +96,17 @@ JSON-LD: `AutomotiveBusiness` (name, owner, Sacramento only — no phone, addres
 `WebSite`, `WebPage`, `Service`, `BreadcrumbList`, `FAQPage`, `ImageGallery`, `AboutPage`, `Person`.
 The domain is a placeholder (`royal-prestige-towing.example`) — set `siteUrl` in `site.config.json`.
 
-## Quote request
-
-Configurator → details → contact (US phone required, name optional; email is never collected) →
-review. Typed reactive forms, inline accessible errors with focus management, no prices. `QUOTE_ENDPOINT` is `null`, so the review step states
-that online submission isn't connected and the send button is disabled; visitors can copy their
-request. Nothing claims a request was sent. To connect a backend: implement `POST /api/quote`
-(see `src/server.ts`) accepting `QuoteRequest` (`features/quote/quote.model.ts`), then set
-`QUOTE_ENDPOINT = '/api/quote'` and add success/error states.
-
 ## Contact
 
-Phone +1 (916) 470-5605 is the only public contact method besides the quote form; it lives in
-`PHONE` in `src/app/core/config/site.ts` (display, E.164, tel: link) and is used by the header,
-the mobile Call Now / Get a Quote bar, owner section, final CTA, quote page, footer and JSON-LD.
-Email is intentionally not offered anywhere on the site.
+Customers reach Serhii by phone or SMS only; there is no form and no backend submission.
+`PHONE` in `src/app/core/config/site.ts` (display, E.164, `tel:` and `sms:` links) feeds every
+Call / Text button (`shared/call-text.ts`), the floating mobile bar, the contact page, the footer
+and JSON-LD. Email is intentionally not offered anywhere on the site.
 
 ## Still to confirm with the owner
 
 Production domain ·
 coverage beyond Sacramento · owner-operated claims (Serhii quotes, loads and delivers himself;
 wheel straps only) · enclosed transport, non-running vehicles, machinery weight/size limits ·
-vehicle names in captions · use of the portrait · how quote requests should be delivered.
+vehicle names in captions · use of the portrait · which auction yards Serhii collects from
+(`ownerReview` in `src/app/content/auctions.ts`).

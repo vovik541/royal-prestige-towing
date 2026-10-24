@@ -1,28 +1,27 @@
 import { SITE } from '../core/config/site';
-import { LoadType, PhotoId } from './photos';
+import { PhotoId } from './photos';
 
 export type ServiceSlug =
-  | 'exotic-car-transport'
   | 'vehicle-transport'
-  | 'commercial-vehicle-transport'
+  | 'auto-auction-transport'
+  | 'exotic-car-transport'
   | 'equipment-machinery-hauling'
   | 'long-distance-transport';
 
 export interface ServiceMeta {
   slug: ServiceSlug;
-  /** Preselected load type when starting a quote from this service (null = choose). */
-  loadType: LoadType | null;
   hero: PhotoId;
   gallery: PhotoId[];
 }
 
-/** Order matters: everyday vehicle transport is the main service, exotic transport the premium one. */
+/** Order matters: everyday vehicles first, auction pickups second; exotics are one service among several. */
 export const SERVICES: readonly ServiceMeta[] = [
-  { slug: 'vehicle-transport', loadType: 'everyday', hero: 'volvo-c70', gallery: ['vw-beetle', 'mercedes-sedan', 'bmw-alpina'] },
-  { slug: 'exotic-car-transport', loadType: 'exotic', hero: 'mclaren-side', gallery: ['mclaren-rear', 'lamborghini-urus', 'mclaren-front'] },
-  { slug: 'commercial-vehicle-transport', loadType: 'commercial', hero: 'cargo-van', gallery: [] },
-  { slug: 'equipment-machinery-hauling', loadType: 'machinery', hero: 'lathe-forklift', gallery: ['lathe-secured', 'milling-machine'] },
-  { slug: 'long-distance-transport', loadType: null, hero: 'mercedes-sedan', gallery: [] },
+  { slug: 'vehicle-transport', hero: 'volvo-c70', gallery: ['vw-beetle', 'mercedes-sedan', 'bmw-alpina'] },
+  // No auction-yard photo exists; the hero is an everyday car on the deck, not an auction pickup.
+  { slug: 'auto-auction-transport', hero: 'mercedes-sedan', gallery: [] },
+  { slug: 'exotic-car-transport', hero: 'mclaren-side', gallery: ['mclaren-rear', 'lamborghini-urus', 'mclaren-front'] },
+  { slug: 'equipment-machinery-hauling', hero: 'lathe-forklift', gallery: ['lathe-secured', 'milling-machine'] },
+  { slug: 'long-distance-transport', hero: 'vw-beetle', gallery: [] },
 ];
 
 // Keep the TypeScript list and the sitemap list in site.config.json in step.
